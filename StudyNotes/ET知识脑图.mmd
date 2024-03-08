@@ -11,18 +11,56 @@
 ## 必须要掌握的知识
 
 ### 网络流程
+> collapsed=`true`
+
 
 #### 通信架构流程
+> collapsed=`true`
+
+
+##### 纤程一样和不一样的情况
 
 #### 协议生成流程
+> collapsed=`true`
+
+
+##### 协议命名约定
+> collapsed=`true`
+
+
+###### R Realm
+
+###### G Gate
+
+###### S Server
+
+###### C Client
+
+###### M Map?
+
+##### proto文件的注释也有用来生成代码标注
+
+#### Handler分类
+> collapsed=`true`
+
+
+##### MessageSessionHandler
+
+### 登录流程
 
 ### 关键概念
+> collapsed=`true`
+
 
 #### Fiber
+> collapsed=`true`
+
 
 ##### 类似Erlang的进程
 
 ##### 线程调度
+> collapsed=`true`
+
 
 ###### 3种调度方式
 
@@ -30,12 +68,238 @@
 
 #### Scene
 
+#### 账号管理
+> collapsed=`true`
+
+
+##### 登录验证
+
+#### World
+> collapsed=`true`
+
+
+##### 管理各种代理的类
+
+#### CodeTypes
+> collapsed=`true`
+
+
+##### reload 代码
+
 ### 打包和部署
 
-#### 只当客户端的方式
+#### GlobalConfig
 
-#### 当双端的方式
+##### 配置放在Resources目录，跟着母包走的
+> collapsed=`true`
+
+
+###### CodeMode
+> collapsed=`true`
+
+
+####### 设置打包的是C还是S ,或者两者都是
+
+####### 只当客户端的方式
+
+####### 当双端的方式
+
+###### BuildType
+> collapsed=`true`
+
+
+####### 调试模式还是正式包
+
+###### AppType
+> collapsed=`true`
+
+
+####### 各种App类型
+
+#### Define\.cs
 
 ### 数据库的操作
 
+#### 多个玩家使用同一账号的登录注册，如何保证账号的唯一性
+
+##### 协程锁，CoroutineLockComponent
+
 ### ECS 设计概念和代码规范
+
+### 项目代码结构
+
+#### 最外层的ET\.sln是全部的总解决方案
+> collapsed=`true`
+
+
+##### DotNet
+
+##### Share
+
+##### Unity
+> collapsed=`true`
+
+
+###### AllModel
+
+###### AllHotFix
+
+### 启动流程
+
+#### Unity启动流程Init\.cs
+
+##### World添加各种单例
+> collapsed=`true`
+
+
+###### Logger
+> collapsed=`true`
+
+
+####### Unity里面就用的是UnityLoggger
+
+###### TimeInfo
+> collapsed=`true`
+
+
+####### 时间计算相关
+
+###### FiberManager
+
+###### ResourcesComponent
+> collapsed=`true`
+
+
+####### 资源管理类
+
+####### 添加单例的时候直接调用CreatePackageAsync
+> collapsed=`true`
+
+
+######## 根据GlobalConfig的PlayerMode设置进行不同的初始化
+
+######## 怎么理解这里的Package是什么
+
+######## 几种PlayerMode
+> collapsed=`true`
+
+
+######### EditorSimulateMode
+> collapsed=`true`
+
+
+########## 编辑器下的模拟模式
+
+######### OfflinePlayMode
+> collapsed=`true`
+
+
+########## 离线运行
+
+######### HostPlayMode
+> collapsed=`true`
+
+
+########## 联机运行
+
+####### ResourcePackage
+
+###### CodeLoader
+> collapsed=`true`
+
+
+####### DownloadAsync
+> collapsed=`true`
+
+
+######## 下载Model\.dll\.bytes
+> collapsed=`true`
+
+
+######### 这里面包含各种dll的TextAsset
+
+######## 下载 mscorlib\.dll\.bytes
+
+##### CodeLoader
+
+###### 下载完立刻调用Start
+
+####### 设置assembly
+
+######## 不启用Dll的模式
+
+######### 遍历 AppDomain\.CurrentDomain\.GetAssemblies<br/>返回的所有程序集，找到名字为Unity\.Model的设置为<br/>CodeLoader的 assembly
+
+######## 启用Dll模式
+
+######### 获取Model的 dll和pdb的bytes\[\]
+
+########## 编辑器模式
+
+########### Define\.CodeDir路径下加载dll和pdb的bytes
+
+########## 非编辑器
+
+########### 从上面下载的资源里面找到目标bytes
+
+######### 根据dll和pdb创建assembly
+
+####### 添加CodeTypes单例到World
+
+###### 用反射的方式调用ET\.Entry类的Start方法
+
+####### StartAsync
+
+######## MongoRegister\.Init 
+
+######### 初始化数据库相关的类型
+
+######## EntitySerializeRegister\.Init
+
+######### 用来同步Entity的
+
+######## World添加各种单例
+> collapsed=`true`
+
+
+######### IdGenerator
+> collapsed=`true`
+
+
+########## 根据当前时间类生成InstanceId的工具类
+
+######### OpcodeType
+> collapsed=`true`
+
+
+########## 网络协议映射？
+
+######### ObjectPool
+
+######### MessageQueue
+> collapsed=`true`
+
+
+########## Actor之间相互发消息的接口
+
+######### NetServices
+
+######### NavmeshComponent
+> collapsed=`true`
+
+
+########## 寻路
+
+######### LogMsg
+> collapsed=`true`
+
+
+########## 用来输出协议日志的，内部做了简单的高频协议过滤<br/>比如心跳或者Benchmark协议
+
+######## CodeTypes里面根据Attributes创建各种单例
+
+######## ConfigLoader 加载配置
+
+######## 创建主线程Fiber
+
+####### 到这里游戏正式启动了
