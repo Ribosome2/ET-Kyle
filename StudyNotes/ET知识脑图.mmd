@@ -61,12 +61,18 @@
 ### 登录流程
 
 ### 关键概念
+> collapsed=`true`
+
 
 #### Fiber
+> collapsed=`true`
+
 
 ##### 类似Erlang的进程
 
 ##### 线程调度
+> collapsed=`true`
+
 
 ###### 3种调度方式
 
@@ -75,14 +81,20 @@
 #### Scene
 
 #### 账号管理
+> collapsed=`true`
+
 
 ##### 登录验证
 
 #### World
+> collapsed=`true`
+
 
 ##### 管理各种代理的类
 
 #### CodeTypes
+> collapsed=`true`
+
 
 ##### reload 代码
 
@@ -121,68 +133,92 @@
 ### 项目代码结构
 
 #### 最外层的ET\.sln是全部的总解决方案
-> collapsed=`true`
-
 
 ##### DotNet
+
+###### 服务器解决方案，Build产生可运行的服务端
 
 ##### Share
 
 ##### Unity
-> collapsed=`true`
-
 
 ###### AllModel
 
 ###### AllHotFix
+
+###### 游戏客户端代码
 
 ### 启动流程
 
 #### Unity启动流程Init\.cs
 
 ##### World添加各种单例
+> collapsed=`true`
+
 
 ###### Logger
+> collapsed=`true`
+
 
 ####### Unity里面就用的是UnityLoggger
 
 ###### TimeInfo
+> collapsed=`true`
+
 
 ####### 时间计算相关
 
 ###### FiberManager
 
 ###### ResourcesComponent
+> collapsed=`true`
+
 
 ####### 资源管理类
 
 ####### 添加单例的时候直接调用CreatePackageAsync
+> collapsed=`true`
+
 
 ######## 根据GlobalConfig的PlayerMode设置进行不同的初始化
 
 ######## 怎么理解这里的Package是什么
 
 ######## 几种PlayerMode
+> collapsed=`true`
+
 
 ######### EditorSimulateMode
+> collapsed=`true`
+
 
 ########## 编辑器下的模拟模式
 
 ######### OfflinePlayMode
+> collapsed=`true`
+
 
 ########## 离线运行
 
 ######### HostPlayMode
+> collapsed=`true`
+
 
 ########## 联机运行
 
 ####### ResourcePackage
 
 ###### CodeLoader
+> collapsed=`true`
+
 
 ####### DownloadAsync
+> collapsed=`true`
+
 
 ######## 下载Model\.dll\.bytes
+> collapsed=`true`
+
 
 ######### 这里面包含各种dll的TextAsset
 
@@ -191,22 +227,36 @@
 ##### CodeLoader
 
 ###### 下载完立刻调用Start
+> collapsed=`true`
+
 
 ####### 设置assembly
+> collapsed=`true`
+
 
 ######## 不启用Dll的模式
+> collapsed=`true`
+
 
 ######### 遍历 AppDomain\.CurrentDomain\.GetAssemblies<br/>返回的所有程序集，找到名字为Unity\.Model的设置为<br/>CodeLoader的 assembly
 
 ######## 启用Dll模式
+> collapsed=`true`
+
 
 ######### 获取Model的 dll和pdb的bytes\[\]
+> collapsed=`true`
+
 
 ########## 编辑器模式
+> collapsed=`true`
+
 
 ########### Define\.CodeDir路径下加载dll和pdb的bytes
 
 ########## 非编辑器
+> collapsed=`true`
+
 
 ########### 从上面下载的资源里面找到目标bytes
 
@@ -217,38 +267,56 @@
 ###### 用反射的方式调用ET\.Entry类的Start方法
 
 ####### StartAsync
+> collapsed=`true`
+
 
 ######## MongoRegister\.Init 
+> collapsed=`true`
+
 
 ######### 初始化数据库相关的类型
 
 ######## EntitySerializeRegister\.Init
+> collapsed=`true`
+
 
 ######### 用来同步Entity的
 
 ######## World添加各种单例
+> collapsed=`true`
+
 
 ######### IdGenerator
+> collapsed=`true`
+
 
 ########## 根据当前时间类生成InstanceId的工具类
 
 ######### OpcodeType
+> collapsed=`true`
+
 
 ########## 网络协议映射？
 
 ######### ObjectPool
 
 ######### MessageQueue
+> collapsed=`true`
+
 
 ########## Actor之间相互发消息的接口
 
 ######### NetServices
 
 ######### NavmeshComponent
+> collapsed=`true`
+
 
 ########## 寻路
 
 ######### LogMsg
+> collapsed=`true`
+
 
 ########## 用来输出协议日志的，内部做了简单的高频协议过滤<br/>比如心跳或者Benchmark协议
 
@@ -257,20 +325,30 @@
 ######## ConfigLoader 加载配置
 
 ######## 创建主线程Fiber
+> collapsed=`true`
+
 
 ######### 创建Fiber的时候会创建一个FiberInit事件
 
 ######### 事件系统会调用到FiberInit\_Main类
-> fillColor=`#FF6400`
+> collapsed=`true`,fillColor=`#FF6400`
 
 
 ########## 发3个事件
+> collapsed=`true`
+
 
 ########### EntryEvent1
+> collapsed=`true`
+
 
 ############ EntryEvent1\_InitShare<br/>客户端和服务器都处理
+> collapsed=`true`
+
 
 ############# 向Scene添加一些组件
+> collapsed=`true`
+
 
 ############## TimerComponent
 
@@ -283,44 +361,66 @@
 ############## ProcessInnerSender
 
 ########### EntryEvent2
+> collapsed=`true`
+
 
 ############ EntryEvent2\_InitServer 当服务器的时候处理
 
 ########### EntryEvent3
+> collapsed=`true`
+
 
 ############ EntryEvent3\_InitClient 当客户端的时候处理
+> collapsed=`true`
+
 
 ############# 添加各种Component
+> collapsed=`true`
+
 
 ############## CurrentScenesComponent
+> collapsed=`true`
+
 
 ############### 记录当前所在场景
 
 ############## GlobalComponent
+> collapsed=`true`
+
 
 ############### 只是用来获取Init场景的各种后续会用到的节点<br/>以及持有Resources目录下的GlobalConfig
 
 ############## UIGlobalComponent
+> collapsed=`true`
+
 
 ############### 管理不同的层级对应挂的Transform
 
 ############### UIGlobalComponentSystem Awake的时候会对层级映射进行初始化<br/>这里是一个典型的C是数据容器，System执行逻辑的例子
 
 ############## 添加UIComponent
+> collapsed=`true`
+
 
 ############### 存储各种UI对应UIComponent的映射
 
 ############## ResourcesLoaderComponent
+> collapsed=`true`
+
 
 ############### 记录了一个ResourcePackage
 
 ############### 各种路径资源和加载操作的Handler映射
 
 ############## PlayerComponent
+> collapsed=`true`
+
 
 ############### 用来记录玩家的id,并且用来添加一些玩家的组件
 
 ############# 发送 AppStartInitFinish
+> collapsed=`true`
+
 
 ############## AppStartInitFinish\_CreateUILSLogin 打开登录UI
 
@@ -333,3 +433,5 @@
 #### 资源加载
 
 ##### ResoucePackage概念
+
+### UI系统
