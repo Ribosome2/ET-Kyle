@@ -1,0 +1,247 @@
+﻿[Scia Reto](https://sciareto.org) mind map   
+> __version__=`1.1`,showJumps=`true`
+---
+
+# Root topic
+
+## 课程介绍
+
+## 开发环境搭建
+
+### 特别的累又安装MonoDB Compass
+
+## Demo运行和打包
+> collapsed=`true`
+
+
+### 要先编译代码再运行
+
+### 状态同步Demo
+> collapsed=`true`
+
+
+#### GlobalConfig 设置AppType为Demo
+
+#### 运行
+> collapsed=`true`
+
+
+##### 输入账号密码登录
+
+##### 进入游戏后
+> collapsed=`true`
+
+
+###### 鼠标右键移动
+
+###### 按 R 重载DLL
+
+###### 按 T 进行地图传送
+
+### 帧同步demo
+> collapsed=`true`
+
+
+#### AppType 选择LockStep
+
+#### 运行
+> collapsed=`true`
+
+
+##### 输入账号密码登录
+
+##### 登录成功自动切换到匹配状态
+> collapsed=`true`
+
+
+###### 点击match
+> collapsed=`true`
+
+
+####### 匹配完后进入游戏
+> collapsed=`true`
+
+
+######## WASD移动
+
+###### 输入重播key
+
+### 打包
+> collapsed=`true`
+
+
+#### ET/BuildTool打开打包窗口
+> collapsed=`true`
+
+
+##### 在这个窗口的CodeCompile部分，本质上只是对Gloabol进行了修改
+
+##### CodeMode
+> collapsed=`true`
+
+
+###### Client
+> collapsed=`true`
+
+
+####### 只当客户端
+
+###### Server
+> collapsed=`true`
+
+
+####### 只当服务器
+
+###### ClientServer
+> collapsed=`true`
+
+
+####### 同时当双端
+
+##### 选择完后要点击ReGenerateProjectFiles
+
+#### HybridCLR
+> collapsed=`true`
+
+
+##### Install
+
+##### GenerateAll
+
+##### CopyAotDlls
+> collapsed=`true`
+
+
+###### 目标路径 Assets/Bundles/AotDlls
+
+#### 打AB
+> collapsed=`true`
+
+
+##### StreamingAssets
+> collapsed=`true`
+
+
+###### 如果没有这个目录就创建
+
+##### YooAsset/AssetBundleBuilder
+
+##### 点击构建
+
+#### 打最终包
+> collapsed=`true`
+
+
+##### 点击BuildEditor的BuildPackage
+
+##### 生成完会生成在Release目录下
+
+### 运行单独的服务器
+> collapsed=`true`
+
+
+#### Rider打开ET\.sln
+
+#### 编译
+
+#### 运行生成的DotNet\.App
+
+## ECS组件式编程
+
+### ET框架中的ECS编程原则
+> collapsed=`true`
+
+
+#### 实体即组件，组件即实体
+
+#### 如果要编写一个新的实体或者组件，绝不继承除Entity之外的任何父类
+
+#### 绝不使用任何的虚函数，使用逻辑分发替代
+
+#### Model 和ModelView只存放实体和组建的额数据字段声明，如非必要绝不放任何逻辑函数
+
+#### Hotfix和HotfixView中只保留纯逻辑函数，也就是使用静态类的拓展方法<br/>编写System,且绝不运行声明任何数据字段
+
+#### Model和Hotfix项目绝不运行出现跟Unity引擎相关的游戏对象类和调用相关API函数
+
+#### 如实体或者组件有数据字段声明，必须编写相关的声明周期函数<br/>以防实体对象池回收再利用导致逻辑错误
+
+### 代码工程划分
+
+#### AllHofix
+
+##### 这个工程里面不能定义类，（类的定义放在AllModel里面）只能用拓展类
+
+#### AllModel
+
+##### Model不能包含任何引擎相关的代码
+
+##### ModelView作为表现成，可以引用引擎相关代码
+
+##### CodeMode选择决定Server或者Client目录是否会在Rider解决方案显示
+
+###### Server目录
+
+###### Client目录
+
+###### Share目录
+
+#### 代码的命名空间规定
+
+##### 如果是在Server目录下，那就是ET\.Server
+
+##### 如果在Client目录下，就是ET\.Client
+
+##### 如果两端都要，就只用ET
+
+### 相关Attribute
+
+#### ComponentOf
+
+#### ChildOf
+
+##### 声明是什么类型的Entity的子Entity
+
+#### EntitySystemOf
+
+##### 声明是什么类型的Component的System
+
+#### FriendOf
+
+##### 要修改其它组件的属性，就要加这个属性
+
+### AddChild
+
+#### 用来添加子实体，可以添加任意个
+
+### AddComponent
+
+#### 同类型的组件只能挂一个
+
+### System代码的编写
+
+#### 代码放在AllHotfix里面
+
+#### 里面还用了C\#的源代码生成器技术来自动生成使用System代码的代码
+
+#### 先定义System的EntitySystemOf之后，按Alt\+Enter生成component对应的生命周期函数
+
+#### 如果要在System里面修改组件的属性，要加FriendOf
+
+## 虚拟进程Fiber
+
+## Scene层级关系
+
+## 事件订阅和发布
+
+## ETTask异步编程
+
+## 网络消息的定义
+
+## 服务端的连接流程
+
+## Actor模型与纤程通讯
+
+## 登录流程
+
+## 实战系列
