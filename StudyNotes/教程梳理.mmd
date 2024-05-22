@@ -8,29 +8,21 @@
 
 ## 开发环境搭建
 
-### 特别的累又安装MonoDB Compass
+### 特别的没有安装MonoDB Compass
 
 ## Demo运行和打包
-> collapsed=`true`
-
 
 ### 要先编译代码再运行
 
 ### 状态同步Demo
-> collapsed=`true`
-
 
 #### GlobalConfig 设置AppType为Demo
 
 #### 运行
-> collapsed=`true`
-
 
 ##### 输入账号密码登录
 
 ##### 进入游戏后
-> collapsed=`true`
-
 
 ###### 鼠标右键移动
 
@@ -39,88 +31,58 @@
 ###### 按 T 进行地图传送
 
 ### 帧同步demo
-> collapsed=`true`
-
 
 #### AppType 选择LockStep
 
 #### 运行
-> collapsed=`true`
-
 
 ##### 输入账号密码登录
 
 ##### 登录成功自动切换到匹配状态
-> collapsed=`true`
-
 
 ###### 点击match
-> collapsed=`true`
-
 
 ####### 匹配完后进入游戏
-> collapsed=`true`
-
 
 ######## WASD移动
 
 ###### 输入重播key
 
 ### 打包
-> collapsed=`true`
-
 
 #### ET/BuildTool打开打包窗口
-> collapsed=`true`
 
-
-##### 在这个窗口的CodeCompile部分，本质上只是对Gloabol进行了修改
+##### 在这个窗口的CodeCompile部分，本质上只是对Global进行了修改
 
 ##### CodeMode
-> collapsed=`true`
-
 
 ###### Client
-> collapsed=`true`
-
 
 ####### 只当客户端
 
 ###### Server
-> collapsed=`true`
-
 
 ####### 只当服务器
 
 ###### ClientServer
-> collapsed=`true`
 
-
-####### 同时当双端
+####### 同时当双端,这个模式应该只能是在编辑器下用
 
 ##### 选择完后要点击ReGenerateProjectFiles
 
 #### HybridCLR
-> collapsed=`true`
-
 
 ##### Install
 
 ##### GenerateAll
 
 ##### CopyAotDlls
-> collapsed=`true`
-
 
 ###### 目标路径 Assets/Bundles/AotDlls
 
 #### 打AB
-> collapsed=`true`
-
 
 ##### StreamingAssets
-> collapsed=`true`
-
 
 ###### 如果没有这个目录就创建
 
@@ -129,16 +91,12 @@
 ##### 点击构建
 
 #### 打最终包
-> collapsed=`true`
-
 
 ##### 点击BuildEditor的BuildPackage
 
 ##### 生成完会生成在Release目录下
 
 ### 运行单独的服务器
-> collapsed=`true`
-
 
 #### Rider打开ET\.sln
 
@@ -149,8 +107,6 @@
 ## ECS组件式编程
 
 ### ET框架中的ECS编程原则
-> collapsed=`true`
-
 
 #### 实体即组件，组件即实体
 
@@ -160,7 +116,7 @@
 
 #### Model 和ModelView只存放实体和组建的额数据字段声明，如非必要绝不放任何逻辑函数
 
-#### Hotfix和HotfixView中只保留纯逻辑函数，也就是使用静态类的拓展方法<br/>编写System,且绝不运行声明任何数据字段
+#### Hotfix和HotfixView中只保留纯逻辑函数，也就是使用静态类的拓展方法<br/>编写System,且绝不允许声明任何数据字段
 
 #### Model和Hotfix项目绝不运行出现跟Unity引擎相关的游戏对象类和调用相关API函数
 
@@ -176,7 +132,7 @@
 
 ##### Model不能包含任何引擎相关的代码
 
-##### ModelView作为表现成，可以引用引擎相关代码
+##### ModelView作为表现层，可以引用引擎相关代码
 
 ##### CodeMode选择决定Server或者Client目录是否会在Rider解决方案显示
 
@@ -223,6 +179,8 @@
 #### 代码放在AllHotfix里面
 
 #### 里面还用了C\#的源代码生成器技术来自动生成使用System代码的代码
+- LINK
+<pre>https://learn.microsoft.com/zh-cn/dotnet/csharp/roslyn-sdk/source-generators-overview</pre>
 
 #### 先定义System的EntitySystemOf之后，按Alt\+Enter生成component对应的生命周期函数
 
@@ -230,7 +188,111 @@
 
 ## 虚拟进程Fiber
 
+### 先讲了Init的启动逻辑
+
+#### Unity\.Loader项目的作为不能主包的代码不能热更，改了之后要重新生成HybridCLR
+
+#### World类
+> fillColor=`#FF5600`
+
+
+##### 作为单例的容器，用来添加各种非ECS模式的代码单例
+
+###### Logger
+
+###### TimeInfo
+
+###### FiberManager
+> fillColor=`#00C8FF`
+
+
+####### 本节的关键内容
+
+####### Fiber
+> fillColor=`#00C8FF`
+
+
+######## 本质上是一个类
+> fillColor=`#00C8FF`
+
+
+######## Root
+> fillColor=`#00C8FF`
+
+
+######### 是某个Scene
+> fillColor=`#00C8FF`
+
+
+###### ResourceComponent
+
+####### 资源加载
+
+###### CodeLoader
+
+####### 热更代码
+
+######## Hotfix\.dll Model\.dll
+
+######## Hotfix\.pdb,Model\.pdb
+
+####### 热更完后会创建CodeTypes单例
+
+######## CodeTypes\.Instance\.CreateCode\(\);<br/>会创建可以热重载的代码
+
+####### 通过反射调用ET\.Entry\.Start的函数
+
+### 为什么引入Fiber概念
+
+#### 为了多线程性能利用
+
+#### 利用多个核心，起多个主线程
+
+#### 设计上规避了多个线程竞争同一个资源
+
+#### EntitySystem驱动生命周期函数
+
+#### Fiber的三种Update方式
+
+##### Main
+
+###### 主线程调度
+
+####### 按顺序调用Fiber
+
+##### Thread
+
+###### 游戏进程（process\) 固定线程方式进行调度
+
+####### 性能调试的时候用
+
+###### 每个线程只调用一个fiber
+
+##### ThreadPool
+
+###### 游戏进程，线程池方式进行调度
+
+####### 上线的时候用这种，最大性能
+
+###### 同一个Fiber在不同的时间段被不同的线程调用
+
+###### 同一个Fiber在同一时间只会被一个线程调用
+
 ## Scene层级关系
+
+### 创建Fiber的时候会创建一个和Fiber相互引用的Scene
+
+### Scene作为容器，可以挂载各种组件
+
+### 也可以作为逻辑上下文
+
+### EntityHelper 工具类
+
+#### Entity\.Scene 获取最近的Scene
+
+#### Entity\.Root获取根部的Scene
+
+##### 这里就明确能知道Scene是可以和组件相互嵌套的
 
 ## 事件订阅和发布
 
