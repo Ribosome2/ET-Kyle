@@ -1,0 +1,103 @@
+<mxfile host="Electron" modified="2024-05-14T07:43:28.998Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.0 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="6yekNmycZgWCn5cFR7M6" version="24.4.0" type="device">
+  <diagram name="第 1 页" id="FMP3942vVoAkyzEO4C84">
+    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="33rp73bKP2H85NoBWVEx-1" value="客户端" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="70" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-2" value="服务端" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="80" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="33rp73bKP2H85NoBWVEx-3" target="33rp73bKP2H85NoBWVEx-22">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="157.5" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-3" value="ClientSenderComponent.LoginAsync&lt;br&gt;创建Main2NetClient_Login向Main Biber发送" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="6.25" y="280" width="247.5" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="33rp73bKP2H85NoBWVEx-6" target="33rp73bKP2H85NoBWVEx-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-6" value="LoginHelper.LogIn" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="80" y="140" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-9" value="C2R_LoginHandler" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="512.5" y="460" width="235" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="33rp73bKP2H85NoBWVEx-10" target="33rp73bKP2H85NoBWVEx-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-10" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;处理登录请求&lt;/h1&gt;&lt;p&gt;查询数据库，如果没有账号，就创建按账号，如果有就验证密码是否正确&lt;/p&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="860" y="340" width="180" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-22" value="&lt;span style=&quot;font-weight: 400;&quot;&gt;Main2NetClient_LoginHandler&lt;/span&gt;" style="swimlane;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry y="420" width="280" height="290" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-14" value="G2C_LoginGate" style="rounded=1;whiteSpace=wrap;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="33rp73bKP2H85NoBWVEx-22">
+          <mxGeometry x="30" y="140" width="235" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-23" value="C2R_Login" style="rounded=1;whiteSpace=wrap;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="33rp73bKP2H85NoBWVEx-22">
+          <mxGeometry x="30" y="40" width="235" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="33rp73bKP2H85NoBWVEx-23" target="33rp73bKP2H85NoBWVEx-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.582;entryY=1;entryDx=0;entryDy=0;exitX=0.468;exitY=0.98;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" edge="1" parent="1" source="33rp73bKP2H85NoBWVEx-29" target="33rp73bKP2H85NoBWVEx-33">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="540" y="730" as="sourcePoint" />
+            <mxPoint x="160" y="890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-35" value="把映射实体Id返回" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="33rp73bKP2H85NoBWVEx-34">
+          <mxGeometry x="-0.0068" y="2" relative="1" as="geometry">
+            <mxPoint x="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-29" value="C2G_LoginGateHandler" style="rounded=1;whiteSpace=wrap;html=1;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="530" y="655" width="235" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="33rp73bKP2H85NoBWVEx-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="270" y="590" as="targetPoint" />
+            <mxPoint x="815" y="430" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="630" y="570" />
+              <mxPoint x="600" y="570" />
+              <mxPoint x="600" y="590" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-17" value="Text" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="33rp73bKP2H85NoBWVEx-16">
+          <mxGeometry x="0.2151" y="-9" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-18" value="返回LoginKey和GateId" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="33rp73bKP2H85NoBWVEx-16">
+          <mxGeometry x="0.208" y="-7" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="33rp73bKP2H85NoBWVEx-14" target="33rp73bKP2H85NoBWVEx-29">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="148" y="670" />
+              <mxPoint x="513" y="670" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="33rp73bKP2H85NoBWVEx-31" target="33rp73bKP2H85NoBWVEx-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-31" value="&lt;h1 style=&quot;margin-top: 0px;&quot;&gt;创建玩家映射实体&lt;/h1&gt;&lt;div&gt;本质上就是往PlayerComponent挂Player组件，并且把玩家Id返回给客户端，并且在session和PlayerComponent之间建立相互映射的关系&lt;/div&gt;" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="900" y="585" width="310" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="33rp73bKP2H85NoBWVEx-33" value="登录完成，进入游戏逻辑&lt;br&gt;（主界面或者，进入主城）" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;size=0.23;arcSize=10;flipV=1;labelPosition=center;align=center;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="10" y="840" width="280" height="100" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
