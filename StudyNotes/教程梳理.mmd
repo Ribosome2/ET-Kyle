@@ -11,18 +11,26 @@
 ### 特别的没有安装MonoDB Compass
 
 ## Demo运行和打包
+> collapsed=`true`
+
 
 ### 要先编译代码再运行
 
 ### 状态同步Demo
+> collapsed=`true`
+
 
 #### GlobalConfig 设置AppType为Demo
 
 #### 运行
+> collapsed=`true`
+
 
 ##### 输入账号密码登录
 
 ##### 进入游戏后
+> collapsed=`true`
+
 
 ###### 鼠标右键移动
 
@@ -31,58 +39,88 @@
 ###### 按 T 进行地图传送
 
 ### 帧同步demo
+> collapsed=`true`
+
 
 #### AppType 选择LockStep
 
 #### 运行
+> collapsed=`true`
+
 
 ##### 输入账号密码登录
 
 ##### 登录成功自动切换到匹配状态
+> collapsed=`true`
+
 
 ###### 点击match
+> collapsed=`true`
+
 
 ####### 匹配完后进入游戏
+> collapsed=`true`
+
 
 ######## WASD移动
 
 ###### 输入重播key
 
 ### 打包
+> collapsed=`true`
+
 
 #### ET/BuildTool打开打包窗口
+> collapsed=`true`
+
 
 ##### 在这个窗口的CodeCompile部分，本质上只是对Global进行了修改
 
 ##### CodeMode
+> collapsed=`true`
+
 
 ###### Client
+> collapsed=`true`
+
 
 ####### 只当客户端
 
 ###### Server
+> collapsed=`true`
+
 
 ####### 只当服务器
 
 ###### ClientServer
+> collapsed=`true`
+
 
 ####### 同时当双端,这个模式应该只能是在编辑器下用
 
 ##### 选择完后要点击ReGenerateProjectFiles
 
 #### HybridCLR
+> collapsed=`true`
+
 
 ##### Install
 
 ##### GenerateAll
 
 ##### CopyAotDlls
+> collapsed=`true`
+
 
 ###### 目标路径 Assets/Bundles/AotDlls
 
 #### 打AB
+> collapsed=`true`
+
 
 ##### StreamingAssets
+> collapsed=`true`
+
 
 ###### 如果没有这个目录就创建
 
@@ -91,12 +129,16 @@
 ##### 点击构建
 
 #### 打最终包
+> collapsed=`true`
+
 
 ##### 点击BuildEditor的BuildPackage
 
 ##### 生成完会生成在Release目录下
 
 ### 运行单独的服务器
+> collapsed=`true`
+
 
 #### Rider打开ET\.sln
 
@@ -105,8 +147,12 @@
 #### 运行生成的DotNet\.App
 
 ## ECS组件式编程
+> collapsed=`true`
+
 
 ### ET框架中的ECS编程原则
+> collapsed=`true`
+
 
 #### 实体即组件，组件即实体
 
@@ -123,18 +169,26 @@
 #### 如实体或者组件有数据字段声明，必须编写相关的声明周期函数<br/>以防实体对象池回收再利用导致逻辑错误
 
 ### 代码工程划分
+> collapsed=`true`
+
 
 #### AllHofix
+> collapsed=`true`
+
 
 ##### 这个工程里面不能定义类，（类的定义放在AllModel里面）只能用拓展类
 
 #### AllModel
+> collapsed=`true`
+
 
 ##### Model不能包含任何引擎相关的代码
 
 ##### ModelView作为表现层，可以引用引擎相关代码
 
 ##### CodeMode选择决定Server或者Client目录是否会在Rider解决方案显示
+> collapsed=`true`
+
 
 ###### Server目录
 
@@ -143,6 +197,8 @@
 ###### Share目录
 
 #### 代码的命名空间规定
+> collapsed=`true`
+
 
 ##### 如果是在Server目录下，那就是ET\.Server
 
@@ -151,30 +207,44 @@
 ##### 如果两端都要，就只用ET
 
 ### 相关Attribute
+> collapsed=`true`
+
 
 #### ComponentOf
 
 #### ChildOf
+> collapsed=`true`
+
 
 ##### 声明是什么类型的Entity的子Entity
 
 #### EntitySystemOf
+> collapsed=`true`
+
 
 ##### 声明是什么类型的Component的System
 
 #### FriendOf
+> collapsed=`true`
+
 
 ##### 要修改其它组件的属性，就要加这个属性
 
 ### AddChild
+> collapsed=`true`
+
 
 #### 用来添加子实体，可以添加任意个
 
 ### AddComponent
+> collapsed=`true`
+
 
 #### 同类型的组件只能挂一个
 
 ### System代码的编写
+> collapsed=`true`
+
 
 #### 代码放在AllHotfix里面
 
@@ -296,9 +366,119 @@
 
 ## 事件订阅和发布
 
+### 事件的定义文件有好几个
+
+#### Share/Demo/EventType\.cs
+
+##### 文件放在Share目录下，命名空间确实ET\.Client<br/>只有前端用，为什么要放在Share目录
+
+#### Server/Module/AOI/AOIEventType
+
+#### LockStepEventType
+
+#### MoveEventType
+
+#### UnitEventType
+
+### 事件的定义本质只是声明struct类型而已，只要在AllModel目录下<br/>选一个目录创建后缀为EventType的文件声明就行
+
+### 事件的处理类都继承自AEvent
+
+#### 第一个参数基本都是Scene,第二个是上面定义的事件结构体
+
+#### 写好后Alt\_Enter生成Run函数
+
+#### 处理类要加Event Attribute类说明SceneType
+
+### 抛出事件的两种方式
+
+#### EventSystem\.Instance\.PublishAsync
+
+##### 可以用await等待事件处理完
+
+#### EventSystem\.Instance\.Publish\(\)
+
+##### 同步方式，不会等事件处理完
+
 ## ETTask异步编程
 
+### C\#的异步函数
+
+#### async和await是C\#5\.0引入的关键字
+
+### ETTask
+
+#### 跟C\#自带的Task类有上面区别？
+
 ## 网络消息的定义
+
+### ET 8\.0之前是用Protobuf
+
+### 8\.0只会用MemoryPack
+- LINK
+<pre>https://github.com/Cysharp/MemoryPack</pre>
+
+#### 消息定义还是用\.proto的格式
+
+#### 用ET框架提供的Proto2CS工具来生成<br/>符合MemoryPack序列化格式的C\#代码对象
+
+##### 项目代码在ET\.sln的的Share\.Tool目录
+
+### Proto定义文件路径
+
+#### Assets/Config/Proto
+
+#### 文件分类
+
+##### ClientMessage\_C
+
+###### 客户端Fiber之间通讯
+
+##### InnerMessage\_S
+
+###### 服务器内部之间通信的协议
+
+##### LockStepInner\_S
+
+###### 帧同步服务端内部通信
+
+##### LockStepOuter\_C
+
+###### 帧同步客户端和服务端之间
+
+##### OuterMessage\_c
+
+###### 常规的客户端和服务端之间通信的协议
+
+### proto文件语法
+
+#### message开头表示一个协议体
+
+##### message\+协议名\+空格\+//\+空格\+消息接口 
+
+###### 注意空格一定要留
+
+###### 例子：message C2R\_LoginAccount // ISessionRequest
+
+###### 消息接口类型
+
+####### ISessionRequest
+
+####### ISessionResonse
+
+######## 一定要有RpcId,Error,Message三个变量
+
+##### 向上一行//ResonseType\+空格\+返回协议名来定义协议的返回协议类型
+
+#### 等号 "=" 两边一定要留空格
+
+### 生成协议
+
+#### BuildEditor窗口Proto2CS按钮
+
+#### 生成的协议在proto文件名对应的\.cs文件里面，并不是每个协议单独一个文件
+
+#### 生成的代码也是分部类（partial\),也用了源代码生成器技术生成完整的类代码
 
 ## 服务端的连接流程
 
