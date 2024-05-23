@@ -482,6 +482,64 @@
 
 ## 服务端的连接流程
 
+### 前置连接流程
+
+#### SceneType
+
+##### Assets/Config/Excel/StartConfig/Localhost/StartSceneConfig@s\.xlsx <br/>里面配置决定每个服务器的SceneType
+> align=`left`
+
+
+###### StartSceneConfig页签
+
+####### 每一行配置表示一个要创建一个虚拟进程（纤程Fiber\)
+
+###### Router页签
+
+#### 通信流程图
+- FILE
+<pre>StudyNotes/流程图/通信架构图.drawio</pre>
+
+##### RouterManager服务器只在开发时存在，实际发布后由CDN缓存服务器代替
+
+##### 里面包含的就是ET的软路由设计
+
+### 各种服务器的功能
+
+#### Router
+
+##### 中转客户端和游戏服务器事件的消息
+
+#### Realm服务器
+
+##### 就是网关负载均衡服务器，接收Router请求，分配合适的Gate服务器地址给Router
+
+#### Gate服务器
+
+##### 由Realm网关负载均衡服务器分配，和Router通信
+
+##### 这种服务器上会创建按玩家Unit映射实体
+
+###### 但是不应该把业务逻辑都写在这个服务器，二应该在Map服务器上
+
+#### Map服务器
+> fillColor=`#EDA3A3`
+
+
+##### Gate网关服务器的映射实体传送到Map服务器后，<br/>后续所有的业务逻辑都由Map服务器上的Unit映射实体进行处理
+
+###### 这里的传送的含义？
+
+##### 可以理解为这个就是GameServer
+> fillColor=`#EDA3A3`
+
+
+#### Location定位服务器
+
+##### 不管时Player映射实体，还是Unit实体，都会向<br/>Location服务器注册和更新ActorId（位置信息）
+
+##### 简单来说这个就是用来查对应的玩家在哪个Map服务器？
+
 ## Actor模型与纤程通讯
 
 ## 登录流程
