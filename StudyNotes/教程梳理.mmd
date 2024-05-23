@@ -411,60 +411,90 @@
 #### 跟C\#自带的Task类有上面区别？
 
 ## 网络消息的定义
+> collapsed=`true`
+
 
 ### ET 8\.0之前是用Protobuf
 
 ### 8\.0只会用MemoryPack
+> collapsed=`true`
+
 - LINK
 <pre>https://github.com/Cysharp/MemoryPack</pre>
 
 #### 消息定义还是用\.proto的格式
 
 #### 用ET框架提供的Proto2CS工具来生成<br/>符合MemoryPack序列化格式的C\#代码对象
+> collapsed=`true`
+
 
 ##### 项目代码在ET\.sln的的Share\.Tool目录
 
 ### Proto定义文件路径
+> collapsed=`true`
+
 
 #### Assets/Config/Proto
 
 #### 文件分类
+> collapsed=`true`
+
 
 ##### ClientMessage\_C
+> collapsed=`true`
+
 
 ###### 客户端Fiber之间通讯
 
 ##### InnerMessage\_S
+> collapsed=`true`
+
 
 ###### 服务器内部之间通信的协议
 
 ##### LockStepInner\_S
+> collapsed=`true`
+
 
 ###### 帧同步服务端内部通信
 
 ##### LockStepOuter\_C
+> collapsed=`true`
+
 
 ###### 帧同步客户端和服务端之间
 
 ##### OuterMessage\_c
+> collapsed=`true`
+
 
 ###### 常规的客户端和服务端之间通信的协议
 
 ### proto文件语法
+> collapsed=`true`
+
 
 #### message开头表示一个协议体
+> collapsed=`true`
+
 
 ##### message\+协议名\+空格\+//\+空格\+消息接口 
+> collapsed=`true`
+
 
 ###### 注意空格一定要留
 
 ###### 例子：message C2R\_LoginAccount // ISessionRequest
 
 ###### 消息接口类型
+> collapsed=`true`
+
 
 ####### ISessionRequest
 
 ####### ISessionResonse
+> collapsed=`true`
+
 
 ######## 一定要有RpcId,Error,Message三个变量
 
@@ -473,6 +503,8 @@
 #### 等号 "=" 两边一定要留空格
 
 ### 生成协议
+> collapsed=`true`
+
 
 #### BuildEditor窗口Proto2CS按钮
 
@@ -483,20 +515,28 @@
 ## 服务端的连接流程
 
 ### 前置连接流程
+> collapsed=`true`
+
 
 #### SceneType
+> collapsed=`true`
+
 
 ##### Assets/Config/Excel/StartConfig/Localhost/StartSceneConfig@s\.xlsx <br/>里面配置决定每个服务器的SceneType
-> align=`left`
+> align=`left`,collapsed=`true`
 
 
 ###### StartSceneConfig页签
+> collapsed=`true`
+
 
 ####### 每一行配置表示一个要创建一个虚拟进程（纤程Fiber\)
 
 ###### Router页签
 
 #### 通信流程图
+> collapsed=`true`
+
 - FILE
 <pre>StudyNotes/流程图/通信架构图.drawio</pre>
 
@@ -505,28 +545,40 @@
 ##### 里面包含的就是ET的软路由设计
 
 #### 各种服务器的功能
+> collapsed=`true`
+
 
 ##### Router
+> collapsed=`true`
+
 
 ###### 中转客户端和游戏服务器事件的消息
 
 ##### Realm服务器
+> collapsed=`true`
+
 
 ###### 就是网关负载均衡服务器，接收Router请求，分配合适的Gate服务器地址给Router
 
 ##### Gate服务器
+> collapsed=`true`
+
 
 ###### 由Realm网关负载均衡服务器分配，和Router通信
 
 ###### 这种服务器上会创建按玩家Unit映射实体
+> collapsed=`true`
+
 
 ####### 但是不应该把业务逻辑都写在这个服务器，二应该在Map服务器上
 
 ##### Map服务器
-> fillColor=`#EDA3A3`
+> collapsed=`true`,fillColor=`#EDA3A3`
 
 
 ###### Gate网关服务器的映射实体传送到Map服务器后，<br/>后续所有的业务逻辑都由Map服务器上的Unit映射实体进行处理
+> collapsed=`true`
+
 
 ####### 这里的传送的含义？
 
@@ -535,6 +587,8 @@
 
 
 ##### Location定位服务器
+> collapsed=`true`
+
 
 ###### 不管时Player映射实体，还是Unit实体，都会向<br/>Location服务器注册和更新ActorId（位置信息）
 
@@ -585,5 +639,57 @@
 ### 不同进程间通过NetInner Fiber进行网络通讯
 
 ## 登录流程
+
+### 一
+
+#### 演示设置
+
+##### CodeMode改成ClientServer
+
+##### AppType为Demo
+
+#### 点击登录流程开始按钮
+
+##### UILoginComponentSystem
+
+###### 点击按钮调用LoginHelper\.Login
+
+####### ClientSenderComponent
+
+##### Main2NetClient\_LoginHandler
+
+###### 所有的处理类都是用协议名\+Handler的约定
+
+#### 这节基本就是讲 Main纤程到NetClient纤程的流程
+
+### 二
+
+#### Main2NetClient\_LoginHandler运行逻辑
+
+##### RouterAddressComponent
+
+###### 每次都会移除旧的创建一个新的组件实例
+
+###### 返回从Realm服务器地址
+
+##### 根据上面的Realm地址创建一个Session
+
+###### NetComponent\.CreateRouterSession
+
+##### Session发C2R\_Login后得到结果
+
+###### 服务器C2R\_LoginHandler
+- FILE
+<pre>Unity/Assets/Scripts/Hotfix/Server/Demo/Realm/C2R_LoginHandler.cs</pre>
+
+####### 随机分配一个Gate
+
+##### 用上面返回的R2C\_Login创建GateSession
+
+###### 添加SessionComponent
+
+#### 这节讲了C2R和R2C的代码流程，没有加任何代码
+
+### 三
 
 ## 实战系列
