@@ -18,30 +18,33 @@ namespace ET.Server
                 return;
             }
 
-            DBComponent dbComponent = session.Root().GetComponent<DBManagerComponent>().GetZoneDB(session.Zone());
-            List<AccountInfo> accountInfos=await dbComponent.Query<AccountInfo>(accountInfo => accountInfo.Account == request.Account);
-
-            if (accountInfos.Count <= 0)
+            using (await session.Root().GetComponent<CoroutineLockComponent>().Wait(CoroutineLockType.LoginAccount,request.Account.GetLongHashCode()))
             {
-                AccountInfosComponent accountInfosComponent =
-                        session.GetComponent<AccountInfosComponent>() ?? session.AddComponent<AccountInfosComponent>();
+                DBComponent dbComponent = session.Root().GetComponent<DBManagerComponent>().GetZoneDB(session.Zone());
+                List<AccountInfo> accountInfos = await dbComponent.Query<AccountInfo>(accountInfo => accountInfo.Account == request.Account);
 
-                AccountInfo accountInfo = accountInfosComponent.AddChild<AccountInfo>();
-                accountInfo.Account = request.Account;
-                accountInfo.Password = request.Password;
-                await dbComponent.Save(accountInfo);
-            }
-            else
-            {
-                AccountInfo accountInfo = accountInfos[0];
-                if (accountInfo.Password != request.Password)
+                if (accountInfos.Count <= 0)
                 {
-                    response.Error = ErrorCode.ERR_LoginPasswordError;
-                    CloseSession(session).Coroutine();
-                    return;
+                    AccountInfosComponent accountInfosComponent =
+                            session.GetComponent<AccountInfosComponent>() ?? session.AddComponent<AccountInfosComponent>();
+
+                    AccountInfo accountInfo = accountInfosComponent.AddChild<AccountInfo>();
+                    accountInfo.Account = request.Account;
+                    accountInfo.Password = request.Password;
+                    await dbComponent.Save(accountInfo);
+                }
+                else
+                {
+                    AccountInfo accountInfo = accountInfos[0];
+                    if (accountInfo.Password != request.Password)
+                    {
+                        response.Error = ErrorCode.ERR_LoginPasswordError;
+                        CloseSession(session).Coroutine();
+                        return;
+                    }
                 }
             }
-            
+
 
             // 随机分配一个Gate
             StartSceneConfig config = RealmGateAddressHelper.GetGate(session.Zone(), request.Account);

@@ -29,6 +29,13 @@ namespace ET.Client
                 r2CLogin = (R2C_Login)await session.Call(new C2R_Login() { Account = account, Password = password });
             }
 
+            if (r2CLogin.Error != ErrorCode.ERR_Success)
+            {
+                response.Error = r2CLogin.Error;
+                return;
+            }
+            
+
             // 创建一个gate Session,并且保存到SessionComponent中
             Session gateSession = await netComponent.CreateRouterSession(NetworkHelper.ToIPEndPoint(r2CLogin.Address), account, password);
             gateSession.AddComponent<ClientSessionErrorComponent>();
