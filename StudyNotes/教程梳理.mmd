@@ -690,4 +690,36 @@
 
 #### 这一节主要加入协程锁保证多端同时登录注册的一致性
 
+### 五
+
+#### Realm服务器和Gate服务器连接，然后客户端尝试连接Gate
+
+##### R2G\_GetLoginKey
+
+###### 向Gate获取登录令牌
+
+##### R2G\_GetLoginKeyHandler
+
+###### GateSessionKeyComonent
+
+####### FiberInit\_Gate的时候添加
+
+####### 数据只是随机数和account之间的映射,记录玩家的登录key
+
+###### 创建给账号添加一个20秒后会移除的SessionKey
+
+##### Main2NetClient\_LoginHandler
+
+###### 创建gateSession
+
+###### C2G\_LoginGate
+
+####### 客户端尝试登录到Gate服务器
+
+##### C2G\_LoginGateHandler
+
+###### MessgaSessionHandler和MessageHandler 的区别
+
+####### SessionHandler固定了处理的实体是Session,也就是第一个参数
+
 ## 实战系列
