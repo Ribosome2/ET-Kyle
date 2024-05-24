@@ -7,6 +7,8 @@
 ## 课程介绍
 
 ## 开发环境搭建
+> collapsed=`true`
+
 
 ### 特别的没有安装MonoDB Compass
 
@@ -257,29 +259,35 @@
 #### 如果要在System里面修改组件的属性，要加FriendOf
 
 ## 虚拟进程Fiber
+> collapsed=`true`
+
 
 ### 先讲了Init的启动逻辑
+> collapsed=`true`
+
 
 #### Unity\.Loader项目的作为不能主包的代码不能热更，改了之后要重新生成HybridCLR
 
 #### World类
-> fillColor=`#FF5600`
+> collapsed=`true`,fillColor=`#FF5600`
 
 
 ##### 作为单例的容器，用来添加各种非ECS模式的代码单例
+> collapsed=`true`
+
 
 ###### Logger
 
 ###### TimeInfo
 
 ###### FiberManager
-> fillColor=`#00C8FF`
+> collapsed=`true`,fillColor=`#00C8FF`
 
 
 ####### 本节的关键内容
 
 ####### Fiber
-> fillColor=`#00C8FF`
+> collapsed=`true`,fillColor=`#00C8FF`
 
 
 ######## 本质上是一个类
@@ -287,7 +295,7 @@
 
 
 ######## Root
-> fillColor=`#00C8FF`
+> collapsed=`true`,fillColor=`#00C8FF`
 
 
 ######### 是某个Scene
@@ -295,24 +303,34 @@
 
 
 ###### ResourceComponent
+> collapsed=`true`
+
 
 ####### 资源加载
 
 ###### CodeLoader
+> collapsed=`true`
+
 
 ####### 热更代码
+> collapsed=`true`
+
 
 ######## Hotfix\.dll Model\.dll
 
 ######## Hotfix\.pdb,Model\.pdb
 
 ####### 热更完后会创建CodeTypes单例
+> collapsed=`true`
+
 
 ######## CodeTypes\.Instance\.CreateCode\(\);<br/>会创建可以热重载的代码
 
 ####### 通过反射调用ET\.Entry\.Start的函数
 
 ### 为什么引入Fiber概念
+> collapsed=`true`
+
 
 #### 为了多线程性能利用
 
@@ -323,24 +341,38 @@
 #### EntitySystem驱动生命周期函数
 
 #### Fiber的三种Update方式
+> collapsed=`true`
+
 
 ##### Main
+> collapsed=`true`
+
 
 ###### 主线程调度
+> collapsed=`true`
+
 
 ####### 按顺序调用Fiber
 
 ##### Thread
+> collapsed=`true`
+
 
 ###### 游戏进程（process\) 固定线程方式进行调度
+> collapsed=`true`
+
 
 ####### 性能调试的时候用
 
 ###### 每个线程只调用一个fiber
 
 ##### ThreadPool
+> collapsed=`true`
+
 
 ###### 游戏进程，线程池方式进行调度
+> collapsed=`true`
+
 
 ####### 上线的时候用这种，最大性能
 
@@ -349,6 +381,8 @@
 ###### 同一个Fiber在同一时间只会被一个线程调用
 
 ## Scene层级关系
+> collapsed=`true`
+
 
 ### 创建Fiber的时候会创建一个和Fiber相互引用的Scene
 
@@ -357,18 +391,28 @@
 ### 也可以作为逻辑上下文
 
 ### EntityHelper 工具类
+> collapsed=`true`
+
 
 #### Entity\.Scene 获取最近的Scene
 
 #### Entity\.Root获取根部的Scene
+> collapsed=`true`
+
 
 ##### 这里就明确能知道Scene是可以和组件相互嵌套的
 
 ## 事件订阅和发布
+> collapsed=`true`
+
 
 ### 事件的定义文件有好几个
+> collapsed=`true`
+
 
 #### Share/Demo/EventType\.cs
+> collapsed=`true`
+
 
 ##### 文件放在Share目录下，命名空间确实ET\.Client<br/>只有前端用，为什么要放在Share目录
 
@@ -383,6 +427,8 @@
 ### 事件的定义本质只是声明struct类型而已，只要在AllModel目录下<br/>选一个目录创建后缀为EventType的文件声明就行
 
 ### 事件的处理类都继承自AEvent
+> collapsed=`true`
+
 
 #### 第一个参数基本都是Scene,第二个是上面定义的事件结构体
 
@@ -391,80 +437,122 @@
 #### 处理类要加Event Attribute类说明SceneType
 
 ### 抛出事件的两种方式
+> collapsed=`true`
+
 
 #### EventSystem\.Instance\.PublishAsync
+> collapsed=`true`
+
 
 ##### 可以用await等待事件处理完
 
 #### EventSystem\.Instance\.Publish\(\)
+> collapsed=`true`
+
 
 ##### 同步方式，不会等事件处理完
 
 ## ETTask异步编程
+> collapsed=`true`
+
 
 ### C\#的异步函数
+> collapsed=`true`
+
 
 #### async和await是C\#5\.0引入的关键字
 
 ### ETTask
+> collapsed=`true`
+
 
 #### 跟C\#自带的Task类有上面区别？
 
 ## 网络消息的定义
+> collapsed=`true`
+
 
 ### ET 8\.0之前是用Protobuf
 
 ### 8\.0只会用MemoryPack
+> collapsed=`true`
+
 - LINK
 <pre>https://github.com/Cysharp/MemoryPack</pre>
 
 #### 消息定义还是用\.proto的格式
 
 #### 用ET框架提供的Proto2CS工具来生成<br/>符合MemoryPack序列化格式的C\#代码对象
+> collapsed=`true`
+
 
 ##### 项目代码在ET\.sln的的Share\.Tool目录
 
 ### Proto定义文件路径
+> collapsed=`true`
+
 
 #### Assets/Config/Proto
 
 #### 文件分类
+> collapsed=`true`
+
 
 ##### ClientMessage\_C
+> collapsed=`true`
+
 
 ###### 客户端Fiber之间通讯
 
 ##### InnerMessage\_S
+> collapsed=`true`
+
 
 ###### 服务器内部之间通信的协议
 
 ##### LockStepInner\_S
+> collapsed=`true`
+
 
 ###### 帧同步服务端内部通信
 
 ##### LockStepOuter\_C
+> collapsed=`true`
+
 
 ###### 帧同步客户端和服务端之间
 
 ##### OuterMessage\_c
+> collapsed=`true`
+
 
 ###### 常规的客户端和服务端之间通信的协议
 
 ### proto文件语法
+> collapsed=`true`
+
 
 #### message开头表示一个协议体
+> collapsed=`true`
+
 
 ##### message\+协议名\+空格\+//\+空格\+消息接口 
+> collapsed=`true`
+
 
 ###### 注意空格一定要留
 
 ###### 例子：message C2R\_LoginAccount // ISessionRequest
 
 ###### 消息接口类型
+> collapsed=`true`
+
 
 ####### ISessionRequest
 
 ####### ISessionResonse
+> collapsed=`true`
+
 
 ######## 一定要有RpcId,Error,Message三个变量
 
@@ -473,6 +561,8 @@
 #### 等号 "=" 两边一定要留空格
 
 ### 生成协议
+> collapsed=`true`
+
 
 #### BuildEditor窗口Proto2CS按钮
 
@@ -481,22 +571,32 @@
 #### 生成的代码也是分部类（partial\),也用了源代码生成器技术生成完整的类代码
 
 ## 服务端的连接流程
+> collapsed=`true`
+
 
 ### 前置连接流程
+> collapsed=`true`
+
 
 #### SceneType
+> collapsed=`true`
+
 
 ##### Assets/Config/Excel/StartConfig/Localhost/StartSceneConfig@s\.xlsx <br/>里面配置决定每个服务器的SceneType
-> align=`left`
+> align=`left`,collapsed=`true`
 
 
 ###### StartSceneConfig页签
+> collapsed=`true`
+
 
 ####### 每一行配置表示一个要创建一个虚拟进程（纤程Fiber\)
 
 ###### Router页签
 
 #### 通信流程图
+> collapsed=`true`
+
 - FILE
 <pre>StudyNotes/流程图/通信架构图.drawio</pre>
 
@@ -505,28 +605,40 @@
 ##### 里面包含的就是ET的软路由设计
 
 #### 各种服务器的功能
+> collapsed=`true`
+
 
 ##### Router
+> collapsed=`true`
+
 
 ###### 中转客户端和游戏服务器事件的消息
 
 ##### Realm服务器
+> collapsed=`true`
+
 
 ###### 就是网关负载均衡服务器，接收Router请求，分配合适的Gate服务器地址给Router
 
 ##### Gate服务器
+> collapsed=`true`
+
 
 ###### 由Realm网关负载均衡服务器分配，和Router通信
 
 ###### 这种服务器上会创建按玩家Unit映射实体
+> collapsed=`true`
+
 
 ####### 但是不应该把业务逻辑都写在这个服务器，二应该在Map服务器上
 
 ##### Map服务器
-> fillColor=`#EDA3A3`
+> collapsed=`true`,fillColor=`#EDA3A3`
 
 
 ###### Gate网关服务器的映射实体传送到Map服务器后，<br/>后续所有的业务逻辑都由Map服务器上的Unit映射实体进行处理
+> collapsed=`true`
+
 
 ####### 这里的传送的含义？
 
@@ -535,26 +647,42 @@
 
 
 ##### Location定位服务器
+> collapsed=`true`
+
 
 ###### 不管时Player映射实体，还是Unit实体，都会向<br/>Location服务器注册和更新ActorId（位置信息）
 
 ###### 简单来说这个就是用来查对应的玩家在哪个Map服务器？
 
 ## Actor模型与纤程通讯
+> collapsed=`true`
+
 
 ### Unit映射对象实体
+> collapsed=`true`
+
 
 #### Unit之间怎么确定其它的Unit的具体位置
+> collapsed=`true`
+
 
 ##### ActorId类
+> collapsed=`true`
+
 
 ###### InstanceId
+> collapsed=`true`
+
 
 ####### 用来定位具体的Actor邮箱
 
 ###### Address
+> collapsed=`true`
+
 
 ####### Process
+> collapsed=`true`
+
 
 ######## 进程
 
@@ -563,22 +691,32 @@
 ###### 用来定位到具体的进程，具体纤程，具体Actor
 
 ### Actor模型
+> collapsed=`true`
+
 
 #### 每个Actor都由自己的状态，行为和邮箱
 
 #### 消息传递
+> collapsed=`true`
+
 
 ##### 通过邮箱传递
 
 #### 无状态共享
+> collapsed=`true`
+
 
 ##### 隔离性提供了安全的处理状态，不需要考虑多线程编程中的锁状态
 
 #### 并发性
+> collapsed=`true`
+
 
 ##### Actor可能会阻塞自己处理的逻辑，但是不会阻塞自己允许的线程<br/>所以多个Actor可以同时进行消息传递和消息事件处理
 
 ### 同一进程内的两个纤程通过消息队列来进行通讯
+> collapsed=`true`
+
 
 #### ProcessInnerSender（这个组件本质就是一个消息队列）
 
@@ -637,28 +775,42 @@
 #### 这节讲了C2R和R2C的代码流程，没有加任何代码
 
 ### 三
+> collapsed=`true`
+
 
 #### 测试Studio 3T连接
 
 #### 详解C2R\_LoginHandler逻辑
+> collapsed=`true`
+
 
 ##### FiberInit\_Realm
+> collapsed=`true`
+
 
 ###### 不同类型的SceneType都会写FiberInit\_xxx来处理FiberInit事件
+> collapsed=`true`
+
 
 ####### 用Invoke方式调用，所以每个SceneType必须有处理类
 
 ###### 事件的Invoke和Publish的区别
+> collapsed=`true`
+
 
 ####### Invoke必须又被调用方，Publish不需要
 
 ###### 添加DBManagerComponent组件
 
 ##### 根据Zone获取DBComponent
+> collapsed=`true`
+
 
 ###### StartSceneConfig配置的Zone
 
 ##### 查询数据库有没有传过来的账号
+> collapsed=`true`
+
 
 ###### 如果没有，那就用账号和密码创建一个，并且保存到数据库
 
@@ -721,5 +873,41 @@
 ###### MessgaSessionHandler和MessageHandler 的区别
 
 ####### SessionHandler固定了处理的实体是Session,也就是第一个参数
+
+### 六
+
+#### 细讲C2G\_LoginGateHandler
+
+##### SessionKey合法的话，移除SessionAcceptTimeoutComponent组件
+
+###### 这个组件的作用是防止外挂一直连续不发消息，也不进行权限验证
+
+##### 用Account 向PlayerComponent查询
+
+###### 如果不存在账号的Player（玩家映射实体）就创建
+
+####### 添加Player实体
+
+######## Player实体添加PlayerSessionComponent
+
+######### 添加MailBoxComponent
+
+######### 向Location服务器同步位置
+
+######## 添加MailBoxComponent
+
+####### Session也添加SessionPlayerComponent
+
+####### Session 和 Player建立了相互映射的关系
+
+###### 如果存在，就只是更新Session
+
+#### 处理完打开Lobby UI
+
+##### 点击进入按钮，就执行EnterMapAsync
+
+##### C2G\_EnterMap
+
+###### 这协议就是为了创建玩家Unit实体，并且传送到MapServer
 
 ## 实战系列
