@@ -3,6 +3,8 @@
 ---
 
 # Root topic
+> collapsed=`true`
+
 
 ## 课程介绍
 
@@ -626,7 +628,7 @@
 
 ###### 由Realm网关负载均衡服务器分配，和Router通信
 
-###### 这种服务器上会创建按玩家Unit映射实体
+###### 这种服务器上会创建玩家Unit映射实体
 > collapsed=`true`
 
 
@@ -775,42 +777,28 @@
 #### 这节讲了C2R和R2C的代码流程，没有加任何代码
 
 ### 三
-> collapsed=`true`
-
 
 #### 测试Studio 3T连接
 
 #### 详解C2R\_LoginHandler逻辑
-> collapsed=`true`
-
 
 ##### FiberInit\_Realm
-> collapsed=`true`
-
 
 ###### 不同类型的SceneType都会写FiberInit\_xxx来处理FiberInit事件
-> collapsed=`true`
-
 
 ####### 用Invoke方式调用，所以每个SceneType必须有处理类
 
 ###### 事件的Invoke和Publish的区别
-> collapsed=`true`
-
 
 ####### Invoke必须又被调用方，Publish不需要
 
 ###### 添加DBManagerComponent组件
 
 ##### 根据Zone获取DBComponent
-> collapsed=`true`
-
 
 ###### StartSceneConfig配置的Zone
 
 ##### 查询数据库有没有传过来的账号
-> collapsed=`true`
-
 
 ###### 如果没有，那就用账号和密码创建一个，并且保存到数据库
 
@@ -909,5 +897,75 @@
 ##### C2G\_EnterMap
 
 ###### 这协议就是为了创建玩家Unit实体，并且传送到MapServer
+
+### 七
+
+#### EnterMapHelper\.EnterMapAsync
+
+##### C2G\_EnterMap
+
+###### C2G\_EnterMapHandler
+
+####### GateMapComponent 添加到Player实体
+
+######## 在Gate上动态创建一个Map Scene,把Unit从DB中加载方进来，<br/>然后传动到真正的Map中，这样登录跟传送的逻辑就完全一样了
+
+######## 创建对应的Scene挂到这个组件下面
+
+######### Scene有以下组件
+
+########## UnitComponent
+
+########## AOIMananerComponent
+
+########## RoomManagerComponent
+
+########## MailBoxComponent
+
+######## 创建一个Unit到上面创建的Scene，并且从DB加载Unit数据
+
+##### ObjectWait等待（Wait\_SceneChangeFinish事件
+
+##### TransferHelper\.TransferAtFrameFinish
+
+###### M2M\_UnitTransferRequest
+
+#### 这要是进入Map并且把Unit进行传送的启动流程
+
+### 八 客户端收到切换场景以及创建Unit实体后，打开游戏界面<br/>至此登录流程完成了
+
+#### M2M\_UnitTransferRequestHandler
+
+##### 处理从Gate网关服务器发送Unit映射实体数据，来传送到Map服务器上面
+
+##### 从请求的协议数据反序列化出Unit实例
+
+##### Unit挂到UnitComponent上
+
+##### M2C\_StartSceneChange
+
+###### 通知客户端开始切场景
+
+###### SceneChangeHelper\.SceneChangeTo
+
+####### 发 SceneChangeStart事件
+
+####### ObjectWait等待 Wait\_CrateMyUnit
+
+####### SceneChangeFinish
+
+####### Wait\_SceneChangeFinish
+
+##### M2C\_CreateMyUnit
+
+###### 通知客户端创建MyUnit
+
+###### UnitInfo 存储Unit的各种数据
+
+####### 常用的属性是直接用字段平铺在UnitInfo类的
+
+####### kv字段可以用来拓展记录各种业务键值对？
+
+###### 客户端接收到后发Wait\_CrateMyUnit
 
 ## 实战系列
