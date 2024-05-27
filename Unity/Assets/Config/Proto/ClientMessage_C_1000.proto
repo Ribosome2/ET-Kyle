@@ -19,4 +19,5 @@ message NetClient2Main_Login // IResponse
 	string Message = 3;
 	
 	int64 PlayerId = 4;
+	string Token = 5;
 }
