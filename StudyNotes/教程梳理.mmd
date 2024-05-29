@@ -1099,3 +1099,19 @@
 #### C2R\_LoginAccountHandler
 
 ##### SessionAcceptTimeoutComponent移除,用来防外挂的组件
+
+### 三
+
+#### 增加SceneType LoginCenter
+
+#### StartSceneConfig 行前面加井号"\#"就等于把该<br/>行注释掉，生成就不会生效
+
+#### 这节把StarSceneConfig的Realm配置挪到了新建sheet"公共服"
+
+##### 这里说StartSceneConfig就相当于一区，而账号数据应该是跨区的<br/>而Realm我们是要用来做账号服务器的，所以应该划分为公共服
+
+##### StartZoneConfig也要增加1000的账号登录区服
+
+#### 继续补充C2RLoginAcccountHandler
+
+##### 取Reaml区服的数据库接口查询账号，如果没有就创建

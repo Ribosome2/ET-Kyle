@@ -3,7 +3,8 @@
 namespace ET.Server
 {
     [MessageHandler(SceneType.Realm)]
-    public class C2R_LoginAccountHandler: MessageSessionHandler<C2R_LoginAccount, R2C_LoginAccount>
+    [FriendOfAttribute(typeof(ET.Server.Account))]
+    public class C2R_LoginAccountHandler : MessageSessionHandler<C2R_LoginAccount, R2C_LoginAccount>
     {
         protected override async ETTask Run(Session session, C2R_LoginAccount request, R2C_LoginAccount response)
         {
@@ -42,7 +43,40 @@ namespace ET.Server
             {
                 using (await coroutineLockComponent.Wait(CoroutineLockType.LoginAccount, request.AccountName.GetLongHashCode()))
                 {
+                    DBComponent dbComponent = session.Root().GetComponent<DBManagerComponent>().GetZoneDB(session.Zone());
 
+                    var accountInfoList = await dbComponent.Query<Account>(d => d.AccountName.Equals(request.AccountName));
+                    Account account = null;
+                    if (accountInfoList != null && accountInfoList.Count > 0)
+                    {
+                        #region 检查已有账号
+                        account = accountInfoList[0];
+                        session.AddChild(account);
+                        if (account.AccountType == (int)AcccountType.BlackList)
+                        {
+                            response.Error = ErrorCode.ERR_AccountInBlackListError;
+                            session.Disconnect().Coroutine();
+                            account?.Dispose();
+                            return;
+                        }
+
+                        if (!account.Password.Equals(request.Password))
+                        {
+                            response.Error = ErrorCode.ERR_AccountPasswordError;
+                            session.Disconnect().Coroutine();
+                            account?.Dispose();
+                        }
+                        #endregion
+                    }
+                    else
+                    {
+                        account = session.AddChild<Account>();
+                        account.AccountName = request.AccountName.Trim();
+                        account.Password = request.Password;
+                        account.CreateTime = TimeInfo.Instance.ServerNow();
+                        account.AccountType = (int)AcccountType.General;
+                        await dbComponent.Save<Account>(account);
+                    }
                 }
             }
         }
