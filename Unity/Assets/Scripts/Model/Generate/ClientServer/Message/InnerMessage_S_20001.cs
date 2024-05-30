@@ -25,7 +25,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Key = default;
 			this.InstanceId = default;
@@ -50,7 +50,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			
 			ObjectPool.Instance.Recycle(this); 
@@ -78,7 +78,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
@@ -109,7 +109,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Id = default;
 			this.Address = default;
@@ -139,7 +139,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
@@ -170,7 +170,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Id = default;
 			this.Address = default;
@@ -200,7 +200,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
@@ -234,7 +234,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Type = default;
 			this.Key = default;
@@ -265,7 +265,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
@@ -302,7 +302,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Type = default;
 			this.Key = default;
@@ -334,7 +334,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
@@ -371,7 +371,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Type = default;
 			this.Key = default;
@@ -403,7 +403,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
@@ -434,7 +434,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Type = default;
 			this.Key = default;
@@ -464,7 +464,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
@@ -495,7 +495,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Type = default;
 			this.Key = default;
@@ -531,7 +531,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
@@ -561,7 +561,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Account = default;
 			
@@ -596,7 +596,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
@@ -622,7 +622,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			
 			ObjectPool.Instance.Recycle(this); 
@@ -653,7 +653,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
@@ -688,7 +688,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.OldActorId = default;
 			this.Unit = default;
@@ -719,7 +719,64 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) { return; }
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+// ResponseType L2R_LoginAccountRequest
+	[Message(InnerMessage.R2L_LoginAccountRequest)]
+	[MemoryPackable]
+	public partial class R2L_LoginAccountRequest: MessageObject, IRequest
+	{
+		public static R2L_LoginAccountRequest Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(R2L_LoginAccountRequest), isFromPool) as R2L_LoginAccountRequest; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public string AccountName { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
+			this.RpcId = default;
+			this.AccountName = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.L2R_LoginAccountRequest)]
+	[MemoryPackable]
+	public partial class L2R_LoginAccountRequest: MessageObject, IResponse
+	{
+		public static L2R_LoginAccountRequest Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(L2R_LoginAccountRequest), isFromPool) as L2R_LoginAccountRequest; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) return;
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
@@ -754,5 +811,7 @@ namespace ET
 		 public const ushort ObjectQueryResponse = 20022;
 		 public const ushort M2M_UnitTransferRequest = 20023;
 		 public const ushort M2M_UnitTransferResponse = 20024;
+		 public const ushort R2L_LoginAccountRequest = 20025;
+		 public const ushort L2R_LoginAccountRequest = 20026;
 	}
 }

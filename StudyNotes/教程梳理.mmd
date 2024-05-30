@@ -1115,3 +1115,25 @@
 #### 继续补充C2RLoginAcccountHandler
 
 ##### 取Reaml区服的数据库接口查询账号，如果没有就创建
+
+### 四
+
+#### R2L\_LoginAccountRequest
+
+##### L 就是上一节加的LoginCenter服务器
+
+##### Unity/Assets/Scripts/Model/Generate/ClientServer/ConfigPartial/StartSceneConfig\.cs<br/>里面增加LoginCenterConfig
+
+##### AccountSessionComponent
+
+###### 用来记录账号Session的组件，如果之前已经有对应的Account<br/>后面再登，就提示前面登的号被顶号
+
+##### A2C\_Disconect
+
+###### 告诉其它号被顶号登录了
+
+#### AccountCheckOutTimeComponent
+
+##### 登出组件
+
+#### TokenComponent

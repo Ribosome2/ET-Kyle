@@ -77,6 +77,37 @@ namespace ET.Server
                         account.AccountType = (int)AcccountType.General;
                         await dbComponent.Save<Account>(account);
                     }
+
+                    //L stands for LoginCenter
+                    R2L_LoginAccountRequest r2LLoginAccountRequest = R2L_LoginAccountRequest.Create();
+                    r2LLoginAccountRequest.AccountName = request.AccountName;
+
+                    StartSceneConfig loginCenterConfig = StartSceneConfigCategory.Instance.LoginCenterConfig;
+                    var loginAccountResponse = await session.Fiber().Root.GetComponent<MessageSender>()
+                            .Call(loginCenterConfig.ActorId, r2LLoginAccountRequest) as L2R_LoginAccountRequest;
+
+                    if (loginAccountResponse.Error != ErrorCode.ERR_Success)
+                    {
+                        response.Error = loginAccountResponse.Error;
+                        session?.Disconnect().Coroutine();
+                        account?.Dispose();
+                        return;
+                    }
+
+                    Session otherSession = session.Root().GetComponent<AccountSessionComponent>().Get(request.AccountName);
+                    
+                    otherSession?.Send(A2C_Disconnect.Create());
+                    otherSession?.Disconnect().Coroutine();
+                    session.Root().GetComponent<AccountSessionComponent>().Add(request.AccountName,session);
+                    session.AddComponent<AccountCheckOutTimeComponent, string>(request.AccountName);
+
+                    string Token = TimeInfo.Instance.ServerNow().ToString() + RandomGenerator.RandomNumber(int.MinValue, int.MaxValue).ToString();
+                    session.Root().GetComponent<TokenComponent>().Remove(request.AccountName);
+                    session.Root().GetComponent<TokenComponent>().Add(request.AccountName,Token);
+
+                    response.Token = Token;
+                    account?.Dispose();
+
                 }
             }
         }

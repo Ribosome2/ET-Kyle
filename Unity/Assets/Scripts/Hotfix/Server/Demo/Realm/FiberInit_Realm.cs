@@ -17,6 +17,7 @@ namespace ET.Server
             root.AddComponent<NetComponent, IPEndPoint, NetworkProtocol>(startSceneConfig.InnerIPPort, NetworkProtocol.UDP);
 
             root.AddComponent<DBManagerComponent>();
+            root.AddComponent<TokenComponent>();
             
 
             await ETTask.CompletedTask;
