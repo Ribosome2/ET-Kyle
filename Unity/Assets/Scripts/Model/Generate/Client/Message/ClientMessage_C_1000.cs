@@ -28,7 +28,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) return;
+			if (!this.IsFromPool) { return; }
 			this.RpcId = default;
 			this.OwnerFiberId = default;
 			this.Account = default;
@@ -65,7 +65,7 @@ namespace ET
 
 		public override void Dispose() 
 		{
-			if (!this.IsFromPool) return;
+			if (!this.IsFromPool) { return; }
 			this.RpcId = default;
 			this.Error = default;
 			this.Message = default;
