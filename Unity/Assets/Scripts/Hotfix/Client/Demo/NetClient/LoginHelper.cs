@@ -16,7 +16,20 @@ namespace ET.Client
             }
             Log.Debug("请求登录成功 !!!");
 
-            root.GetComponent<PlayerComponent>().MyId = response.PlayerId;
+            string Token = response.Token;
+            
+            //获取服务器列表
+            C2R_GetServerInfos c2RGetServerInfos = C2R_GetServerInfos.Create();
+            c2RGetServerInfos.Account = account;
+            c2RGetServerInfos.Token = response.Token;
+            R2C_GetServerInfos r2CGetServerInfos = await clientSenderCompnent.Call(c2RGetServerInfos) as R2C_GetServerInfos;
+            if (r2CGetServerInfos.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("请求服务器列表失败");
+                return;
+            }
+
+            // root.GetComponent<PlayerComponent>().MyId = response.PlayerId;
             
             await EventSystem.Instance.PublishAsync(root, new LoginFinish());
         }
