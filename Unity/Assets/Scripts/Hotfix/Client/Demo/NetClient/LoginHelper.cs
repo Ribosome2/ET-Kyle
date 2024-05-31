@@ -44,11 +44,30 @@ namespace ET.Client
                 return;
             }
 
-            RoleInfoProto roleInfoProro = default;
+            RoleInfoProto roleInfoProto = default;
             if (r2CGetRoles.RoleInfo.Count <= 0)
             {
                 //无角色信息，则创建角色信息
+                C2R_CreateRole c2RCreateRole = C2R_CreateRole.Create();
+                c2RCreateRole.Token = Token;
+                c2RCreateRole.Account = account;
+                c2RCreateRole.ServerId = serverInfoProto.Id;
+                c2RCreateRole.Name = account;
                 
+                
+                R2C_CreateRole r2CCreateRole = await clientSenderCompnent.Call(c2RCreateRole) as R2C_CreateRole;
+
+                if (r2CCreateRole.Error != ErrorCode.ERR_Success)
+                {
+                    Log.Error("创建区分角色失败");
+                    return;
+                }
+
+                roleInfoProto = r2CCreateRole.RoleInfo;
+            }
+            else
+            {
+                roleInfoProto = r2CGetRoles.RoleInfo[0];
             }
             
             
