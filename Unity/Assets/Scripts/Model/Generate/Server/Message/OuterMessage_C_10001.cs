@@ -1064,13 +1064,13 @@ namespace ET
 
 	}
 
-	[Message(OuterMessage.ServerInfoProro)]
+	[Message(OuterMessage.ServerInfoProto)]
 	[MemoryPackable]
-	public partial class ServerInfoProro: MessageObject
+	public partial class ServerInfoProto: MessageObject
 	{
-		public static ServerInfoProro Create(bool isFromPool = false) 
+		public static ServerInfoProto Create(bool isFromPool = false) 
 		{ 
-			return ObjectPool.Instance.Fetch(typeof(ServerInfoProro), isFromPool) as ServerInfoProro; 
+			return ObjectPool.Instance.Fetch(typeof(ServerInfoProto), isFromPool) as ServerInfoProto; 
 		}
 
 		[MemoryPackOrder(0)]
@@ -1144,7 +1144,7 @@ namespace ET
 		public string Message { get; set; }
 
 		[MemoryPackOrder(0)]
-		public List<ServerInfoProro> ServerInfosList { get; set; } = new();
+		public List<ServerInfoProto> ServerInfosList { get; set; } = new();
 
 		public override void Dispose() 
 		{
@@ -1198,7 +1198,7 @@ namespace ET
 		 public const ushort C2R_LoginAccount = 10036;
 		 public const ushort R2C_LoginAccount = 10037;
 		 public const ushort A2C_Disconnect = 10038;
-		 public const ushort ServerInfoProro = 10039;
+		 public const ushort ServerInfoProto = 10039;
 		 public const ushort C2R_GetServerInfos = 10040;
 		 public const ushort R2C_GetServerInfos = 10041;
 	}

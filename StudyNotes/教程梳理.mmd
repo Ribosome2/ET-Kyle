@@ -1143,3 +1143,13 @@
 #### LoginHelper增加获取服务列表逻辑
 
 ##### C2R\_GetServerInfoes
+
+###### ClientSenderCompnent 在直连GateSession建立<br/>之后\(登录连接\)就可以直接调用Call通信，而不再需要纤程通信
+
+##### C2R\_GetServerInfoHandler
+
+###### 先通过TokenManager判断Token是否合法
+
+###### 通过 ServerInfoManagerComponent获取服务器列表
+
+####### Awake的时候通过 StartZoneConfigCategory\.Instance\.GetAll\(\);<br/>获取所有的Zong配置，ZoneType不为1的都放到列表里面
