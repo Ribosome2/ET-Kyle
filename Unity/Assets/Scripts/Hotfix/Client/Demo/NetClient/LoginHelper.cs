@@ -29,6 +29,31 @@ namespace ET.Client
                 return;
             }
 
+            ServerInfoProto serverInfoProto = r2CGetServerInfos.ServerInfosList[0]; //这里为了演示，我们用第一个，todo：选服UI
+            Log.Debug($"请求服务器列表成功，区服名称:{serverInfoProto.ServerName} 区服ID:{serverInfoProto.Id}");
+            
+            //获取区服角色列表
+            C2R_GetRoles c2RGetRoles = C2R_GetRoles.Create();
+            c2RGetRoles.Token = Token;
+            c2RGetRoles.Account = account;
+            c2RGetRoles.ServerId = serverInfoProto.Id;
+            R2C_GetRoles r2CGetRoles = await clientSenderCompnent.Call(c2RGetRoles) as R2C_GetRoles;
+            if (r2CGetRoles.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("请求区服角色列表失败");
+                return;
+            }
+
+            RoleInfoProto roleInfoProro = default;
+            if (r2CGetRoles.RoleInfo.Count <= 0)
+            {
+                //无角色信息，则创建角色信息
+                
+            }
+            
+            
+            
+
             // root.GetComponent<PlayerComponent>().MyId = response.PlayerId;
             
             await EventSystem.Instance.PublishAsync(root, new LoginFinish());
