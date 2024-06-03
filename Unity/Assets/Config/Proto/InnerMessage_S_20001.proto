@@ -191,3 +191,34 @@ message L2R_LoginAccountRequest // IResponse
 	string Message = 3;
 }
 
+
+//ResponseType G2L_DisconnectGateUnit
+message L2G_DisconectGateUnit //IRequest
+{
+	int RpcId = 1;
+	string AccountName = 2;
+}
+
+message G2L_DisconnectGateUnit // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}
+
+
+//ResponseType L2G_AddLoginRecord
+message G2L_AddLoginRecord  // IRequest
+{
+	int RpcId = 1;
+	string AccountName = 2;
+	int ServerId = 3;
+}
+
+
+message L2G_AddLoginRecord // IResponse
+{
+	int RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+}

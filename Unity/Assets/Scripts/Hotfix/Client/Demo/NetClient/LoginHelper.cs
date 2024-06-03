@@ -71,7 +71,18 @@ namespace ET.Client
             }
             
             
-            
+            //请求获取RealmKey
+            C2R_GetRealmKey c2RGetRealmKey = C2R_GetRealmKey.Create();
+            c2RGetRealmKey.Token = Token;
+            c2RGetRealmKey.Account = account;
+            c2RGetRealmKey.ServerId = serverInfoProto.Id;
+            R2C_GetRealmKey r2CGetRealmKey = await clientSenderCompnent.Call(c2RGetRealmKey) as R2C_GetRealmKey;
+
+            if (r2CGetRealmKey.Error != ErrorCode.ERR_Success)
+            {
+                Log.Error("获取RealmKey失败！");
+                return;
+            }
 
             // root.GetComponent<PlayerComponent>().MyId = response.PlayerId;
             
