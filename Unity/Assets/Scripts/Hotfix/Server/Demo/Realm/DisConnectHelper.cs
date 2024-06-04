@@ -19,6 +19,11 @@
             }
             self.Dispose();
         }
+
+        public static async ETTask KickPlayer(this Player self)
+        {
+            //todo
+        }
     }
 }
 

@@ -27,5 +27,9 @@ namespace ET
         public const int ERR_RoleNameIsNull = 200008;
         public const int ERR_RoleNameSame = 200009;
         public const int ERR_RoleNotExist = 200010;
+        
+        //连接Gate
+        public const int ERR_ConnectGateKeyError = 200011;
+        public const int ERR_LoginGameGateError01 = 200012;
     }
 }
