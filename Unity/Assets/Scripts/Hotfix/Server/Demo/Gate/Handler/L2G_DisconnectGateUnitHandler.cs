@@ -21,8 +21,19 @@
                 if (gateSession != null && !gateSession.IsDisposed)
                 {
                     A2C_Disconnect a2CDisconnect = A2C_Disconnect.Create();
-                    // a2CDisconnect.Error = ErrorCode
+                    a2CDisconnect.Error = ErrorCode.ERR_OtherAccountLogin;
+                    gateSession.Send(a2CDisconnect);
+                    gateSession?.Disconnect().Coroutine();
                 }
+
+                if (player.GetComponent<PlayerSessionComponent>()?.Session != null)
+                {
+                    player.GetComponent<PlayerSessionComponent>().Session = null;
+                }
+
+                
+                //加这个组件，是10秒之内不进行登录到Gate就会被踢
+                player.AddComponent<PlayerOfflineOutTimeComponent>();
             }
                 
         }
