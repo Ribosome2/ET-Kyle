@@ -1,4 +1,4 @@
-﻿namespace ET.Server.Handler
+﻿namespace ET.Server
 {
     [MessageHandler(SceneType.LoginCenter)]
     public class R2L_LoginAccountRequestHandler:MessageHandler<Scene,R2L_LoginAccountRequest,L2R_LoginAccountRequest>

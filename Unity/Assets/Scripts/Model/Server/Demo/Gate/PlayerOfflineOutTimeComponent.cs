@@ -1,7 +1,9 @@
-﻿namespace ET.Server;
-[ChildOf(typeof(Player))]
-public class PlayerOfflineOutTimeComponent:Entity,IAwake,IDestroy
+﻿namespace ET.Server
 {
-    public long Timer;
+    [ChildOf(typeof(Player))]
+    public class PlayerOfflineOutTimeComponent:Entity,IAwake,IDestroy
+    {
+        public long Timer;
 
+    }
 }
