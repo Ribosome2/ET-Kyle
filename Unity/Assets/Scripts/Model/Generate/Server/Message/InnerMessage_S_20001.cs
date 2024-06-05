@@ -729,7 +729,7 @@ namespace ET
 
 	}
 
-// ResponseType L2R_LoginAccountRequest
+	[ResponseType(nameof(L2R_LoginAccountRequest))]
 	[Message(InnerMessage.R2L_LoginAccountRequest)]
 	[MemoryPackable]
 	public partial class R2L_LoginAccountRequest: MessageObject, IRequest
@@ -904,7 +904,7 @@ namespace ET
 
 	}
 
-// ResponseType L2G_RemoveLoginRecord
+	[ResponseType(nameof(L2G_RemoveLoginRecord))]
 	[Message(InnerMessage.G2L_RemoveLoginRecord)]
 	[MemoryPackable]
 	public partial class G2L_RemoveLoginRecord: MessageObject, IRequest
@@ -965,7 +965,7 @@ namespace ET
 
 	}
 
-// ResponseType M2G_SecondLogin
+	[ResponseType(nameof(M2G_SecondLogin))]
 	[Message(InnerMessage.G2M_SecondLogin)]
 	[MemoryPackable]
 	public partial class G2M_SecondLogin: MessageObject, ILocationRequest
@@ -1018,7 +1018,7 @@ namespace ET
 
 	}
 
-// ResponseType M2G_RequestExitGame
+	[ResponseType(nameof(M2G_RequestExitGame))]
 	[Message(InnerMessage.G2M_RequestExitGame)]
 	[MemoryPackable]
 	public partial class G2M_RequestExitGame: MessageObject, ILocationRequest

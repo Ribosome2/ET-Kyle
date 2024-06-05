@@ -969,7 +969,7 @@ namespace ET
 
 	}
 
-// ResponseType R2C_LoginAccount
+	[ResponseType(nameof(R2C_LoginAccount))]
 	[Message(OuterMessage.C2R_LoginAccount)]
 	[MemoryPackable]
 	public partial class C2R_LoginAccount: MessageObject, ISessionRequest
@@ -1497,7 +1497,7 @@ namespace ET
 
 	}
 
-// ResonseType G2C_LoginGameGate
+	[ResponseType(nameof(G2C_LoginGameGate))]
 	[Message(OuterMessage.C2G_LoginGameGate)]
 	[MemoryPackable]
 	public partial class C2G_LoginGameGate: MessageObject, ISessionRequest
@@ -1566,7 +1566,7 @@ namespace ET
 
 	}
 
-// ResponseType G2C_EnterGame
+	[ResponseType(nameof(G2C_EnterGame))]
 	[Message(OuterMessage.C2G_EnterGame)]
 	[MemoryPackable]
 	public partial class C2G_EnterGame: MessageObject, ISessionRequest

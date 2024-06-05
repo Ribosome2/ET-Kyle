@@ -371,7 +371,7 @@ message R2C_GetRealmKey // ISessionResponse
 }
 
 
-// ResonseType G2C_LoginGameGate
+// ResponseType G2C_LoginGameGate
 message C2G_LoginGameGate // ISessionRequest
 {
 	int RpcId = 1;

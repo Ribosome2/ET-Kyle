@@ -77,7 +77,7 @@ namespace ET
 
 	}
 
-// ResponseType NetClient2Main_LoginGame
+	[ResponseType(nameof(NetClient2Main_LoginGame))]
 	[Message(ClientMessage.Main2NetClient_LoginGame)]
 	[MemoryPackable]
 	public partial class Main2NetClient_LoginGame: MessageObject, IRequest
