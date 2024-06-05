@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Primitives;
 
 namespace ET
@@ -65,7 +66,7 @@ namespace ET
                 ProtoFile2CS(fileName, protoName, cs, startOpcode);
             }
         }
-
+        static Regex responseTypeRegex = new("//\\s*ResponseType\\s+(?<responseTypeName>[\\w\\d_]+)");
         public static void ProtoFile2CS(string fileName, string protoName, string cs, int startOpcode)
         {
             string ns = "ET";
@@ -93,9 +94,16 @@ namespace ET
                     continue;
                 }
 
-                if (newline.StartsWith("//ResponseType"))
+                // if (newline.StartsWith("//ResponseType"))
+                Match match =responseTypeRegex.Match(newline);
+                // if (newline.StartsWith("//"))
+                // {
+                //     Log.Console($"{newline}+ success "+ match.Success+" Groups"+match.Groups.Count);
+                // }
+                if (match.Success)
                 {
-                    string responseType = line.Split(" ")[1].TrimEnd('\r', '\n');
+                    // string responseType = line.Split(" ")[1].TrimEnd('\r', '\n');
+                    string responseType = match.Groups["responseTypeName"].Value;
                     sb.Append($"\t[ResponseType(nameof({responseType}))]\n");
                     continue;
                 }
