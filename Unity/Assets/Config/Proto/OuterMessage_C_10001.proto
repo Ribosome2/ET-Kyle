@@ -402,5 +402,5 @@ message G2C_EnterGame //ISessionResponse
 	int32 Error = 2;
 	string Message = 3;
 
-	int MyUnitId = 4;
+	int64 MyUnitId = 4;
 }

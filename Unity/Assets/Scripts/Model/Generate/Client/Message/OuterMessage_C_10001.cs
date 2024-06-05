@@ -1608,7 +1608,7 @@ namespace ET
 		public string Message { get; set; }
 
 		[MemoryPackOrder(3)]
-		public int MyUnitId { get; set; }
+		public long MyUnitId { get; set; }
 
 		public override void Dispose() 
 		{

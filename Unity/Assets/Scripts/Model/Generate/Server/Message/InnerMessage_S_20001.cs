@@ -965,6 +965,59 @@ namespace ET
 
 	}
 
+// ResponseType M2G_SecondLogin
+	[Message(InnerMessage.G2M_SecondLogin)]
+	[MemoryPackable]
+	public partial class G2M_SecondLogin: MessageObject, ILocationRequest
+	{
+		public static G2M_SecondLogin Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(G2M_SecondLogin), isFromPool) as G2M_SecondLogin; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) { return; }
+			this.RpcId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.M2G_SecondLogin)]
+	[MemoryPackable]
+	public partial class M2G_SecondLogin: MessageObject, ILocationResponse
+	{
+		public static M2G_SecondLogin Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(M2G_SecondLogin), isFromPool) as M2G_SecondLogin; 
+		}
+
+		[MemoryPackOrder(0)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(2)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) { return; }
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 // ResponseType M2G_RequestExitGame
 	[Message(InnerMessage.G2M_RequestExitGame)]
 	[MemoryPackable]
@@ -1051,7 +1104,9 @@ namespace ET
 		 public const ushort L2G_AddLoginRecord = 20030;
 		 public const ushort G2L_RemoveLoginRecord = 20031;
 		 public const ushort L2G_RemoveLoginRecord = 20032;
-		 public const ushort G2M_RequestExitGame = 20033;
-		 public const ushort M2G_RequestExitGame = 20034;
+		 public const ushort G2M_SecondLogin = 20033;
+		 public const ushort M2G_SecondLogin = 20034;
+		 public const ushort G2M_RequestExitGame = 20035;
+		 public const ushort M2G_RequestExitGame = 20036;
 	}
 }
