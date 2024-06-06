@@ -80,7 +80,7 @@ namespace ET.Client
 
             if (r2CGetRealmKey.Error != ErrorCode.ERR_Success)
             {
-                Log.Error("获取RealmKey失败！");
+                Log.Error("获取RealmKey失败！"+r2CGetRealmKey.Error);
                 return;
             }
             

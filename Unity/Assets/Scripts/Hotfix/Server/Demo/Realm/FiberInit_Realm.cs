@@ -18,6 +18,8 @@ namespace ET.Server
 
             root.AddComponent<DBManagerComponent>();
             root.AddComponent<TokenComponent>();
+            root.AddComponent<AccountSessionComponent>();
+            root.AddComponent<ServerInfoManagerComponent>();
             
 
             await ETTask.CompletedTask;

@@ -12,7 +12,7 @@
                 return;
             }
 
-            string token = session.Root().GetComponent<TokenComponent>().Get(request.Token);
+            string token = session.Root().GetComponent<TokenComponent>().Get(request.Account);
             if (token == null || token != request.Token)
             {
                 response.Error = ErrorCode.ERR_TokenError;
