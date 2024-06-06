@@ -24,12 +24,13 @@ namespace ET.Server
                 return;
             }
 
-            if (!Regex.IsMatch(request.AccountName.Trim(), @"^(?=.*[0-9].*)(?=.*[A-Z].*)(?=.*[a-z].*).{6.15}$"))
-            {
-                response.Error = ErrorCode.ERR_AccountNameFormError;
-                session.Disconnect().Coroutine();
-                return;
-            }
+            //这正则有问题，并且我们现在不需要检测这个
+            // if (!Regex.IsMatch(request.AccountName.Trim(), @"^(?=.*[0-9].*)(?=.*[A-Z].*)(?=.*[a-z].*).{6.15}$"))
+            // {
+            //     response.Error = ErrorCode.ERR_AccountNameFormError;
+            //     session.Disconnect().Coroutine();
+            //     return;
+            // }
 
             if (!Regex.IsMatch(request.Password.Trim(), @"^[A-za-z0-9]+$"))
             {
