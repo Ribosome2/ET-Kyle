@@ -185,3 +185,21 @@
 ## 第四节 帧同步的架构
 > leftSide=`true`
 
+
+### 进房间流程
+- FILE
+<pre>StudyNotes/流程图/进房间消息流程.drawio</pre>
+
+## 第五节，LSEntity
+> leftSide=`true`
+
+
+### 为什么要LSEntity
+
+#### 1\.限制Entity的Id生成
+
+##### 要保证不同的端Id一致
+
+#### 2\.LSWorld不能使用Update,LateUpdate Load等等
+
+#### 3\.序列化和反序列化导致InstanceId跟System绑定失效，<br/>不能写一个老式的FixedUpdate
