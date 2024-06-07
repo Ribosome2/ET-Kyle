@@ -76,7 +76,7 @@
 
 ##### 服务器固定真理收集消息，客户端也有自己的帧，<br/>适合2\-3人的场景，逻辑层有座预测，预测失败则回滚，开发难度大
 
-## 网络0GC
+## 第二节 网络0GC
 > leftSide=`true`
 
 
@@ -135,5 +135,49 @@
 
 
 ### MemoryPack Sou
+> leftSide=`true`
+
+
+## 第三节 框架层的调整
+> leftSide=`true`
+
+
+### 为了帧同步对框架的修改
+
+#### 1\.EntityRef
+
+##### 对InstanceId进行封装，而且时弱引用
+
+##### 当InstanceId不一致的时候，返回null
+> leftSide=`true`
+
+
+###### 解决Entity引用其它的Enity,当其它Enity<br/>被Dispose的时候，应该返回Null的问题
+
+#### 2\.Entity不再统一注册到Root中，只有Actor对象挂载了MailBoxComponent的<br/>注册到ActorMessageDispatcherComponent中
+
+#### 3\.TypeSystemm
+
+##### EntitySystemSingleton,可拓展的EntitySystem机制
+
+##### 例子:LSEntitySystemSingleton
+
+#### 4\.Domain改成了IScene接口，更完善Scene的代码都简化了
+> leftSide=`true`
+
+
+#### 5\.Entity中Components改成SortedDictionnary,保证有序
+> leftSide=`true`
+
+
+##### 比如两个端执行删除，要保证顺序一致
+
+#### 6\.Mongo序列化BeginInit,SerializeSystem
+> leftSide=`true`
+
+
+##### Entity的componentsDB
+
+#### 7\.配置文件改成了Bson，直接支持Dictionary
 > leftSide=`true`
 
