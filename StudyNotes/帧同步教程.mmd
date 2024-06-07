@@ -75,3 +75,65 @@
 #### 2\.预测回滚帧同步
 
 ##### 服务器固定真理收集消息，客户端也有自己的帧，<br/>适合2\-3人的场景，逻辑层有座预测，预测失败则回滚，开发难度大
+
+## 网络0GC
+> leftSide=`true`
+
+
+### 0 GC的方式
+
+#### 1\.MessagePool
+
+#### 2\.MemoryPack提供了ref的反序列化方式
+
+#### 3\.消息中的成员回收
+
+#### 4\.消息中容器回收，MemoryPack会对容器调用Clear，容器中最好是struct
+> leftSide=`true`
+
+
+#### MemoryStream GC消除
+
+#### UDP Send Recv GC消除
+
+### 0GC的消除策略
+
+#### 有风险
+
+#### 服务端不消除GC
+> leftSide=`true`
+
+
+##### 不重用协议
+
+#### 客户端手动消除消息GC
+
+### 消息的创建回收
+
+#### MessageObject\.IsFromPool
+
+#### 发送消息时创建，消息传到网络层序列化完成后回收
+
+##### a\. 发送的适合需要自己调用Create\(true\)
+
+##### b\.回收时框架自动调用Dispose\(\)
+> leftSide=`true`
+
+
+#### 接受消息时创建，消息传到主线程使用完成后回收
+> leftSide=`true`
+
+
+##### 接受消息的适合框架自动调用FetchMessage
+
+##### 回收需要自己调用Dispose
+> leftSide=`true`
+
+
+### MemoryBuffer创建回收
+> leftSide=`true`
+
+
+### MemoryPack Sou
+> leftSide=`true`
+
