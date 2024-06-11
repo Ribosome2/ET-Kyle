@@ -146,7 +146,7 @@
 
 #### 1\.EntityRef
 
-##### 对InstanceId进行封装，而且时弱引用
+##### 对InstanceId进行封装，而且是弱引用
 
 ##### 当InstanceId不一致的时候，返回null
 > leftSide=`true`
@@ -203,3 +203,117 @@
 #### 2\.LSWorld不能使用Update,LateUpdate Load等等
 
 #### 3\.序列化和反序列化导致InstanceId跟System绑定失效，<br/>不能写一个老式的FixedUpdate
+
+#### 4\.用Id 跟System绑定，专用的LSUpdateSystem
+
+#### 5\.可以针对LSEntity,加上float分析器限制
+
+### LSWorld:LSEntity
+
+#### 1\.定点数部分，纯逻辑层
+
+#### 2\.序列化反序列化，回滚的部分
+
+#### 3\.Id生成器
+
+#### 4\.随机数
+> leftSide=`true`
+
+
+#### 5\.LSUpdater
+> leftSide=`true`
+
+
+##### 注意，这个不是fixedUpdate,记录有哪些Entity有LSUpdate
+
+### System
+> leftSide=`true`
+
+
+#### LSEntitySystemSingleton
+
+#### LSUpdateSystem
+> leftSide=`true`
+
+
+#### LSRollbackSystem
+> leftSide=`true`
+
+
+### LSUpdater\.Update驱动
+> leftSide=`true`
+
+
+#### Room上挂有一个Updater组件，在固定帧调用LSWorld的Updater
+
+## 第六节 预测回滚
+> leftSide=`true`
+
+
+### Room
+
+#### FrameBuffer 输入缓存
+
+##### 记录每个人的输入
+
+#### FixedTimeCounter 固定时间计算，固定时间可以改变
+> leftSide=`true`
+
+
+#### LSWorld Child可以多个
+
+#### PredictionFrame 预测帧，AuthorityFrame 权威帧
+> leftSide=`true`
+
+
+### LSServerUpdater
+
+#### 服务端的驱动
+
+### LSClientUpdater
+> leftSide=`true`
+
+
+### 预测
+
+#### 作用：
+
+##### 1\.本地立即响应
+
+##### 2\.其它发送操作给服务端，服务端的帧到了可以马上广播
+> leftSide=`true`
+
+
+#### 策略
+> leftSide=`true`
+
+
+##### 1\.客户端预测自己的输入，直接获取
+
+##### 2\.客户端预测别人的输入，取上一帧的输入
+> leftSide=`true`
+
+
+##### 3\.服务的预测，时间到了，客户端的输入没有发送过来，<br/>直接取客户端的上一帧输入，相当于丢弃客户端的输入
+> leftSide=`true`
+
+
+#### 权威消息处理
+
+##### 1\.权威消息比预测消息早
+
+###### 直接用权威帧覆盖
+
+##### 2\.权威帧和预测帧一样
+> leftSide=`true`
+
+
+###### 基本上就不需要处理，只是发hash给服务器对比
+
+##### 3\.权威消息和预测消息不一致
+> leftSide=`true`
+
+
+###### 进行回滚
+
+####### 拿缓存的LSWorld反序列化，并且重现计算预测帧
