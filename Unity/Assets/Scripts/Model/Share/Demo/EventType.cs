@@ -24,6 +24,11 @@
     {
     }
 
+    public struct GetServerListFinish
+    {
+        
+    }
+
     public struct EnterMapFinish
     {
     }

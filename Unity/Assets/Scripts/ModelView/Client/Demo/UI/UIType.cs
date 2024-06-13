@@ -8,6 +8,7 @@ namespace ET.Client
 	    public const string Root = "Root";
 	    public const string UILoading = "UILoading";
 	    public const string UILogin = "UILogin";
+	    public const string UIServerSelect = "UIServerSelect";
 	    public const string UILobby = "UILobby";
 	    public const string UIHelp = "UIHelp";
     }

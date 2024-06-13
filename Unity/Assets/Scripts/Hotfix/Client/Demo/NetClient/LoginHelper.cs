@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace ET.Client
 {
     public static class LoginHelper
@@ -29,9 +31,16 @@ namespace ET.Client
                 return;
             }
 
-            ServerInfoProto serverInfoProto = r2CGetServerInfos.ServerInfosList[0]; //这里为了演示，我们用第一个，todo：选服UI
+            root.AddComponent<ServerInfoComponent>().SetServerData(r2CGetServerInfos.ServerInfosList,account,Token);
+            ServerInfoProto serverInfoProto = r2CGetServerInfos.ServerInfosList[0]; 
             Log.Debug($"请求服务器列表成功，区服名称:{serverInfoProto.ServerName} 区服ID:{serverInfoProto.Id}");
-            
+            await EventSystem.Instance.PublishAsync(root, new GetServerListFinish());
+            // await SelectServer(root, account, Token, serverInfoProto, clientSenderCompnent);
+        }
+
+        public static async Task SelectServer(Scene root, string account, string Token, ServerInfoProto serverInfoProto,
+        ClientSenderCompnent clientSenderCompnent)
+        {
             //获取区服角色列表
             C2R_GetRoles c2RGetRoles = C2R_GetRoles.Create();
             c2RGetRoles.Token = Token;
