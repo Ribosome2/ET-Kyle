@@ -1136,7 +1136,13 @@
 
 ##### 登出组件
 
+###### Awake的时候添加一个10分钟后执行的定时器
+
+###### 定时器执行的时候删除Session
+
 #### TokenComponent
+
+##### 记录accountName：随机数的映射
 
 ### 五
 
@@ -1176,6 +1182,8 @@
 
 ###### 只是把数据状态改成Freeze，并不做真正的删除<br/>冻结账号
 
+###### Demo并没有发这条协议，只是演示说明
+
 #### 增加FiberInif\_logInCenter处理SceneType为LoginCenter的FiberInit处理
 
 ### 八
@@ -1188,9 +1196,15 @@
 
 #### LoginInfoRecordComponent
 
+##### 记录账户名hash和所在服务器的Id的映射
+
 #### R2L\_LoginAccountRequestHandler
 
+##### 如果accountId 能找到之前登录的玩家，通知踢下线
+
 #### C2R\_GetRealmKey
+
+##### 根据账户名和服务器Id获取一个登录Realm的key
 
 ### 九
 
@@ -1220,6 +1234,10 @@
 
 ##### 定时踢玩家下线的组件
 
+##### L2G\_DisconnectGateUnitHandler加上，如果10秒没登录到Gate就会移除
+
+##### C2G\_LoginGameGateHandler 移除
+
 #### 登录到
 
 ### 十一
@@ -1241,3 +1259,5 @@
 ####### 通知游戏逻辑服下线Unit角色逻辑，并将数据存入数据库<br/>M2G\_RequestExitGame
 
 ####### 通知移除账号角色登录信息 G2L\_RemoveLoginRecord
+
+### 十二

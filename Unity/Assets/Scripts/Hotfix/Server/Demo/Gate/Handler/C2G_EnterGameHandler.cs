@@ -64,7 +64,6 @@ namespace ET.Server
                             await DisConnectHelper.KickPlayerNoLock(player);
                             
                             session.Disconnect().Coroutine();
-                            throw;
                         }
                     }
 

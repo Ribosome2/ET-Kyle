@@ -33,6 +33,7 @@
                 Log.Error($"登录Map失败！！！ {g2CEnterGame.Error}");
             }
 
+            Log.Debug("登录Map成功！！");
             response.PlayerId = g2CEnterGame.MyUnitId;
 
         }

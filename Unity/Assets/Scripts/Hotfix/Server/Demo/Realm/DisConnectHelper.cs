@@ -46,6 +46,16 @@
                             .Call(StartSceneConfigCategory.Instance.LoginCenterConfig.ActorId, g2LRemoveLoginRecord);
                 break;
             }
+
+            TimerComponent timerComponent = player.Root().GetComponent<TimerComponent>();
+            player.PlayerState = PlayerState.Disconect;
+
+            await player.GetComponent<PlayerSessionComponent>().RemoveLocation(LocationType.GateSession);
+            await player.RemoveLocation(LocationType.Player);
+            player.Root().GetComponent<PlayerComponent>()?.Remove(player);
+            player?.Dispose();
+
+            await timerComponent.WaitAsync(300);
         }
 
         public static async ETTask KickPlayer(Player player)

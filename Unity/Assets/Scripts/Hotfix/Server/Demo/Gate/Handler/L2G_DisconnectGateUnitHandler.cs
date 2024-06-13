@@ -31,7 +31,6 @@
                     player.GetComponent<PlayerSessionComponent>().Session = null;
                 }
 
-                
                 //加这个组件，是10秒之内不进行登录到Gate就会被踢
                 player.AddComponent<PlayerOfflineOutTimeComponent>();
             }
