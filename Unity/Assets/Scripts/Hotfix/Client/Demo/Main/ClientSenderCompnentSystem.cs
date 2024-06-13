@@ -2,23 +2,23 @@
 
 namespace ET.Client
 {
-    [EntitySystemOf(typeof(ClientSenderCompnent))]
-    [FriendOf(typeof(ClientSenderCompnent))]
+    [EntitySystemOf(typeof(ClientSenderComponent))]
+    [FriendOf(typeof(ClientSenderComponent))]
     public static partial class ClientSenderCompnentSystem
     {
         [EntitySystem]
-        private static void Awake(this ClientSenderCompnent self)
+        private static void Awake(this ClientSenderComponent self)
         {
 
         }
         
         [EntitySystem]
-        private static void Destroy(this ClientSenderCompnent self)
+        private static void Destroy(this ClientSenderComponent self)
         {
             self.RemoveFiberAsync().Coroutine();
         }
 
-        private static async ETTask RemoveFiberAsync(this ClientSenderCompnent self)
+        private static async ETTask RemoveFiberAsync(this ClientSenderComponent self)
         {
             if (self.fiberId == 0)
             {
@@ -30,7 +30,7 @@ namespace ET.Client
             await FiberManager.Instance.Remove(fiberId);
         }
 
-        public static async ETTask<NetClient2Main_Login> LoginAsync(this ClientSenderCompnent self, string account, string password)
+        public static async ETTask<NetClient2Main_Login> LoginAsync(this ClientSenderComponent self, string account, string password)
         {
             self.fiberId = await FiberManager.Instance.Create(SchedulerType.ThreadPool, 0, SceneType.NetClient, "");
             self.netClientActorId = new ActorId(self.Fiber().Process, self.fiberId);
@@ -45,7 +45,7 @@ namespace ET.Client
             return response;
         }
 
-        public static async ETTask<NetClient2Main_LoginGame> LoginGameAsync(this ClientSenderCompnent self, string account, long key, long roleId, string address)
+        public static async ETTask<NetClient2Main_LoginGame> LoginGameAsync(this ClientSenderComponent self, string account, long key, long roleId, string address)
         {
             Main2NetClient_LoginGame main2NetClientLoginGame = Main2NetClient_LoginGame.Create();
             main2NetClientLoginGame.RealmKey = key;
@@ -57,14 +57,14 @@ namespace ET.Client
 
         }
         
-        public static void Send(this ClientSenderCompnent self, IMessage message)
+        public static void Send(this ClientSenderComponent self, IMessage message)
         {
             A2NetClient_Message a2NetClientMessage = A2NetClient_Message.Create();
             a2NetClientMessage.MessageObject = message;
             self.Root().GetComponent<ProcessInnerSender>().Send(self.netClientActorId, a2NetClientMessage);
         }
 
-        public static async ETTask<IResponse> Call(this ClientSenderCompnent self, IRequest request, bool needException = true)
+        public static async ETTask<IResponse> Call(this ClientSenderComponent self, IRequest request, bool needException = true)
         {
             A2NetClient_Request a2NetClientRequest = A2NetClient_Request.Create();
             a2NetClientRequest.MessageObject = request;

@@ -29,7 +29,7 @@
 
             switch (player.PlayerState)
             {
-                case PlayerState.Disconect:
+                case PlayerState.Disconnect:
                     break;
                 case PlayerState.Gate:
                     break;
@@ -48,7 +48,7 @@
             }
 
             TimerComponent timerComponent = player.Root().GetComponent<TimerComponent>();
-            player.PlayerState = PlayerState.Disconect;
+            player.PlayerState = PlayerState.Disconnect;
 
             await player.GetComponent<PlayerSessionComponent>().RemoveLocation(LocationType.GateSession);
             await player.RemoveLocation(LocationType.Player);

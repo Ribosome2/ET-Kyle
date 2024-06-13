@@ -33,8 +33,8 @@ namespace ET.Client
         static void OnClickServer(this UIServerSelectComponent self, ServerInfoProto serverInfoProto)
         {
             var serverInfoComponent = self.Root().GetComponent<ServerInfoComponent>();
-            ClientSenderCompnent clientSenderCompnent = self.Root().GetComponent<ClientSenderCompnent>();
-            LoginHelper.SelectServer(self.Root(), serverInfoComponent.Account, serverInfoComponent.Token, serverInfoProto,clientSenderCompnent);
+            ClientSenderComponent clientSenderComponent = self.Root().GetComponent<ClientSenderComponent>();
+            LoginHelper.SelectServer(self.Root(), serverInfoComponent.Account, serverInfoComponent.Token, serverInfoProto,clientSenderComponent);
             
         }
 

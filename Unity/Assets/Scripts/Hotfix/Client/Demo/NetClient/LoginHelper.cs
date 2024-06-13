@@ -6,10 +6,10 @@ namespace ET.Client
     {
         public static async ETTask Login(Scene root, string account, string password)
         {
-            root.RemoveComponent<ClientSenderCompnent>();
-            ClientSenderCompnent clientSenderCompnent = root.AddComponent<ClientSenderCompnent>();
+            root.RemoveComponent<ClientSenderComponent>();
+            ClientSenderComponent clientSenderComponent = root.AddComponent<ClientSenderComponent>();
 
-            NetClient2Main_Login response = await clientSenderCompnent.LoginAsync(account, password);
+            NetClient2Main_Login response = await clientSenderComponent.LoginAsync(account, password);
 
             if (response.Error != ErrorCode.ERR_Success)
             {
@@ -24,7 +24,7 @@ namespace ET.Client
             C2R_GetServerInfos c2RGetServerInfos = C2R_GetServerInfos.Create();
             c2RGetServerInfos.Account = account;
             c2RGetServerInfos.Token = response.Token;
-            R2C_GetServerInfos r2CGetServerInfos = await clientSenderCompnent.Call(c2RGetServerInfos) as R2C_GetServerInfos;
+            R2C_GetServerInfos r2CGetServerInfos = await clientSenderComponent.Call(c2RGetServerInfos) as R2C_GetServerInfos;
             if (r2CGetServerInfos.Error != ErrorCode.ERR_Success)
             {
                 Log.Error("请求服务器列表失败");
@@ -39,14 +39,14 @@ namespace ET.Client
         }
 
         public static async Task SelectServer(Scene root, string account, string Token, ServerInfoProto serverInfoProto,
-        ClientSenderCompnent clientSenderCompnent)
+        ClientSenderComponent clientSenderComponent)
         {
             //获取区服角色列表
             C2R_GetRoles c2RGetRoles = C2R_GetRoles.Create();
             c2RGetRoles.Token = Token;
             c2RGetRoles.Account = account;
             c2RGetRoles.ServerId = serverInfoProto.Id;
-            R2C_GetRoles r2CGetRoles = await clientSenderCompnent.Call(c2RGetRoles) as R2C_GetRoles;
+            R2C_GetRoles r2CGetRoles = await clientSenderComponent.Call(c2RGetRoles) as R2C_GetRoles;
             if (r2CGetRoles.Error != ErrorCode.ERR_Success)
             {
                 Log.Error("请求区服角色列表失败");
@@ -64,7 +64,7 @@ namespace ET.Client
                 c2RCreateRole.Name = account;
                 
                 
-                R2C_CreateRole r2CCreateRole = await clientSenderCompnent.Call(c2RCreateRole) as R2C_CreateRole;
+                R2C_CreateRole r2CCreateRole = await clientSenderComponent.Call(c2RCreateRole) as R2C_CreateRole;
 
                 if (r2CCreateRole.Error != ErrorCode.ERR_Success)
                 {
@@ -85,7 +85,7 @@ namespace ET.Client
             c2RGetRealmKey.Token = Token;
             c2RGetRealmKey.Account = account;
             c2RGetRealmKey.ServerId = serverInfoProto.Id;
-            R2C_GetRealmKey r2CGetRealmKey = await clientSenderCompnent.Call(c2RGetRealmKey) as R2C_GetRealmKey;
+            R2C_GetRealmKey r2CGetRealmKey = await clientSenderComponent.Call(c2RGetRealmKey) as R2C_GetRealmKey;
 
             if (r2CGetRealmKey.Error != ErrorCode.ERR_Success)
             {
@@ -96,7 +96,7 @@ namespace ET.Client
             
             //请求游戏角色进入Map地图
             NetClient2Main_LoginGame netClient2MainLoginGame =
-                    await clientSenderCompnent.LoginGameAsync(account, r2CGetRealmKey.Key, roleInfoProto.Id, r2CGetRealmKey.Address);
+                    await clientSenderComponent.LoginGameAsync(account, r2CGetRealmKey.Key, roleInfoProto.Id, r2CGetRealmKey.Address);
             if (netClient2MainLoginGame.Error != ErrorCode.ERR_Success)
             {
                 Log.Error($"进入游戏失败：{netClient2MainLoginGame.Error}");

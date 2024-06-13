@@ -2,7 +2,7 @@
 {
     public enum PlayerState
     {
-        Disconect,
+        Disconnect,
         Gate,  //连接了Gate但是还没传送到Game服务器
         Game,
     }
