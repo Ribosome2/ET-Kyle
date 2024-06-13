@@ -62,6 +62,7 @@
                         
                         playerComponent.Add(player);
                         PlayerSessionComponent playerSessionComponent = player.AddComponent<PlayerSessionComponent>();
+                        playerSessionComponent.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.GateSession);
                         await playerSessionComponent.AddLocation(LocationType.GateSession);
 
                         player.AddComponent<MailBoxComponent, MailBoxType>(MailBoxType.UnOrderedMessage);
