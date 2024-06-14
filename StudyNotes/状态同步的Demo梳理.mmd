@@ -1,0 +1,39 @@
+[Scia Reto](https://sciareto.org) mind map   
+> __version__=`1.1`,showJumps=`true`
+---
+
+# Root topic
+
+## 状态同步机制
+
+### 进入场景的单位创建
+
+### 退出场景的单位销毁
+
+### 位置同步机制
+
+#### 检测右键点击，如果点中了地面，就发送C2M\_PathfindingResult
+
+#### C2M\_PathfindingResultHandler
+
+##### 只是调用Unit的FindPathMoveToAsync
+
+###### PathfindingComponent 在Unity当前点和目标点之间查找路径
+
+###### M2C\_PathfindingResult 构造寻路路径
+
+###### 广播寻路路径
+
+#### M2C\_PathfindingResultHandler
+
+##### 服务端先开始了寻路
+
+##### 客户处理寻路，只是调用Unit的Movement组件的MoveToAsync
+
+##### MoveToAsync 本质上是创建了每帧运行的定时器，执行的时候调用Unity的MoveForward
+
+#### 移动到目标点后 M2C\_Stop
+
+##### M2C\_StopHandler
+
+###### 让客户端的单位停止寻路，并且设置到目标位置和朝向
