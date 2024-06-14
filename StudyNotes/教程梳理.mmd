@@ -15,26 +15,18 @@
 ### 特别的没有安装MonoDB Compass
 
 ## Demo运行和打包
-> collapsed=`true`
-
 
 ### 要先编译代码再运行
 
 ### 状态同步Demo
-> collapsed=`true`
-
 
 #### GlobalConfig 设置AppType为Demo
 
 #### 运行
-> collapsed=`true`
-
 
 ##### 输入账号密码登录
 
 ##### 进入游戏后
-> collapsed=`true`
-
 
 ###### 鼠标右键移动
 
@@ -43,106 +35,78 @@
 ###### 按 T 进行地图传送
 
 ### 帧同步demo
-> collapsed=`true`
-
 
 #### AppType 选择LockStep
 
 #### 运行
-> collapsed=`true`
-
 
 ##### 输入账号密码登录
 
 ##### 登录成功自动切换到匹配状态
-> collapsed=`true`
-
 
 ###### 点击match
-> collapsed=`true`
-
 
 ####### 匹配完后进入游戏
-> collapsed=`true`
-
 
 ######## WASD移动
 
 ###### 输入重播key
 
 ### 打包
-> collapsed=`true`
-
 
 #### ET/BuildTool打开打包窗口
-> collapsed=`true`
-
 
 ##### 在这个窗口的CodeCompile部分，本质上只是对Global进行了修改
 
 ##### CodeMode
-> collapsed=`true`
-
 
 ###### Client
-> collapsed=`true`
-
 
 ####### 只当客户端
 
 ###### Server
-> collapsed=`true`
-
 
 ####### 只当服务器
 
 ###### ClientServer
-> collapsed=`true`
-
 
 ####### 同时当双端,这个模式应该只能是在编辑器下用
 
 ##### 选择完后要点击ReGenerateProjectFiles
 
 #### HybridCLR
-> collapsed=`true`
-
 
 ##### Install
 
 ##### GenerateAll
 
 ##### CopyAotDlls
-> collapsed=`true`
-
 
 ###### 目标路径 Assets/Bundles/AotDlls
 
 #### 打AB
-> collapsed=`true`
-
 
 ##### StreamingAssets
-> collapsed=`true`
-
 
 ###### 如果没有这个目录就创建
+
+###### 打包的时候好像并没有自动复制到这个目录
 
 ##### YooAsset/AssetBundleBuilder
 
 ##### 点击构建
 
 #### 打最终包
-> collapsed=`true`
-
 
 ##### 点击BuildEditor的BuildPackage
 
 ##### 生成完会生成在Release目录下
 
-### 运行单独的服务器
-> collapsed=`true`
+#### 安卓打包
 
+##### YooAsset\.ResourcePackage\.ConvertLocationToAssetInfo 执行了上面的也会报错
+
+### 运行单独的服务器
 
 #### Rider打开ET\.sln
 
