@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-namespace ET.PatchFSM
+
+namespace UniFramework.Machine
 {
 	public class StateMachine
 	{
@@ -21,10 +21,7 @@ namespace ET.PatchFSM
 		/// </summary>
 		public string CurrentNode
 		{
-			get
-			{
-				return _curNode != null? _curNode.GetType().FullName : string.Empty;
-			}
+			get { return _curNode != null ? _curNode.GetType().FullName : string.Empty; }
 		}
 
 		/// <summary>
@@ -32,17 +29,11 @@ namespace ET.PatchFSM
 		/// </summary>
 		public string PreviousNode
 		{
-			get
-			{
-				return _preNode != null? _preNode.GetType().FullName : string.Empty;
-			}
+			get { return _preNode != null ? _preNode.GetType().FullName : string.Empty; }
 		}
 
 
-		private StateMachine()
-		{
-		}
-
+		private StateMachine() { }
 		public StateMachine(System.Object owner)
 		{
 			Owner = owner;
@@ -62,24 +53,22 @@ namespace ET.PatchFSM
 		/// </summary>
 		public void Run<TNode>() where TNode : IStateNode
 		{
-			var nodeType = typeof (TNode);
+			var nodeType = typeof(TNode);
 			var nodeName = nodeType.FullName;
 			Run(nodeName);
 		}
-
 		public void Run(Type entryNode)
 		{
 			var nodeName = entryNode.FullName;
 			Run(nodeName);
 		}
-
 		public void Run(string entryNode)
 		{
 			_curNode = TryGetNode(entryNode);
 			_preNode = _curNode;
 
 			if (_curNode == null)
-				throw new Exception($"Not found entry node: {entryNode}");
+				throw new Exception($"Not found entry node: {entryNode }");
 
 			_curNode.OnEnter();
 		}
@@ -89,11 +78,10 @@ namespace ET.PatchFSM
 		/// </summary>
 		public void AddNode<TNode>() where TNode : IStateNode
 		{
-			var nodeType = typeof (TNode);
+			var nodeType = typeof(TNode);
 			var stateNode = Activator.CreateInstance(nodeType) as IStateNode;
 			AddNode(stateNode);
 		}
-
 		public void AddNode(IStateNode stateNode)
 		{
 			if (stateNode == null)
@@ -109,7 +97,7 @@ namespace ET.PatchFSM
 			}
 			else
 			{
-				Log.Error($"State node already existed : {nodeName}");
+				UniLogger.Error($"State node already existed : {nodeName}");
 			}
 		}
 
@@ -118,17 +106,15 @@ namespace ET.PatchFSM
 		/// </summary>
 		public void ChangeState<TNode>() where TNode : IStateNode
 		{
-			var nodeType = typeof (TNode);
+			var nodeType = typeof(TNode);
 			var nodeName = nodeType.FullName;
 			ChangeState(nodeName);
 		}
-
 		public void ChangeState(Type nodeType)
 		{
 			var nodeName = nodeType.FullName;
 			ChangeState(nodeName);
 		}
-
 		public void ChangeState(string nodeName)
 		{
 			if (string.IsNullOrEmpty(nodeName))
@@ -137,11 +123,11 @@ namespace ET.PatchFSM
 			IStateNode node = TryGetNode(nodeName);
 			if (node == null)
 			{
-				Log.Error($"Can not found state node : {nodeName}");
+				UniLogger.Error($"Can not found state node : {nodeName}");
 				return;
 			}
 
-			Log.Debug($"{_curNode.GetType().FullName} --> {node.GetType().FullName}");
+			UniLogger.Log($"{_curNode.GetType().FullName} --> {node.GetType().FullName}");
 			_preNode = _curNode;
 			_curNode.OnExit();
 			_curNode = node;
@@ -172,7 +158,7 @@ namespace ET.PatchFSM
 			}
 			else
 			{
-				Log.Warning($"Not found blackboard value : {key}");
+				UniLogger.Warning($"Not found blackboard value : {key}");
 				return null;
 			}
 		}

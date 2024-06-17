@@ -1,36 +1,23 @@
-﻿using System;
-using UnityEngine.Events;
+﻿using UniFramework.Event;
 
-namespace ET
-{
-public static class PathResouceEvent
-{
-    public static Action<PatchEventDefine.InitializeFailed> InitializeFailed;
-    public static Action<PatchEventDefine.PatchStatesChange> PatchStatesChange;
-    public static Action<PatchEventDefine.FoundUpdateFiles> FoundUpdateFiles;
-    public static Action<PatchEventDefine.DownloadProgressUpdate> DownloadProgressUpdate;
-    public static Action<PatchEventDefine.PackageVersionUpdateFailed> PackageVersionUpdateFailed;
-    public static Action<PatchEventDefine.PatchManifestUpdateFailed> PatchManifestUpdateFailed;
-    public static Action<PatchEventDefine.WebFileDownloadFailed> WebFileDownloadFailed;
-}
 public class PatchEventDefine
 {
     /// <summary>
     /// 补丁包初始化失败
     /// </summary>
-    public class InitializeFailed 
+    public class InitializeFailed : IEventMessage
     {
         public static void SendEventMessage()
         {
             var msg = new InitializeFailed();
-            PathResouceEvent.InitializeFailed?.Invoke(msg);
+            UniEvent.SendMessage(msg);
         }
     }
 
     /// <summary>
     /// 补丁流程步骤改变
     /// </summary>
-    public class PatchStatesChange 
+    public class PatchStatesChange : IEventMessage
     {
         public string Tips;
 
@@ -38,14 +25,14 @@ public class PatchEventDefine
         {
             var msg = new PatchStatesChange();
             msg.Tips = tips;
-            PathResouceEvent.PatchStatesChange?.Invoke(msg);
+            UniEvent.SendMessage(msg);
         }
     }
 
     /// <summary>
     /// 发现更新文件
     /// </summary>
-    public class FoundUpdateFiles : UnityEvent
+    public class FoundUpdateFiles : IEventMessage
     {
         public int TotalCount;
         public long TotalSizeBytes;
@@ -55,15 +42,14 @@ public class PatchEventDefine
             var msg = new FoundUpdateFiles();
             msg.TotalCount = totalCount;
             msg.TotalSizeBytes = totalSizeBytes;
-            
-            PathResouceEvent.FoundUpdateFiles?.Invoke(msg);
+            UniEvent.SendMessage(msg);
         }
     }
 
     /// <summary>
     /// 下载进度更新
     /// </summary>
-    public class DownloadProgressUpdate : UnityEvent
+    public class DownloadProgressUpdate : IEventMessage
     {
         public int TotalDownloadCount;
         public int CurrentDownloadCount;
@@ -76,39 +62,39 @@ public class PatchEventDefine
             msg.TotalDownloadCount = totalDownloadCount;
             msg.CurrentDownloadCount = currentDownloadCount;
             msg.TotalDownloadSizeBytes = totalDownloadSizeBytes;
-            msg.CurrentDownloadSizeBytes = currentDownloadSizeBytes; 
-            PathResouceEvent.DownloadProgressUpdate?.Invoke(msg);
+            msg.CurrentDownloadSizeBytes = currentDownloadSizeBytes;
+            UniEvent.SendMessage(msg);
         }
     }
 
     /// <summary>
     /// 资源版本号更新失败
     /// </summary>
-    public class PackageVersionUpdateFailed 
+    public class PackageVersionUpdateFailed : IEventMessage
     {
         public static void SendEventMessage()
         {
             var msg = new PackageVersionUpdateFailed();
-            PathResouceEvent.PackageVersionUpdateFailed?.Invoke(msg);
+            UniEvent.SendMessage(msg);
         }
     }
 
     /// <summary>
     /// 补丁清单更新失败
     /// </summary>
-    public class PatchManifestUpdateFailed 
+    public class PatchManifestUpdateFailed : IEventMessage
     {
         public static void SendEventMessage()
         {
             var msg = new PatchManifestUpdateFailed();
-            PathResouceEvent.PatchManifestUpdateFailed?.Invoke(msg);
+            UniEvent.SendMessage(msg);
         }
     }
 
     /// <summary>
     /// 网络文件下载失败
     /// </summary>
-    public class WebFileDownloadFailed 
+    public class WebFileDownloadFailed : IEventMessage
     {
         public string FileName;
         public string Error;
@@ -118,9 +104,7 @@ public class PatchEventDefine
             var msg = new WebFileDownloadFailed();
             msg.FileName = fileName;
             msg.Error = error;
-            
-            PathResouceEvent.WebFileDownloadFailed?.Invoke(msg);
+            UniEvent.SendMessage(msg);
         }
     }
-}
 }
