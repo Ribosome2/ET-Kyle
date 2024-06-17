@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using CommandLine;
 using UnityEngine;
 
@@ -6,8 +7,10 @@ namespace ET
 {
 	public class Init: MonoBehaviour
 	{
+		public static MonoBehaviour MonoInstance; 
 		private void Start()
 		{
+			MonoInstance = this;
 			this.StartAsync().Coroutine();
 		}
 		

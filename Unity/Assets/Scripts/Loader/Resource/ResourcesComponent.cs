@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using YooAsset;
@@ -32,6 +33,7 @@ namespace ET
 
     public class ResourcesComponent : Singleton<ResourcesComponent>, ISingletonAwake
     {
+        public const bool DoPathLoggic = true;
         public void Awake()
         {
             YooAssets.Initialize();
@@ -71,19 +73,27 @@ namespace ET
                 }
                 case EPlayMode.HostPlayMode:
                 {
-                    string defaultHostServer = GetHostServerURL();
-                    string fallbackHostServer = GetHostServerURL();
-                    HostPlayModeParameters createParameters = new();
-                    createParameters.BuildinQueryServices = new GameQueryServices();
-                    createParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
-                    await package.InitializeAsync(createParameters).Task;
+                    if (DoPathLoggic)
+                    {
+                        PatchOperation operation = new PatchOperation(packageName, EDefaultBuildPipeline.BuiltinBuildPipeline.ToString(), ePlayMode);
+                        YooAssets.StartOperation(operation);
+                        await operation.Task;
+                    }
+                    else
+                    {
+                        string defaultHostServer = GetHostServerURL();
+                        string fallbackHostServer = GetHostServerURL();
+                        HostPlayModeParameters createParameters = new();
+                        createParameters.BuildinQueryServices = new GameQueryServices();
+                        createParameters.RemoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
+                        await package.InitializeAsync(createParameters).Task;
+                    }
                     break;
                 }
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
-
         static string GetHostServerURL()
         {
             //string hostServerIP = "http://10.0.2.2"; //安卓模拟器地址
