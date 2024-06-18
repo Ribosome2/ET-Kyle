@@ -81,7 +81,6 @@ public class PatchOperation : GameAsyncOperation
     /// </summary>
     private void OnHandleEventMessage(IEventMessage message)
     {
-        Debug.LogError("PathMessage "+message);
         if (message is UserEventDefine.UserTryInitialize)
         {
             _machine.ChangeState<FsmInitializePackage>();

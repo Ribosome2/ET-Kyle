@@ -7,7 +7,8 @@ namespace ET
 {
 	public class Init: MonoBehaviour
 	{
-		public static MonoBehaviour MonoInstance; 
+		public static MonoBehaviour MonoInstance;
+		public bool RunPatchLogic=true;
 		private void Start()
 		{
 			MonoInstance = this;
@@ -36,7 +37,7 @@ namespace ET
 			World.Instance.AddSingleton<TimeInfo>();
 			World.Instance.AddSingleton<FiberManager>();
 
-			await World.Instance.AddSingleton<ResourcesComponent>().CreatePackageAsync("DefaultPackage", true);
+			await World.Instance.AddSingleton<ResourcesComponent>().CreatePackageAsync("DefaultPackage", true,this.RunPatchLogic);
 			
 			CodeLoader codeLoader = World.Instance.AddSingleton<CodeLoader>();
 			await codeLoader.DownloadAsync();

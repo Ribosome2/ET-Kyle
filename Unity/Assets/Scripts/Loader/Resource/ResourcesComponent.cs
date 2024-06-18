@@ -33,7 +33,6 @@ namespace ET
 
     public class ResourcesComponent : Singleton<ResourcesComponent>, ISingletonAwake
     {
-        public const bool DoPathLoggic = true;
         public void Awake()
         {
             YooAssets.Initialize();
@@ -44,7 +43,7 @@ namespace ET
             YooAssets.Destroy();
         }
 
-        public async ETTask CreatePackageAsync(string packageName, bool isDefault = false)
+        public async ETTask CreatePackageAsync(string packageName, bool isDefault = false,bool runPatchLogic=true)
         {
             ResourcePackage package = YooAssets.CreatePackage(packageName);
             if (isDefault)
@@ -73,7 +72,7 @@ namespace ET
                 }
                 case EPlayMode.HostPlayMode:
                 {
-                    if (DoPathLoggic)
+                    if (runPatchLogic)
                     {
                         PatchOperation operation = new PatchOperation(packageName, EDefaultBuildPipeline.BuiltinBuildPipeline.ToString(), ePlayMode);
                         YooAssets.StartOperation(operation);

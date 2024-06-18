@@ -42,6 +42,16 @@
 > leftSide=`true`
 
 
+### 缓存文件路径
+
+#### 如果是在编辑器运行："项目根目录/Bundles/DefaultPackage/CacheFiles"
+
+### 删除缓存目录的文件就行
+
+### 具体的缓存目录规则是
+
+#### PersistentManager\.CreateDefaultSandboxRoot<br/>里面编辑器为了方便查看直接放在了项目的工作目录下
+
 ## Demo更新的CDN地址
 > leftSide=`true`
 
@@ -63,3 +73,83 @@
 ### 再没有更换安装包的情况下，不需要心中APP版本目录
 
 ## Demo更新流程
+
+### FsmInitializePackage
+
+#### 根据不同的PlayMode来创建InitializationOperation 实例<br/>并且等待实例执行完成完成
+
+##### HostPlayMode的实例是HostPlayModeImpl
+
+### FsmUpdatePackageVersion
+
+#### 整个过程就为了更新一个版本号 PackageVersion
+
+### FsmUpdatePackageManifest
+
+#### 更新资源清单，资源的类型不限于bundle?
+
+#### HostPlayModeUpdatePackageManifestOperation实现
+
+##### ActiveManifest\.PackageVersion 一样就不需要更新
+
+##### 版本号不一样
+
+###### 加载缓存的Manifest LoadCacheManifestOperation
+
+###### 下载远端的Manifest DownloadManifestOperation
+
+### FsmCreatePackageDownloader
+
+#### 根据版本号和Bundle列表对比出需要下载的列表？
+
+#### GetDownloadListByAll
+
+##### 遍历远端的Manifest的BundleList
+
+###### 忽略分发文件
+
+###### 忽略缓存文件
+
+####### 所谓的缓存文件就是已经更新过的？用Guid做key
+
+####### Guid既是Bundle文件的meta里面的id也是生成的Bundle的名称？
+
+###### 忽略APP资源
+
+### FsmDownloadPackageFiles
+
+#### 下载热更文件
+
+##### ResourceDownloaderOperation
+
+### FsmDownloadPackageOver
+
+#### 没有什么实际逻辑，只是为了更新热更窗口状态
+
+### FsmClearPackageCache
+
+#### 清理包缓存
+
+### FsmUpdaterDone
+
+#### 更新完成
+
+## HybridCLR
+
+### GlobalConfig,如果没有勾选EnableDLL好像就生成GenerateAll就会报错?
+
+## 真机报错
+> leftSide=`true`
+
+
+### MissingMethodException: Default constructor not found for type YooAsset\.FileGeneralRequest
+
+#### Unity/Assets/link\.xml文件中加入：<br/> \<assembly fullname="YooAsset" preserve="all" /\><br/>然后走一遍HybridCLR的Generate流程，再出包
+
+## 热更文件数量逻辑
+> leftSide=`true`
+
+
+### ResourcePackage\.CreateResourceDownloader
+
+#### HostPlayModeImpl\.CreateResourceDownloaderByAll
