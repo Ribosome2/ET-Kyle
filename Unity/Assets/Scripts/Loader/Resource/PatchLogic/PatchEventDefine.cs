@@ -107,4 +107,16 @@ public class PatchEventDefine
             UniEvent.SendMessage(msg);
         }
     }
+    
+    /// <summary>
+    /// 网络文件下载失败
+    /// </summary>
+    public class PatchFinish : IEventMessage
+    {
+        public static void SendEventMessage()
+        {
+            var msg = new PatchFinish();
+            UniEvent.SendMessage(msg);
+        }
+    }
 }

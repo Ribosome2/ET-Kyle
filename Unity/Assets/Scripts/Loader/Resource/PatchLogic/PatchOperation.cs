@@ -26,7 +26,8 @@ public class PatchOperation : GameAsyncOperation
         UniEvent.Initalize();
         // 加载更新页面
         var go = Resources.Load<GameObject>("PatchWindow");
-        GameObject.Instantiate(go);
+        var uiRoot = GameObject.Find("Global/UI/High");
+        GameObject.Instantiate(go,uiRoot.transform);
         
         // 注册监听事件
         _eventGroup.AddListener<UserEventDefine.UserTryInitialize>(OnHandleEventMessage);

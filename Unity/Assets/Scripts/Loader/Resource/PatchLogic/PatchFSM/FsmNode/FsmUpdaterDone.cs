@@ -10,9 +10,12 @@ internal class FsmUpdaterDone : IStateNode
 {
     void IStateNode.OnCreate(StateMachine machine)
     {
+        PatchEventDefine.PatchStatesChange.SendEventMessage("Patch Finish!");
+        
     }
     void IStateNode.OnEnter()
     {
+        PatchEventDefine.PatchFinish.SendEventMessage();
     }
     void IStateNode.OnUpdate()
     {
