@@ -15,6 +15,7 @@ namespace ET.Client
             // 创建一个ETModel层的Session
             root.RemoveComponent<RouterAddressComponent>();
             // 获取路由跟realmDispatcher地址
+            Log.Warning($"try login to router ip: {ConstValue.RouterHttpHost} port :{ConstValue.RouterHttpPort}");
             RouterAddressComponent routerAddressComponent =
                     root.AddComponent<RouterAddressComponent, string, int>(ConstValue.RouterHttpHost, ConstValue.RouterHttpPort);
             await routerAddressComponent.Init();
