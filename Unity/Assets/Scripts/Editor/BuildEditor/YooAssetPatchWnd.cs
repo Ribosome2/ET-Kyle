@@ -40,6 +40,7 @@ public class YooAssetPatchWnd : EditorWindow
             {
                 File.Delete(file);
             }
+            ShowNotification(new GUIContent("清理完毕"));
         }
         if (GUILayout.Button("CopyBundlesTo",GUILayout.Height(50)))
         {

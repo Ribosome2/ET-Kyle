@@ -16,6 +16,8 @@ namespace ET.Client
 			self.loginBtn.GetComponent<Button>().onClick.AddListener(()=> { self.OnLogin(); });
 			self.account = rc.Get<GameObject>("Account");
 			self.password = rc.Get<GameObject>("Password");
+			self.version = rc.Get<GameObject>("Version");
+			self.version.GetComponent<Text>().text="版本号:"+YooAsset.YooAssets.GetPackage("DefaultPackage").GetPackageVersion();
 		}
 
 		

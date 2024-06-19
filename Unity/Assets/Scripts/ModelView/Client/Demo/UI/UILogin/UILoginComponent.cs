@@ -8,5 +8,6 @@ namespace ET.Client
 		public GameObject account;
 		public GameObject password;
 		public GameObject loginBtn;
+		public GameObject version;
 	}
 }
