@@ -73,42 +73,64 @@
 ### 再没有更换安装包的情况下，不需要心中APP版本目录
 
 ## Demo更新流程
+> collapsed=`true`
+
 
 ### FsmInitializePackage
+> collapsed=`true`
+
 
 #### 根据不同的PlayMode来创建InitializationOperation 实例<br/>并且等待实例执行完成完成
+> collapsed=`true`
+
 
 ##### HostPlayMode的实例是HostPlayModeImpl
 
 ### FsmUpdatePackageVersion
+> collapsed=`true`
+
 
 #### 整个过程就为了更新一个版本号 PackageVersion
 
 ### FsmUpdatePackageManifest
+> collapsed=`true`
+
 
 #### 更新资源清单，资源的类型不限于bundle?
 
 #### HostPlayModeUpdatePackageManifestOperation实现
+> collapsed=`true`
+
 
 ##### ActiveManifest\.PackageVersion 一样就不需要更新
 
 ##### 版本号不一样
+> collapsed=`true`
+
 
 ###### 加载缓存的Manifest LoadCacheManifestOperation
 
 ###### 下载远端的Manifest DownloadManifestOperation
 
 ### FsmCreatePackageDownloader
+> collapsed=`true`
+
 
 #### 根据版本号和Bundle列表对比出需要下载的列表？
 
 #### GetDownloadListByAll
+> collapsed=`true`
+
 
 ##### 遍历远端的Manifest的BundleList
+> collapsed=`true`
+
 
 ###### 忽略分发文件
 
 ###### 忽略缓存文件
+> collapsed=`true`
+
 
 ####### 所谓的缓存文件就是已经更新过的？用Guid做key
 
@@ -119,20 +141,30 @@
 ###### 忽略APP资源
 
 ### FsmDownloadPackageFiles
+> collapsed=`true`
+
 
 #### 下载热更文件
+> collapsed=`true`
+
 
 ##### ResourceDownloaderOperation
 
 ### FsmDownloadPackageOver
+> collapsed=`true`
+
 
 #### 没有什么实际逻辑，只是为了更新热更窗口状态
 
 ### FsmClearPackageCache
+> collapsed=`true`
+
 
 #### 清理包缓存
 
 ### FsmUpdaterDone
+> collapsed=`true`
+
 
 #### 更新完成
 
@@ -155,3 +187,7 @@
 ### ResourcePackage\.CreateResourceDownloader
 
 #### HostPlayModeImpl\.CreateResourceDownloaderByAll
+
+## 生成文件命名改成hash 风格 能更新到，用bundleName就更新不到的问题
+
+### 热更逻辑本身没有做文件码的校验，只是因为带hash的话，文件内容变化了，命名就跟着变化<br/>然后新的文件名不存在就能更新，所以hash或者 "bundle名称\+hash" 两种命名风格都能更新到？
