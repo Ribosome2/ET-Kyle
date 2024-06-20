@@ -1,0 +1,97 @@
+[Scia Reto](https://sciareto.org) mind map   
+> __version__=`1.1`,showJumps=`true`
+---
+
+# Root topic
+
+## 小实践
+
+### 1，按下空格键，在当前位置放一个cube
+
+## 显示角色的加载逻辑
+> leftSide=`true`
+
+
+### LSUnitViewComponentSystem
+
+## ECS关键层级
+> leftSide=`true`
+
+
+### LSWorld
+
+### LSUnitComponent
+> leftSide=`true`
+
+
+### SceneType为RoomRoot的Scene
+
+#### Room
+
+##### LSWorld
+
+###### LSUnitComponent
+
+####### 负责管理世界的所有单位
+
+####### LSUnit
+
+######## LSInputComponent
+
+##### RoomServerComponent
+
+##### LSServerUpdater
+
+##### LSUnitViewComponent
+
+###### 管理所有的单位的表现逻辑
+
+## 场景表现初始化流程
+
+### LSSceneInitFinish\_Finish
+
+#### LSUnitViewComponent\>\(\)\.InitAsync\(\)<br/>加载所有单位的模型
+
+#### 添加LSCameraComponent
+
+#### 如果是重播 加 LSOperaComponent组件
+
+#### 关闭LobbyUI
+
+## Demo的移动逻辑
+> leftSide=`true`
+
+
+### LSOperaComponentSystem 的Update进行<br/>输入检测，构建移动的TSVector2 赋值给Room的<br/>LSClientUpdater的Input\.V
+
+### LSInputComponentSystem的LSUpdate里面判断Input\.V向量不为0的话，就更新Unit的位置和朝向
+> leftSide=`true`
+
+
+## 定点数
+> leftSide=`true`
+
+
+### 定点数库
+
+#### ET论坛的一些说明 
+- LINK
+<pre>https://et-framework.cn/d/95</pre>
+
+#### TrueSync的定点数库
+- LINK
+<pre>https://github.com/aaa719717747/TrueSyncExample/blob/master/Assets/TrueSync/Engine/Math/Fix64.cs</pre>
+
+### 定点数表示
+
+#### 根据需要使用32位或者64位整型表示
+
+#### 定点数原理
+> leftSide=`true`
+
+
+##### 使用整型数的一部非bite来作为证书部分，剩下的作为小鼠部分
+
+## 守望先锋的ECS分享
+- LINK
+<pre>https://www.lfzxb.top/ow-gdc-share-table-of-contents/</pre>
