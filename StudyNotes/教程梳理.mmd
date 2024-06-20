@@ -3,8 +3,6 @@
 ---
 
 # Root topic
-> collapsed=`true`
-
 
 ## 课程介绍
 
@@ -1225,3 +1223,43 @@
 ####### 通知移除账号角色登录信息 G2L\_RemoveLoginRecord
 
 ### 十二
+
+## 二次登录的作业
+> leftSide=`true`
+
+
+### 判断是game状态的player是在sessionPlayerComponent拿的
+
+### player是在gate还是map?
+> leftSide=`true`
+
+
+#### 在loginGameGateHandler的时候加上的，所以是在gate
+
+### SessionPlayer组件和PlayerSession组件
+
+#### 树形关系
+
+##### GateScene
+
+###### PlayerComponent
+
+####### Player 作为子实体
+
+######## PlayerSessionComponent
+
+######### Session字段 为了引用session
+
+####### 管理Player
+
+###### Session
+
+####### 是Scene的子实体
+
+####### SessionPlayerComponent
+
+######## Player字段
+
+######## 挂在session身上，只是为了引用Player
+
+#### 两者互相引用

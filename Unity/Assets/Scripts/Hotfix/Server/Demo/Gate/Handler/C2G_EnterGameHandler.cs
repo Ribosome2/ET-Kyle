@@ -7,6 +7,7 @@ namespace ET.Server
     {
         protected override async ETTask Run(Session session, C2G_EnterGame request, G2C_EnterGame response)
         {
+            Log.Console("EnterGameHandler---- "+session.InstanceId);
             if (session.GetComponent<SessionLockingComponent>() != null)
             {
                 response.Error = ErrorCode.ERR_RequestRepeatedly;
@@ -49,9 +50,26 @@ namespace ET.Server
                                     .Get(LocationType.Unit).Call(player.UnitId, g2MSecondLogin);
                             if (reqEnter.Error == ErrorCode.ERR_Success)
                             {
+                                await DisConnectHelper.KickPlayerNoLock(player);
                                 Log.Console("作业：二次登录逻辑，补全下发切换场景消息");
+                                var unit = session.Root().GetChild<Unit>(player.UnitId);
+                                Log.Console("unitState "+player.PlayerState);
+                                var scene = session.Root();
+                                // 通知客户端开始切场景
+                                M2C_StartSceneChange m2CStartSceneChange = M2C_StartSceneChange.Create();
+                                m2CStartSceneChange.SceneInstanceId = scene.InstanceId;
+                                m2CStartSceneChange.SceneName = scene.Name;
+                                MapMessageHelper.SendToClient(unit, m2CStartSceneChange);
+
+                                // 通知客户端创建My Unit
+                                M2C_CreateMyUnit m2CCreateUnits = M2C_CreateMyUnit.Create();
+                                m2CCreateUnits.Unit = UnitHelper.CreateUnitInfo(unit);
+                                MapMessageHelper.SendToClient(unit, m2CCreateUnits);
                                 return;
                             }
+                            
+
+                            
                             Log.Error("二次登录失败 "+reqEnter.Error+ " | "+reqEnter.Message);
                             response.Error = ErrorCode.ERR_ReEnterGameError;
                             await DisConnectHelper.KickPlayerNoLock(player);
@@ -93,6 +111,8 @@ namespace ET.Server
                     catch (Exception e)
                     {
                        Log.Error($"角色进入游戏逻辑服出现问题 账号Id: {player.Account} 角色Id:{player.Id} 异常消息：{e}");
+                       Log.Console($"角色进入游戏逻辑服出现问题 账号Id: {player.Account} 角色Id:{player.Id} 异常消息：{e}");
+                       Log.Trace($"角色进入游戏逻辑服出现问题 账号Id: {player.Account} 角色Id:{player.Id} 异常消息：{e}");
                        response.Error = ErrorCode.ERR_EnterGameError;
                        await DisConnectHelper.KickPlayerNoLock(player);
                        session.Disconnect().Coroutine();

@@ -5,7 +5,8 @@
     {
         protected override async ETTask Run(Unit unit, G2M_SecondLogin request, M2G_SecondLogin response)
         {
-            Log.Console("作业：二次登录逻辑,不全G2M_SecondLogin消息处理逻辑");
+            Log.Console("作业：二次登录逻辑,补全G2M_SecondLogin消息处理逻辑");
+            response.Message = "nothing";
             await ETTask.CompletedTask;
         }
     }

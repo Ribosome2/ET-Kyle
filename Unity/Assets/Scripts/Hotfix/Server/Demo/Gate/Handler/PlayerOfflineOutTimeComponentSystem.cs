@@ -6,6 +6,7 @@
     {
         protected override void Run(PlayerOfflineOutTimeComponent t)
         {
+            Log.Console("PlayerOutlineOutTime ---- ");
             t?.KickPlayer();
         }
     }
