@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using YooAsset;
 
@@ -62,6 +63,7 @@ namespace ET.Client
 
                 self.handlers.Add(location, handler);
             }
+            BundleFixForEditor.HandleLoadAssetDone<T>(((AssetHandle)handler).AssetObject);
 
             return (T)((AssetHandle)handler).AssetObject;
         }
@@ -101,6 +103,7 @@ namespace ET.Client
             handler = self.package.LoadSceneAsync(location);
 
             await handler.Task;
+            BundleFixForEditor.HandleSceneLoadFinish();
             self.handlers.Add(location, handler);
         }
     }
