@@ -1131,7 +1131,7 @@ namespace ET
 		public List<string> EntityTypes { get; set; } = new();
 
 		[MemoryPackOrder(2)]
-		public List<string> EntityBytes { get; set; } = new();
+		public List<byte[]> EntityBytes { get; set; } = new();
 
 		public override void Dispose() 
 		{

@@ -25,6 +25,8 @@ namespace ET
         public StartSceneConfig Benchmark;
         
         public StartSceneConfig LoginCenterConfig;
+
+        public Dictionary<int, StartSceneConfig> UnitCaches = new Dictionary<int, StartSceneConfig>();
         
         public List<StartSceneConfig> GetByProcess(int process)
         {
@@ -34,6 +36,12 @@ namespace ET
         public StartSceneConfig GetBySceneName(int zone, string name)
         {
             return this.ClientScenesByName[zone][name];
+        }
+
+        public StartSceneConfig GetUnitCacheConfig(long unitId)
+        {
+            int zone = UnitIdStruct.GetUnitZone(unitId);
+            return UnitCaches[zone];
         }
 
         public override void EndInit()
@@ -73,6 +81,9 @@ namespace ET
                         break;
                     case SceneType.LoginCenter:
                         this.LoginCenterConfig = startSceneConfig;
+                        break;
+                    case SceneType.UnitCache:
+                        this.UnitCaches.Add(startSceneConfig.Zone,startSceneConfig);
                         break;
                 }
             }

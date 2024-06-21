@@ -133,5 +133,10 @@ namespace ET
         {
             return Deserialize<T>(Serialize(t));
         }
+
+        public static byte[] ToBson(object obj)
+        {
+            return obj.ToBson();
+        }
     }
 }
