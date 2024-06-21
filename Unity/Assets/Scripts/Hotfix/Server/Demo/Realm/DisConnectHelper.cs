@@ -34,17 +34,19 @@
                 case PlayerState.Gate:
                     break;
                 case PlayerState.Game:
+                {
                     //通知游戏逻辑服下线Unit角色逻辑，并将数据存入数据库
                     M2G_RequestExitGame m2GRequestExitGame = (M2G_RequestExitGame)await player.Root().GetComponent<MessageLocationSenderComponent>()
                             .Get(LocationType.Unit).Call(player.UnitId, G2M_RequestExitGame.Create());
-                    
+
                     //通知移除账号角色登录信息
                     G2L_RemoveLoginRecord g2LRemoveLoginRecord = G2L_RemoveLoginRecord.Create();
                     g2LRemoveLoginRecord.AccountName = player.Account;
                     g2LRemoveLoginRecord.ServerId = player.Zone();
                     L2G_RemoveLoginRecord l2GRemoveLoginRecord = (L2G_RemoveLoginRecord)await player.Root().GetComponent<MessageSender>()
                             .Call(StartSceneConfigCategory.Instance.LoginCenterConfig.ActorId, g2LRemoveLoginRecord);
-                break;
+                    break;
+                }
             }
 
             TimerComponent timerComponent = player.Root().GetComponent<TimerComponent>();

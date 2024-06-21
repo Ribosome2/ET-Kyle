@@ -1263,3 +1263,25 @@
 ######## 挂在session身上，只是为了引用Player
 
 #### 两者互相引用
+
+### G2M\_SecondLogin 怎么处理
+
+### 补全下发切换场景消息
+> leftSide=`true`
+
+
+### 6\.0的进阶课程处理
+
+#### SessioPlayerComponent 加了一个<br/>isLoginAgain字段标记是否二次登录
+
+##### Destroy组件的时候
+
+###### 标记改成false
+
+###### 如果不是二次登录，并且instanceId不为0，就踢player下线
+> leftSide=`true`
+
+
+##### L2G\_DisconnectGateUnitHandler 的时候，如果是需要做顶号处理<br/>就把标记设置为true
+
+##### 按照上面的处理已经能正常二次登录了，8\.0 加的 G2M\_SecondLogin有什么作用？ 

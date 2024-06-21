@@ -50,7 +50,6 @@ namespace ET.Server
                                     .Get(LocationType.Unit).Call(player.UnitId, g2MSecondLogin);
                             if (reqEnter.Error == ErrorCode.ERR_Success)
                             {
-                                await DisConnectHelper.KickPlayerNoLock(player);
                                 Log.Console("作业：二次登录逻辑，补全下发切换场景消息");
                                 var unit = session.Root().GetChild<Unit>(player.UnitId);
                                 Log.Console("unitState "+player.PlayerState);
@@ -112,7 +111,6 @@ namespace ET.Server
                     {
                        Log.Error($"角色进入游戏逻辑服出现问题 账号Id: {player.Account} 角色Id:{player.Id} 异常消息：{e}");
                        Log.Console($"角色进入游戏逻辑服出现问题 账号Id: {player.Account} 角色Id:{player.Id} 异常消息：{e}");
-                       Log.Trace($"角色进入游戏逻辑服出现问题 账号Id: {player.Account} 角色Id:{player.Id} 异常消息：{e}");
                        response.Error = ErrorCode.ERR_EnterGameError;
                        await DisConnectHelper.KickPlayerNoLock(player);
                        session.Disconnect().Coroutine();

@@ -33,6 +33,15 @@ namespace ET
 
     public class ResourcesComponent : Singleton<ResourcesComponent>, ISingletonAwake
     {
+        private EPlayMode ePlayMode;
+
+        public EPlayMode PlayMode
+        {
+            get
+            {
+                return this.ePlayMode;
+            }
+        }
         public void Awake()
         {
             YooAssets.Initialize();
@@ -52,7 +61,7 @@ namespace ET
             }
 
             GlobalConfig globalConfig = Resources.Load<GlobalConfig>("GlobalConfig");
-            EPlayMode ePlayMode = globalConfig.EPlayMode;
+            ePlayMode = globalConfig.EPlayMode;
 
             // 编辑器下的模拟模式
             switch (ePlayMode)
