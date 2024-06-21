@@ -1209,7 +1209,7 @@ namespace ET
 	}
 
 //删除Unit缓存
-	[ResponseType(nameof(Other2UnitCache_DeleteUnit))]
+	[ResponseType(nameof(UnitCache2Other_DeleteUnit))]
 	[Message(InnerMessage.Other2UnitCache_DeleteUnit)]
 	[MemoryPackable]
 	public partial class Other2UnitCache_DeleteUnit: MessageObject, IActorRequest
@@ -1230,6 +1230,36 @@ namespace ET
 			if (!this.IsFromPool) { return; }
 			this.RpcId = default;
 			this.UnitId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.UnitCache2Other_DeleteUnit)]
+	[MemoryPackable]
+	public partial class UnitCache2Other_DeleteUnit: MessageObject, IResponse
+	{
+		public static UnitCache2Other_DeleteUnit Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(UnitCache2Other_DeleteUnit), isFromPool) as UnitCache2Other_DeleteUnit; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) { return; }
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
 			
 			ObjectPool.Instance.Recycle(this); 
 		}
@@ -1278,5 +1308,6 @@ namespace ET
 		 public const ushort UnitCache2Other_AddOrUpdateUnit = 20039;
 		 public const ushort Other2UnitCache_GetUnit = 20040;
 		 public const ushort Other2UnitCache_DeleteUnit = 20041;
+		 public const ushort UnitCache2Other_DeleteUnit = 20042;
 	}
 }

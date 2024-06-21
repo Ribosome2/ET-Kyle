@@ -288,7 +288,7 @@ message Other2UnitCache_AddOrUpdateUnit //IActorRequest
 
 	int64 UnitId = 1;  //需要缓存的UnitId
 	repeated string EntityTypes = 2; //实体类型
-	repeated string EntityBytes = 3; //实体序列化后的Bytes
+	repeated bytes EntityBytes = 3; //实体序列化后的Bytes
 }
 
 message UnitCache2Other_AddOrUpdateUnit //IResponse
@@ -310,10 +310,18 @@ message Other2UnitCache_GetUnit //IActorRequest
 
 
 //删除Unit缓存
-//ResponseType Other2UnitCache_DeleteUnit
+//ResponseType UnitCache2Other_DeleteUnit
 message Other2UnitCache_DeleteUnit  //IActorRequest
 {
 	int32 RpcId = 90;
 	
 	int64 UnitId = 1;
+}
+
+
+message UnitCache2Other_DeleteUnit // IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
 }

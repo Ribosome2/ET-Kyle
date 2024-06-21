@@ -138,5 +138,33 @@ namespace ET
         {
             return obj.ToBson();
         }
+        
+        public static object FromBson(Type type, byte[] bytes)
+        {
+            try
+            {
+                return BsonSerializer.Deserialize(bytes, type);
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"from bson error: {type.Name}", e);
+            }
+        }
+
+        
+        public static object FromBson(Type type, byte[] bytes, int index, int count)
+        {
+            try
+            {
+                using (MemoryStream memoryStream = new MemoryStream(bytes, index, count))
+                {
+                    return BsonSerializer.Deserialize(memoryStream, type);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"from bson error: {type.Name}", e);
+            }
+        }
     }
 }
