@@ -26,6 +26,7 @@ namespace ET
 		Watcher = 1 << 19,
 
 		LoginCenter =1 << 20,
+		UnitCache =1 << 21,
 		
 		// 客户端
 		Demo = 1 << 30,

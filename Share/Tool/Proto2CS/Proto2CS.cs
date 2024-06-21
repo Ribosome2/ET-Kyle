@@ -100,7 +100,7 @@ namespace ET
                 // {
                 //     Log.Console($"{newline}+ success "+ match.Success+" Groups"+match.Groups.Count);
                 // }
-                if (match.Success)
+                if (match.Success && match.Index==0)
                 {
                     // string responseType = line.Split(" ")[1].TrimEnd('\r', '\n');
                     string responseType = match.Groups["responseTypeName"].Value;

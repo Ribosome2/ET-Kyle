@@ -1071,6 +1071,171 @@ namespace ET
 
 	}
 
+//-------- 玩家缓存相关 -----
+	[Message(InnerMessage.UnitCache2Other_GetUnit)]
+	[MemoryPackable]
+	public partial class UnitCache2Other_GetUnit: MessageObject, IResponse
+	{
+		public static UnitCache2Other_GetUnit Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(UnitCache2Other_GetUnit), isFromPool) as UnitCache2Other_GetUnit; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		[MemoryPackOrder(3)]
+		public List<Entity> EntityList { get; set; } = new();
+
+		[MemoryPackOrder(4)]
+		public List<string> ComponentNameList { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) { return; }
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			this.EntityList.Clear();
+			this.ComponentNameList.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+//增加或者更新Unit缓存
+	[ResponseType(nameof(UnitCache2Other_AddOrUpdateUnit))]
+	[Message(InnerMessage.Other2UnitCache_AddOrUpdateUnit)]
+	[MemoryPackable]
+	public partial class Other2UnitCache_AddOrUpdateUnit: MessageObject, IActorRequest
+	{
+		public static Other2UnitCache_AddOrUpdateUnit Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(Other2UnitCache_AddOrUpdateUnit), isFromPool) as Other2UnitCache_AddOrUpdateUnit; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public long UnitId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public List<string> EntityTypes { get; set; } = new();
+
+		[MemoryPackOrder(2)]
+		public List<string> EntityBytes { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) { return; }
+			this.RpcId = default;
+			this.UnitId = default;
+			this.EntityTypes.Clear();
+			this.EntityBytes.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+	[Message(InnerMessage.UnitCache2Other_AddOrUpdateUnit)]
+	[MemoryPackable]
+	public partial class UnitCache2Other_AddOrUpdateUnit: MessageObject, IResponse
+	{
+		public static UnitCache2Other_AddOrUpdateUnit Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(UnitCache2Other_AddOrUpdateUnit), isFromPool) as UnitCache2Other_AddOrUpdateUnit; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(90)]
+		public int Error { get; set; }
+
+		[MemoryPackOrder(91)]
+		public string Message { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) { return; }
+			this.RpcId = default;
+			this.Error = default;
+			this.Message = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+//获取Unit缓存
+	[ResponseType(nameof(UnitCache2Other_GetUnit))]
+	[Message(InnerMessage.Other2UnitCache_GetUnit)]
+	[MemoryPackable]
+	public partial class Other2UnitCache_GetUnit: MessageObject, IActorRequest
+	{
+		public static Other2UnitCache_GetUnit Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(Other2UnitCache_GetUnit), isFromPool) as Other2UnitCache_GetUnit; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public long UnitId { get; set; }
+
+		[MemoryPackOrder(1)]
+		public List<string> ComponentNameList { get; set; } = new();
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) { return; }
+			this.RpcId = default;
+			this.UnitId = default;
+			this.ComponentNameList.Clear();
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
+//删除Unit缓存
+	[ResponseType(nameof(Other2UnitCache_DeleteUnit))]
+	[Message(InnerMessage.Other2UnitCache_DeleteUnit)]
+	[MemoryPackable]
+	public partial class Other2UnitCache_DeleteUnit: MessageObject, IActorRequest
+	{
+		public static Other2UnitCache_DeleteUnit Create(bool isFromPool = false) 
+		{ 
+			return ObjectPool.Instance.Fetch(typeof(Other2UnitCache_DeleteUnit), isFromPool) as Other2UnitCache_DeleteUnit; 
+		}
+
+		[MemoryPackOrder(89)]
+		public int RpcId { get; set; }
+
+		[MemoryPackOrder(0)]
+		public long UnitId { get; set; }
+
+		public override void Dispose() 
+		{
+			if (!this.IsFromPool) { return; }
+			this.RpcId = default;
+			this.UnitId = default;
+			
+			ObjectPool.Instance.Recycle(this); 
+		}
+
+	}
+
 	public static class InnerMessage
 	{
 		 public const ushort ObjectQueryRequest = 20002;
@@ -1108,5 +1273,10 @@ namespace ET
 		 public const ushort M2G_SecondLogin = 20034;
 		 public const ushort G2M_RequestExitGame = 20035;
 		 public const ushort M2G_RequestExitGame = 20036;
+		 public const ushort UnitCache2Other_GetUnit = 20037;
+		 public const ushort Other2UnitCache_AddOrUpdateUnit = 20038;
+		 public const ushort UnitCache2Other_AddOrUpdateUnit = 20039;
+		 public const ushort Other2UnitCache_GetUnit = 20040;
+		 public const ushort Other2UnitCache_DeleteUnit = 20041;
 	}
 }

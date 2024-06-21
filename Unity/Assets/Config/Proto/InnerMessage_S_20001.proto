@@ -265,3 +265,55 @@ message M2G_RequestExitGame // ILocationResponse
 	int32 Error = 2;
 	string Message = 3;
 }
+
+
+//-------- 玩家缓存相关 -----
+
+message UnitCache2Other_GetUnit //IResponse
+{
+    int32 RpcId = 90;
+    int32 Error = 91;
+    string Message = 92;
+
+    repeated Entity EntityList = 4;
+    repeated string ComponentNameList = 5;
+}
+
+
+//增加或者更新Unit缓存
+//ResponseType UnitCache2Other_AddOrUpdateUnit
+message Other2UnitCache_AddOrUpdateUnit //IActorRequest
+{
+	int32 RpcId = 90;
+
+	int64 UnitId = 1;  //需要缓存的UnitId
+	repeated string EntityTypes = 2; //实体类型
+	repeated string EntityBytes = 3; //实体序列化后的Bytes
+}
+
+message UnitCache2Other_AddOrUpdateUnit //IResponse
+{
+	int RpcId = 90;
+	int Error = 91;
+	string Message = 92;
+}
+
+//获取Unit缓存
+//ResponseType UnitCache2Other_GetUnit
+message Other2UnitCache_GetUnit //IActorRequest
+{
+	int32 RpcId = 90;
+
+	int64 UnitId = 1;
+	repeated string ComponentNameList = 2; //需要获取的组件名
+}
+
+
+//删除Unit缓存
+//ResponseType Other2UnitCache_DeleteUnit
+message Other2UnitCache_DeleteUnit  //IActorRequest
+{
+	int32 RpcId = 90;
+	
+	int64 UnitId = 1;
+}

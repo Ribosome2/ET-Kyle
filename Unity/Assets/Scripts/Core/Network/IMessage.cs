@@ -14,6 +14,15 @@
         }
     }
 
+    public interface IActorRequest: IRequest
+    {
+        long UnitId
+        {
+            get;
+            set;
+        }
+    }
+
     public interface IResponse: IMessage
     {
         int Error
@@ -34,4 +43,13 @@
             set;
         }
     }
+
+    // public interface IActorResponse: IResponse
+    // {
+    //     long UnitId
+    //     {
+    //         get;
+    //         set;
+    //     }
+    // }
 }
