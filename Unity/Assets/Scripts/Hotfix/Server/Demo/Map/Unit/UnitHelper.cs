@@ -39,11 +39,46 @@ namespace ET.Server
 
             return unitInfo;
         }
+
+        public static async ETTask<(bool,Unit)> LoadUnit(Player player)
+        {
+            GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
+            gateMapComponent.Scene = await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
+
+            Unit unit = await UnitCacheHelper.GetUnitCache(gateMapComponent.Scene, player.UnitId);
+            bool isNewUnit = unit == null;
+            if (isNewUnit)
+            {
+                unit = UnitFactory.Create(gateMapComponent.Scene, player.Id, UnitType.Player);
+                UnitCacheHelper.AddOrUpdateUnitAllCache(unit);
+            }
+
+            return (isNewUnit, unit);
+
+        }
+        
         
         // 获取看见unit的玩家，主要用于广播
         public static Dictionary<long, EntityRef<AOIEntity>> GetBeSeePlayers(this Unit self)
         {
             return self.GetComponent<AOIEntity>().GetBeSeePlayers();
+        }
+        
+        /// <summary>
+        /// 发送RPC协议给Actor
+        /// </summary>
+        /// <param name="actorId">注册Actor的InstanceId</param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static async ETTask<IResponse> CallActor(ActorId actorId, Scene scene ,IActorRequest message)
+        {
+            var msgSender = scene.Root().GetComponent<MessageSender>();
+            if (msgSender == null)
+            {
+                Log.Error("SceneType "+ scene.Name+" HasNoMessageSender ");
+            }
+            return await msgSender.Call(actorId, message);
+            // return await ActorMessageSenderComponent.Instance.Call(actorId, message);
         }
     }
 }

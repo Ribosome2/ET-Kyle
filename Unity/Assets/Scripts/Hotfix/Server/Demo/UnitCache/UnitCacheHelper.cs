@@ -24,6 +24,39 @@ namespace ET.Server
         }
 
 
+        public static async ETTask<Unit> GetUnitCache(Scene scene, long unitId)
+        {
+            var actorId = StartSceneConfigCategory.Instance.GetUnitCacheConfig(unitId).ActorId;
+            Other2UnitCache_GetUnit message = Other2UnitCache_GetUnit.Create();
+            UnitCache2Other_GetUnit queryUnit = (UnitCache2Other_GetUnit)await UnitHelper.CallActor(actorId,scene,message);
+            if (queryUnit.Error != ErrorCode.ERR_Success || queryUnit.EntityList.Count <= 0)
+            {
+                return null;
+            }
+
+            int indexOf = queryUnit.ComponentNameList.IndexOf(nameof (Unit));
+            Unit unit = queryUnit.EntityList[indexOf] as Unit;
+            if (unit == null)
+            {
+                return null;
+            }
+
+            // scene.AddChild(unit);//6.0 add 到Scene 8不行
+            scene.GetComponent<UnitComponent>().AddChild(unit);
+            foreach (Entity entity in queryUnit.EntityList)
+            {
+                if (entity == null || entity is Unit)
+                {
+                    continue;
+                }
+
+                unit.AddComponent(entity);
+            }
+
+            return unit;
+        }
+
+
         /// <summary>
         /// 获取玩家缓存组件
         /// </summary>
@@ -57,6 +90,28 @@ namespace ET.Server
             msg.UnitId = unitId;
             var actorId = StartSceneConfigCategory.Instance.GetUnitCacheConfig(unitId).ActorId;
             await scene.GetComponent<MessageSender>().Call(actorId, msg);
+        }
+
+
+        public static void AddOrUpdateUnitAllCache(Unit unit)
+        {
+            Other2UnitCache_AddOrUpdateUnit message = Other2UnitCache_AddOrUpdateUnit.Create();
+            message.EntityTypes.Add(unit.GetType().FullName);
+            message.EntityBytes.Add(MongoHelper.ToBson(unit));
+
+            foreach(var kv in unit.Components)
+            {
+                var entityType = kv.Value.GetType();
+                if (!typeof (IUnitCache).IsAssignableFrom(entityType))
+                {
+                    continue;
+                }
+                message.EntityTypes.Add(entityType.FullName);
+                message.EntityBytes.Add(MongoHelper.ToBson(kv.Value));
+            }
+            
+            UnitHelper.CallActor(StartSceneConfigCategory.Instance.GetUnitCacheConfig(unit.Id).ActorId,unit.Root(),message).Coroutine();
+            
         }
     }
 }

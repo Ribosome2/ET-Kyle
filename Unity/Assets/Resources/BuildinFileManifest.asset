@@ -18,7 +18,7 @@ MonoBehaviour:
     FileCRC32: 44b48de3
   - PackageName: DefaultPackage
     FileName: assets_bundles_code.bundle
-    FileCRC32: 1b2314ad
+    FileCRC32: 16002ab0
   - PackageName: DefaultPackage
     FileName: assets_bundles_config.bundle
     FileCRC32: 79244e62

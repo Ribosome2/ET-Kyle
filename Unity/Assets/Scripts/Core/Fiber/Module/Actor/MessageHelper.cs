@@ -13,18 +13,6 @@ namespace ET
             return response;
         }
         
-        /// <summary>
-        /// 发送RPC协议给Actor
-        /// </summary>
-        /// <param name="actorId">注册Actor的InstanceId</param>
-        /// <param name="message"></param>
-        /// <returns></returns>
-        public static async ETTask<IResponse> CallActor(ActorId actorId, IActorRequest message)
-        {
-            // return await ActorMessageSenderComponent.Instance.Call(actorId, message);
-            Log.Error("Todo");
-            IResponse response = null;
-            return  response;
-        }
+
     }
 }

@@ -13,6 +13,7 @@
             root.AddComponent<MessageSender>();
 
 
+            root.AddComponent<DBManagerComponent>();
             root.AddComponent<UnitCacheComponent>();
             
             await ETTask.CompletedTask;

@@ -88,14 +88,20 @@ namespace ET.Server
                     try
                     {
                         // 在Gate上动态创建一个Map Scene, 吧Unit从DB中加载放进来，然后传送到真正的Map中， 这样登录跟传送的逻辑就完全一致了
-                        GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
-                        gateMapComponent.Scene =
-                                await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
+                        // GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
+                        // gateMapComponent.Scene = await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
 
-                        Scene scene = gateMapComponent.Scene;
+                        // Scene scene = gateMapComponent.Scene;
                         
                         //这里可以从DB中加载Unit,数据库缓存服是进阶教程内容Orz
-                        Unit unit = UnitFactory.Create(scene, player.Id, UnitType.Player);
+                        // Unit unit = UnitFactory.Create(scene, player.Id, UnitType.Player);
+                        
+                        //从数据库或者缓存中加载出Unit实体及组件
+                        (bool isNewPlayer, Unit unit) = await UnitHelper.LoadUnit(player);
+                        // unit.AddComponent<UnitGateComponent, long>(player.InstanceId); //todo
+                        
+                        //玩家Unit上线后的初始化操作
+                        // await UnitHelper.InitUnit(unit, isNewPlayer); //todo
                         long unitId = unit.Id;
 
                         StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "Map1");

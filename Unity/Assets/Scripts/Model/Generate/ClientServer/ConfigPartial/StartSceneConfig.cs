@@ -40,6 +40,10 @@ namespace ET
 
         public StartSceneConfig GetUnitCacheConfig(long unitId)
         {
+            foreach (var configKV in this.UnitCaches)
+            {
+                return configKV.Value;  //todo:教程是用UnitIdStruct 去做区分，这里我们直接返回唯一的配置，后面估计得有一个id对应到不同的zone的对应关系
+            }
             int zone = UnitIdStruct.GetUnitZone(unitId);
             return UnitCaches[zone];
         }
@@ -55,7 +59,7 @@ namespace ET
                     this.ClientScenesByName.Add(startSceneConfig.Zone, new Dictionary<string, StartSceneConfig>());
                 }
                 this.ClientScenesByName[startSceneConfig.Zone].Add(startSceneConfig.Name, startSceneConfig);
-                
+                // Log.Error("scneType----- "+ startSceneConfig.Type);
                 switch (startSceneConfig.Type)
                 {
                     case SceneType.Realm:

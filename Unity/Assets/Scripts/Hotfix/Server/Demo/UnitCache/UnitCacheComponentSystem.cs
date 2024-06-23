@@ -61,11 +61,16 @@ namespace ET.Server
                     if (!self.UnitCaches.TryGetValue(key, out EntityRef<UnitCache> unitCacheRef))
                     {
                         UnitCache unitCache = self.AddChild<UnitCache>();
-                        unitCache.key = key; 
+                        unitCache.key = key;
+                        unitCacheRef = unitCache;
                         self.UnitCaches.Add(key, unitCache);
                     }
 
                     UnitCache unitCache2 = unitCacheRef;
+                    if (unitCache2 == null)
+                    {
+                        Log.Error("Unit is null");
+                    }
                     unitCache2.AddOrUpdate(entity);
                     list.Add(entity);
                 }
@@ -73,7 +78,7 @@ namespace ET.Server
 
                 if (list.Count > 0)
                 {
-                    DBComponent dbComponent =self.Root().GetComponent<DBManagerComponent>().GetZoneDB(self.DomainZone());
+                    DBComponent dbComponent =self.Root().GetComponent<DBManagerComponent>().GetZoneDB(self.Zone());
                     await dbComponent.Save(unitId, list);
                 }
             }
@@ -86,11 +91,6 @@ namespace ET.Server
                 ((UnitCache)cache).Delete(unitId);
             }
         }
-
-        public static int DomainZone(this UnitCacheComponent self)
-        {
-            Log.Error("Todo");
-            return self.Zone();
-        }
+        
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace ET.Server
 {
+    [MessageHandler(SceneType.UnitCache)]
     [FriendOfAttribute(typeof(ET.Server.UnitCacheComponent))]
     public class Other2UnitCache_GetUnitHandler : MessageHandler<Scene, Other2UnitCache_GetUnit, UnitCache2Other_GetUnit>
     {
