@@ -178,5 +178,14 @@ namespace ET
             allAssetsOperationHandle.Release();
             return dictionary;
         }
+        
+        public  T LoadAssetSync<T>(string location) where T: UnityEngine.Object
+        {
+            AssetHandle handle = YooAssets.LoadAssetSync<T>(location);
+            T t = (T)handle.AssetObject;
+            handle.Release();
+            return t;
+        }
+
     }
 }
