@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using ET.Client;
 using HybridCLR;
 using UnityEngine;
 
@@ -93,6 +94,7 @@ namespace ET
 
             World.Instance.AddSingleton<CodeTypes, Assembly[]>(new[]
             {
+                typeof (YIUIComponent).Assembly,
                 typeof (World).Assembly, typeof (Init).Assembly, this.modelAssembly, this.modelViewAssembly, hotfixAssembly,
                 hotfixViewAssembly
             });
@@ -166,6 +168,7 @@ namespace ET
 
             CodeTypes codeTypes = World.Instance.AddSingleton<CodeTypes, Assembly[]>(new[]
             {
+                typeof (YIUIComponent).Assembly,
                 typeof (World).Assembly, typeof (Init).Assembly, this.modelAssembly, this.modelViewAssembly, hotfixAssembly,
                 hotfixViewAssembly
             });

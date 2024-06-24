@@ -591,7 +591,7 @@ namespace ET.Analyzer
             }
 
             string typeName = namedTypeSymbol.Name;
-            return typeName is Definition.EntityRefType or Definition.EntityWeakRefType;
+            return typeName is Definition.EntityRefType or Definition.EntityWeakRefType or "YIUILoopScroll";
         }
     }
 }
