@@ -7,6 +7,7 @@
 		{
 			// await UIHelper.Create(scene, UIType.UILobby, UILayer.Mid);
 			await UIHelper.Remove(scene, UIType.UIServerSelect);
+			// await YIUIMgrComponent.Inst.OpenPanelAsync<LoginPanelComponent>();
 		}
 	}
 }

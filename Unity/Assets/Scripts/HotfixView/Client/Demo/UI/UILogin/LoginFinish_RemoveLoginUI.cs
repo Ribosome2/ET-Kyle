@@ -5,6 +5,7 @@
 	{
 		protected override async ETTask Run(Scene scene, LoginFinish args)
 		{
+			await YIUIMgrComponent.Inst.ClosePanelAsync<LoginPanelComponent>();
 			await UIHelper.Remove(scene, UIType.UILogin);
 		}
 	}
