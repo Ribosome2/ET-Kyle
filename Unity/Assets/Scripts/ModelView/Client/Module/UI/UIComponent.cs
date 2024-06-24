@@ -1,7 +1,19 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace ET.Client
 {
+	public interface IUILogic
+	{
+        
+	}
+	
+	public interface IUIScrollItem<T> where T : Entity,IAwake
+	{
+		public T BindTrans(Transform trans);
+	}
+
+
 	/// <summary>
 	/// 管理Scene上的UI
 	/// </summary>
