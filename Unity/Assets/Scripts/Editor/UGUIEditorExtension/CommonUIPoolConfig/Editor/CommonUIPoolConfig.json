@@ -1,0 +1,46 @@
+{
+    "Groups": [
+        {
+            "GroupName": "按钮",
+            "PoolUnits": [
+                {
+                    "PreviewImagePath": "Assets/Editor/UGUIEditorExtension/CommonUIPoolConfig/Editor/PrefabImages/重要按钮.png",
+                    "PrefabPath": "Assets/PatchResources/UI/BackGround/Btn/ExampleBtn1.prefab"
+                },
+                {
+                    "PreviewImagePath": "Assets/Editor/UGUIEditorExtension/CommonUIPoolConfig/Editor/PrefabImages/强调按钮.png",
+                    "PrefabPath": "Assets/PatchResources/UI/BackGround/Btn/ExampleBtn2.prefab"
+                },
+                {
+                    "PreviewImagePath": "Assets/Editor/UGUIEditorExtension/CommonUIPoolConfig/Editor/PrefabImages/次要按钮.png",
+                    "PrefabPath": "Assets/PatchResources/UI/BackGround/Btn/ExampleBtn3.prefab"
+                },
+                {
+                    "PreviewImagePath": "Assets/Editor/UGUIEditorExtension/CommonUIPoolConfig/Editor/PrefabImages/大按钮.png",
+                    "PrefabPath": "Assets/PatchResources/UI/BackGround/Btn/ExampleBtn4.prefab"
+                },
+                {
+                    "PreviewImagePath": "Assets/Editor/UGUIEditorExtension/CommonUIPoolConfig/Editor/PrefabImages/广告按钮.png",
+                    "PrefabPath": "Assets/PatchResources/UI/BackGround/Btn/ExampleBtnAdv.prefab"
+                },
+                {
+                    "PreviewImagePath": "Assets/Editor/UGUIEditorExtension/CommonUIPoolConfig/Editor/PrefabImages/重要资源按钮.png",
+                    "PrefabPath": "Assets/PatchResources/UI/BackGround/Btn/ExampleResBtn1.prefab"
+                },
+                {
+                    "PreviewImagePath": "Assets/Editor/UGUIEditorExtension/CommonUIPoolConfig/Editor/PrefabImages/带资源的强调按钮.png",
+                    "PrefabPath": "Assets/PatchResources/UI/BackGround/Btn/ExampleResBtn2.prefab"
+                },
+                {
+                    "PreviewImagePath": "Assets/Editor/UGUIEditorExtension/CommonUIPoolConfig/Editor/PrefabImages/带资源的次要按钮.png",
+                    "PrefabPath": "Assets/PatchResources/UI/BackGround/Btn/ExampleResBtn3.prefab"
+                },
+                {
+                    "PreviewImagePath": "Assets/Editor/UGUIEditorExtension/CommonUIPoolConfig/Editor/PrefabImages/带资源的大按钮.png",
+                    "PrefabPath": "Assets/PatchResources/UI/BackGround/Btn/ExampleResBtn4.prefab"
+                }
+
+            ]
+        }
+    ]
+}

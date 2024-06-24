@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3539700472237229083}
   - component: {fileID: 114850350457908736}
   m_Layer: 5
-  m_Name: UIServerSelect
+  m_Name: UIServerSelectYI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
