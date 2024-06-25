@@ -11,5 +11,6 @@ namespace ET.Client
 	    public const string UIServerSelect = "UIServerSelect";
 	    public const string UILobby = "UILobby";
 	    public const string UIHelp = "UIHelp";
+	    public const string DlgMain = "DlgMain";
     }
 }
