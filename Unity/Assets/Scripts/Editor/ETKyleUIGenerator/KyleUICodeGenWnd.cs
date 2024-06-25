@@ -19,9 +19,11 @@ public class KyleUICodeGenWnd : EditorWindow
         public string UIName;
         public string AssetPath;
         public string FolderName;
+        public GameObject uiRoot;
     }
 
     private CodeGenContext m_codeGenContext = new CodeGenContext();
+    private bool overrideComponentSystemFile = false;
     private void OnGUI()
     {
         var selectGo = Selection.activeGameObject;
@@ -33,7 +35,8 @@ public class KyleUICodeGenWnd : EditorWindow
         {
             GUILayout.Label("当前选中"+selectGo.name);
         }
-        
+
+        this.overrideComponentSystemFile = EditorGUILayout.Toggle("覆盖ComponentSystem文件", this.overrideComponentSystemFile);
         if(GUILayout.Button("生成",GUILayout.Height(40)))
         {
             if (selectGo == null)
@@ -43,11 +46,13 @@ public class KyleUICodeGenWnd : EditorWindow
             }
             m_codeGenContext = new CodeGenContext();
             this.m_codeGenContext.UIName = selectGo.name;
+            this.m_codeGenContext.uiRoot = selectGo;
             this.m_codeGenContext.AssetPath = AssetDatabase.GetAssetPath(selectGo);
             this.m_codeGenContext.FolderName = new FileInfo(this.m_codeGenContext.AssetPath).Directory.Name;
             GenerateEvent();
             GenerateComponent();
             GenerateComponentSystem();
+            Debug.Log("生成成功");
         }
     }
 
@@ -62,7 +67,11 @@ namespace ET.Client
 	[ComponentOf(typeof(UI))]
 	public class XXXXXXComponent: Entity, IAwake
 	{
-
+        public ReferenceCollector RefBind;
+		#region 节点定义
+		
+		
+		#endregion 节点定义
 	}
 }
 ";
@@ -74,12 +83,20 @@ namespace ET.Client
         }
         StringBuilder sb = new StringBuilder();
         sb.Append(componentTemplate.Replace("XXXXXX", this.m_codeGenContext.UIName));
+        string componetStr = sb.ToString();
+        InsertFieldDeclare(ref componetStr, this.m_codeGenContext.uiRoot.GetComponent<ReferenceCollector>());
         string eventFilePath =Path.Combine(folderPath,$"{this.m_codeGenContext.UIName}Component.cs");
-        File.WriteAllText(eventFilePath,sb.ToString());
+        File.WriteAllText(eventFilePath,componetStr);
     }
 
     void GenerateComponentSystem()
     {
+        var folderPath =$"Assets/Scripts/HotfixView/Client/Demo/UI/{this.m_codeGenContext.FolderName}";
+        string systemFilePath =Path.Combine(folderPath,$"{this.m_codeGenContext.UIName}ComponentSystem.cs");
+        if (File.Exists(systemFilePath) && this.overrideComponentSystemFile==false)
+        {
+            return;
+        }
         
         string systemTemplate =
                 @"using UnityEngine;
@@ -94,21 +111,19 @@ namespace ET.Client
         [EntitySystem]
         private static void Awake(this ET.Client.XXXUIName_Component self)
         {
-           
+            ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
+            self.RefBind = rc;
         }
     }
 }
 ";
-        
-        var folderPath =$"Assets/Scripts/HotfixView/Client/Demo/UI/{this.m_codeGenContext.FolderName}";
         if (!Directory.Exists(folderPath))
         {
             Directory.CreateDirectory(folderPath);
         }
         StringBuilder sb = new StringBuilder();
         sb.Append(systemTemplate.Replace("XXXUIName_", this.m_codeGenContext.UIName));
-        string eventFilePath =Path.Combine(folderPath,$"{this.m_codeGenContext.UIName}ComponentSystem.cs");
-        File.WriteAllText(eventFilePath,sb.ToString());
+        File.WriteAllText(systemFilePath,sb.ToString());
     }
 
     void GenerateEvent()
@@ -146,5 +161,38 @@ namespace ET.Client
 
     }
     
-    
+    private static void InsertFieldDeclare(ref string code, ReferenceCollector referenceCollector)
+    {
+        if (referenceCollector == null)
+            return;
+
+        int beginIndex = code.IndexOf("#region 节点定义\n");
+        int endIndex = code.IndexOf("#endregion 节点定义\n");
+        if (beginIndex == -1 || endIndex == -1)
+            return;
+
+        var allGameObject = referenceCollector.data;
+        string temp = code.Substring(0, beginIndex);
+        temp += "#region 节点定义\n";
+        temp += GenerateField(ref allGameObject);
+        temp += "\n";
+        temp += "        "+code.Substring(endIndex);
+
+        code = temp;
+    }
+
+    private const string FileGetTemplate = @"
+		public GameObject RefKey {  get	{   return RefBind.Get<GameObject>(""RefKey"");	}}";
+    private static string GenerateField(ref List<ReferenceCollectorData> allGameObject)
+    {
+        string add = "";
+        foreach (var collectorData in allGameObject)
+        {
+            if (collectorData.gameObject != null)
+            {
+                add += FileGetTemplate.Replace("RefKey", collectorData.key);
+            }
+        }
+        return add;
+    }
 }

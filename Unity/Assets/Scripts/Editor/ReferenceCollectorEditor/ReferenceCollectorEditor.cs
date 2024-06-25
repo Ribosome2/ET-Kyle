@@ -139,6 +139,10 @@ public class ReferenceCollectorEditor: Editor
 		}
 		serializedObject.ApplyModifiedProperties();
 		serializedObject.UpdateIfRequiredOrScript();
+		if (GUILayout.Button("按命名引用",GUILayout.Height(35)))
+		{
+			referenceCollector.BindObject(true);
+		}
 	}
 
     //添加元素，具体知识点在ReferenceCollector中说了

@@ -10,7 +10,8 @@ namespace ET.Client
         [EntitySystem]
         private static void Awake(this ET.Client.DlgMainComponent self)
         {
-           
+            ReferenceCollector rc = self.GetParent<UI>().GameObject.GetComponent<ReferenceCollector>();
+            self.RefBind = rc;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 //Object并非C#基础中的Object，而是 UnityEngine.Object
 using Object = UnityEngine.Object;
@@ -103,6 +104,32 @@ public class ReferenceCollector: MonoBehaviour, ISerializationCallbackReceiver
 		UnityEditor.EditorUtility.SetDirty(this);
 		serializedObject.ApplyModifiedProperties();
 		serializedObject.UpdateIfRequiredOrScript();
+	}
+	
+	private void FindTransform(Transform parent, bool includeInactive)
+	{
+		for (int i = 0; i < parent.childCount; ++i)
+		{
+			var temp = parent.GetChild(i);
+			if (!includeInactive && !temp.gameObject.activeInHierarchy)
+				continue;
+
+			if (Regex.IsMatch(temp.name, "^E_[A-Za-z0-9_]+$"))
+			{
+				Add(temp.name,temp.gameObject);
+				// if (!objDict.ContainsKey(temp.name))
+					// objDict.Add(temp.name, temp.gameObject);
+			}
+
+			if (temp.childCount > 0 && !temp.GetComponent<ReferenceCollector>())
+				FindTransform(temp, includeInactive);
+		}
+	}
+	
+	public void BindObject(bool includeInactive)
+	{
+		this.Clear();
+		FindTransform(transform, includeInactive);
 	}
 
 	public void Sort()
