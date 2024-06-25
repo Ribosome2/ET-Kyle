@@ -1,11 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace ET.Client
 {
     [EntitySystemOf(typeof(UIServerSelectComponent))]
-    [FriendOf(typeof(UIServerSelectComponent))]
-    [FriendOfAttribute(typeof(ET.Client.UILSLoginComponent))]
+    [FriendOfAttribute(typeof(ET.Client.UIServerSelectComponent))]
     [FriendOfAttribute(typeof(ET.Client.ServerInfoComponent))]
     public static partial class UIServerSelectComponentSystem
     {
@@ -18,14 +17,14 @@ namespace ET.Client
             serverTemplate.SetActive(false);
             for (int i = 0; i < serverList.Count; i++)
             {
-                var serverSelectUnit = GameObject.Instantiate(serverTemplate,serverTemplate.transform.parent);
+                var serverSelectUnit = GameObject.Instantiate(serverTemplate, serverTemplate.transform.parent);
                 var serverData = serverList[i];
                 serverSelectUnit.SetActive(true);
                 serverSelectUnit.GetComponentInChildren<Text>().text = serverData.ServerName;
-                
+
                 serverSelectUnit.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    OnClickServer(self,serverData);
+                    OnClickServer(self, serverData);
                 });
             }
         }
@@ -34,9 +33,8 @@ namespace ET.Client
         {
             var serverInfoComponent = self.Root().GetComponent<ServerInfoComponent>();
             ClientSenderComponent clientSenderComponent = self.Root().GetComponent<ClientSenderComponent>();
-            LoginHelper.SelectServer(self.Root(), serverInfoComponent.Account, serverInfoComponent.Token, serverInfoProto,clientSenderComponent);
-            
-        }
+            LoginHelper.SelectServer(self.Root(), serverInfoComponent.Account, serverInfoComponent.Token, serverInfoProto, clientSenderComponent);
 
+        }
     }
 }

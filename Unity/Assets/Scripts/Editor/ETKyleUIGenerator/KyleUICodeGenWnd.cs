@@ -46,17 +46,69 @@ public class KyleUICodeGenWnd : EditorWindow
             this.m_codeGenContext.AssetPath = AssetDatabase.GetAssetPath(selectGo);
             this.m_codeGenContext.FolderName = new FileInfo(this.m_codeGenContext.AssetPath).Directory.Name;
             GenerateEvent();
+            GenerateComponent();
+            GenerateComponentSystem();
         }
     }
 
     void GenerateComponent()
     {
+
+        string componentTemplate =
+@"using UnityEngine;
+
+namespace ET.Client
+{
+	[ComponentOf(typeof(UI))]
+	public class XXXXXXComponent: Entity, IAwake
+	{
+
+	}
+}
+";
         
+        var folderPath =$"Assets/Scripts/ModelView/Client/Demo/UI/{this.m_codeGenContext.FolderName}";
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.Append(componentTemplate.Replace("XXXXXX", this.m_codeGenContext.UIName));
+        string eventFilePath =Path.Combine(folderPath,$"{this.m_codeGenContext.UIName}Component.cs");
+        File.WriteAllText(eventFilePath,sb.ToString());
     }
 
     void GenerateComponentSystem()
     {
         
+        string systemTemplate =
+                @"using UnityEngine;
+using UnityEngine.UI;
+
+namespace ET.Client
+{
+    [EntitySystemOf(typeof(XXXUIName_Component))]
+    [FriendOfAttribute(typeof(ET.Client.XXXUIName_Component))]
+    public static partial class XXXUIName_ComponentSystem
+    {
+        [EntitySystem]
+        private static void Awake(this ET.Client.XXXUIName_Component self)
+        {
+           
+        }
+    }
+}
+";
+        
+        var folderPath =$"Assets/Scripts/HotfixView/Client/Demo/UI/{this.m_codeGenContext.FolderName}";
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.Append(systemTemplate.Replace("XXXUIName_", this.m_codeGenContext.UIName));
+        string eventFilePath =Path.Combine(folderPath,$"{this.m_codeGenContext.UIName}ComponentSystem.cs");
+        File.WriteAllText(eventFilePath,sb.ToString());
     }
 
     void GenerateEvent()
