@@ -102,6 +102,7 @@ namespace ET.Client
                 Log.Error($"进入游戏失败：{netClient2MainLoginGame.Error}");
                 return;
             }
+            root.GetComponent<PlayerComponent>().MyId = netClient2MainLoginGame.PlayerId;
             
             Log.Debug("进入游戏成功");
             await EventSystem.Instance.PublishAsync(root, new LoginFinish());

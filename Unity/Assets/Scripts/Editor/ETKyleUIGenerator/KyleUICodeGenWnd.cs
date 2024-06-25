@@ -81,12 +81,19 @@ namespace ET.Client
         {
             Directory.CreateDirectory(folderPath);
         }
-        StringBuilder sb = new StringBuilder();
-        sb.Append(componentTemplate.Replace("XXXXXX", this.m_codeGenContext.UIName));
-        string componetStr = sb.ToString();
-        InsertFieldDeclare(ref componetStr, this.m_codeGenContext.uiRoot.GetComponent<ReferenceCollector>());
         string eventFilePath =Path.Combine(folderPath,$"{this.m_codeGenContext.UIName}Component.cs");
-        File.WriteAllText(eventFilePath,componetStr);
+        StringBuilder sb = new StringBuilder();
+        string fileContent;
+        if (!File.Exists(eventFilePath))
+        {
+            fileContent = componentTemplate.Replace("XXXXXX", this.m_codeGenContext.UIName);
+        }
+        else
+        {
+            fileContent = File.ReadAllText(eventFilePath);
+        }
+        InsertFieldDeclare(ref fileContent, this.m_codeGenContext.uiRoot.GetComponent<ReferenceCollector>());
+        File.WriteAllText(eventFilePath,fileContent);
     }
 
     void GenerateComponentSystem()

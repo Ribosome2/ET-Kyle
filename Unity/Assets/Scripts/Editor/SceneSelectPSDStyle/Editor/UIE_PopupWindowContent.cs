@@ -56,6 +56,11 @@ namespace Nementic.SelectionUtility
         {
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>(
                 "Assets/Editor/SceneSelectPSDStyle/Editor/UIE_SelectionPopup.uss");
+
+            if (styleSheet == null)
+            {
+                return;
+            }
             root.styleSheets.Add(styleSheet);
 
             var toolbar = new Toolbar();
