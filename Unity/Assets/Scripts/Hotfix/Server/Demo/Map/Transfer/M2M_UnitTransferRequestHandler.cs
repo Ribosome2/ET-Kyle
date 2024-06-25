@@ -37,6 +37,8 @@ namespace ET.Server
             m2CCreateUnits.Unit = UnitHelper.CreateUnitInfo(unit);
             MapMessageHelper.SendToClient(unit, m2CCreateUnits);
 
+            Log.Console($"add numeric component to {unit.Id}");
+            unit.AddComponent<NumericNoticeComponent>();
             // 加入aoi
             unit.AddComponent<AOIEntity, int, float3>(9 * 1000, unit.Position);
 

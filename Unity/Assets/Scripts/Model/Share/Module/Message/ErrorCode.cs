@@ -39,6 +39,7 @@ namespace ET
         public const int ERR_EnterGameError = 200102;
         public const int ERR_ReEnterGameError = 200103;
         public const int ERR_ReEnterGameError2 = 200104;
+        public const int ERR_NetWorkError = 200105;
         
     }
 }

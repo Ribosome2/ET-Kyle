@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
-using ET.Server;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Options;
 
 namespace ET
 {
+    public interface IUnitCache
+    {
+        
+    }
     [FriendOf(typeof (NumericComponent))]
     public static class NumericComponentSystem
     {

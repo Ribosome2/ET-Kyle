@@ -44,12 +44,12 @@
         }
     }
 
-    // public interface IActorResponse: IResponse
-    // {
-    //     long UnitId
-    //     {
-    //         get;
-    //         set;
-    //     }
-    // }
+    public interface IActorResponse: IMessage
+    {
+        long UnitId
+        {
+            get;
+            set;
+        }
+    }
 }

@@ -547,3 +547,23 @@
 ## 怎么发协议给指定的Actor
 
 ### 通过ActorId定位，MessageSender组件发送
+
+### MapMessageHelper\.SendToClient\(unit, msg\);
+
+## 玩家数值组件NumericComponent
+> fillColor=`#A47171`
+
+
+### 本质上只是维护了一个kv\<int,long\>的字典 <br/>设值的时候如果是新增了key对应的值或者<br/>数值有变化，会发送NumbericChange事件
+
+#### Update函数做了一些根据一级属性计算二级属性的例子
+
+### 在创建Unit的时候会挂上这个组件，<br/>可以根据Unit Id 做一些配置初始化
+
+#### UnitConfig
+
+##### 配置数据的时候都是配整型，GetAsFloat和SetAsFloat的时候<br/>会进行乘以10000或者除以一万
+
+### NumericWatcher 当服务端数值变化的时候会给NumericWatcher的Attribute的类分发处理逻辑
+> fillColor=`#A47171`
+

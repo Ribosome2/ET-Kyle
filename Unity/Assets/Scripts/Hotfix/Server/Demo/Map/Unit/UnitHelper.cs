@@ -40,21 +40,12 @@ namespace ET.Server
             return unitInfo;
         }
 
-        public static async ETTask<(bool,Unit)> LoadUnit(Player player)
+
+
+        public static async ETTask InitUnit(Unit unit, bool isNewPlayer)
         {
-            GateMapComponent gateMapComponent = player.AddComponent<GateMapComponent>();
-            gateMapComponent.Scene = await GateMapFactory.Create(gateMapComponent, player.Id, IdGenerater.Instance.GenerateInstanceId(), "GateMap");
-
-            Unit unit = await UnitCacheHelper.GetUnitCache(gateMapComponent.Scene, player.UnitId);
-            bool isNewUnit = unit == null;
-            if (isNewUnit)
-            {
-                unit = UnitFactory.Create(gateMapComponent.Scene, player.Id, UnitType.Player);
-                UnitCacheHelper.AddOrUpdateUnitAllCache(unit);
-            }
-
-            return (isNewUnit, unit);
-
+            //玩家Unit上线后的初始化操作 todo
+            await ETTask.CompletedTask;
         }
         
         

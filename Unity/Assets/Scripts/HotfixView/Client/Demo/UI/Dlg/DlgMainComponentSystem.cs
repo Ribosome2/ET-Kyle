@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,28 @@ namespace ET.Client
             self.RefBind = rc;
 
             self.Refresh().Coroutine();
+            
+            self.E_Role.GetComponent<Button>().onClick.AddListener(() =>
+            {
+                self.OnClickRoleButton().Coroutine();
+            });
+        }
+
+        public static async ETTask OnClickRoleButton( this DlgMainComponent self)
+        {
+            try
+            {
+                int error = await NumericHelper.TestUpdateNumeric(self.Scene());
+                if (error != ErrorCode.ERR_Success)
+                {
+                    return;
+                }
+                Log.Debug("发送更新属性测试消息成功");
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+            }
         }
 
         public static async ETTask Refresh(this DlgMainComponent self)

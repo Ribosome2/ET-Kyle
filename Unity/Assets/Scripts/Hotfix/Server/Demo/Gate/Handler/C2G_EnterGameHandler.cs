@@ -97,11 +97,11 @@ namespace ET.Server
                         // Unit unit = UnitFactory.Create(scene, player.Id, UnitType.Player);
                         
                         //从数据库或者缓存中加载出Unit实体及组件
-                        (bool isNewPlayer, Unit unit) = await UnitHelper.LoadUnit(player);
+                        (bool isNewPlayer, Unit unit) = await UnitCacheHelper.LoadUnit(player);
                         // unit.AddComponent<UnitGateComponent, long>(player.InstanceId); //todo
                         
                         //玩家Unit上线后的初始化操作
-                        // await UnitHelper.InitUnit(unit, isNewPlayer); //todo
+                        await UnitHelper.InitUnit(unit, isNewPlayer); //todo
                         long unitId = unit.Id;
 
                         StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.Zone(), "Map1");

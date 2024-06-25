@@ -21,9 +21,12 @@ namespace ET
         public List<StartSceneConfig> Maps = new();
 
         public StartSceneConfig Match;
-
+        
         public StartSceneConfig Benchmark;
+        
         public StartSceneConfig LoginCenterConfig;
+
+        public Dictionary<int, StartSceneConfig> UnitCaches = new Dictionary<int, StartSceneConfig>();
         
         public List<StartSceneConfig> GetByProcess(int process)
         {
@@ -33,6 +36,16 @@ namespace ET
         public StartSceneConfig GetBySceneName(int zone, string name)
         {
             return this.ClientScenesByName[zone][name];
+        }
+
+        public StartSceneConfig GetUnitCacheConfig(long unitId)
+        {
+            foreach (var configKV in this.UnitCaches)
+            {
+                return configKV.Value;  //todo:教程是用UnitIdStruct 去做区分，这里我们直接返回唯一的配置，后面估计得有一个id对应到不同的zone的对应关系
+            }
+            int zone = UnitIdStruct.GetUnitZone(unitId);
+            return UnitCaches[zone];
         }
 
         public override void EndInit()
@@ -46,7 +59,7 @@ namespace ET
                     this.ClientScenesByName.Add(startSceneConfig.Zone, new Dictionary<string, StartSceneConfig>());
                 }
                 this.ClientScenesByName[startSceneConfig.Zone].Add(startSceneConfig.Name, startSceneConfig);
-                
+                // Log.Error("scneType----- "+ startSceneConfig.Type);
                 switch (startSceneConfig.Type)
                 {
                     case SceneType.Realm:
@@ -72,6 +85,9 @@ namespace ET
                         break;
                     case SceneType.LoginCenter:
                         this.LoginCenterConfig = startSceneConfig;
+                        break;
+                    case SceneType.UnitCache:
+                        this.UnitCaches.Add(startSceneConfig.Zone,startSceneConfig);
                         break;
                 }
             }
@@ -107,7 +123,7 @@ namespace ET
         {
             get
             {
-                if (this.innerIPPort == null)
+                if (innerIPPort == null)
                 {
                     this.innerIPPort = NetworkHelper.ToIPEndPoint($"{this.StartProcessConfig.InnerIP}:{this.Port}");
                 }
