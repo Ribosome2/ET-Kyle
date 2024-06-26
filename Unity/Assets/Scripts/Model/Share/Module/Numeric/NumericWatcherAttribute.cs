@@ -2,7 +2,7 @@
 
 namespace ET
 {
-	[AttributeUsage(AttributeTargets.Class)]
+	[AttributeUsage(AttributeTargets.Class,AllowMultiple = true)]
 	public class NumericWatcherAttribute : BaseAttribute
 	{
 		public SceneType SceneType { get; }

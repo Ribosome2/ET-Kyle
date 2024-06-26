@@ -15,6 +15,10 @@
             {
                 Log.Console("no--- "+args.Unit.Id);
             }
+            else
+            {
+                Log.Console("Do Notify--- "+args.Unit.Id);
+            }
             noticeComponent?.NoticeImdediately(args);
             
             await ETTask.CompletedTask;
