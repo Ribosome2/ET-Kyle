@@ -191,3 +191,13 @@
 ## 生成文件命名改成hash 风格 能更新到，用bundleName就更新不到的问题
 
 ### 热更逻辑本身没有做文件码的校验，只是因为带hash的话，文件内容变化了，命名就跟着变化<br/>然后新的文件名不存在就能更新，所以hash或者 "bundle名称\+hash" 两种命名风格都能更新到？
+
+## 如果加了新的程序集要怎么做
+> leftSide=`true`
+
+
+### 最好不要，试过HyBriddCLR Generate All也是不行
+
+### 如果要新增Mono的脚本，可以放到HotfixView/Client下
+> leftSide=`true`
+
