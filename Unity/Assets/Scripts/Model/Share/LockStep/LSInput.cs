@@ -11,7 +11,8 @@ namespace ET
 
         [MemoryPackOrder(1)]
         public int Button;
-        
+
+        public const int FireKeyCode = 32; //KeyCode.Space
         public bool Equals(LSInput other)
         {
             return this.V == other.V && this.Button == other.Button;

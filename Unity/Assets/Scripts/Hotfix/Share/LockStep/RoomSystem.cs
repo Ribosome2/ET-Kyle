@@ -23,6 +23,7 @@ namespace ET
             LSWorld lsWorld = self.LSWorld;
             lsWorld.Frame = frame + 1;
             lsWorld.AddComponent<LSUnitComponent>();
+            lsWorld.AddComponent<LSBulletComponent>();
             for (int i = 0; i < unitInfos.Count; ++i)
             {
                 LockStepUnitInfo unitInfo = unitInfos[i];

@@ -287,6 +287,23 @@ namespace ET
         {
             return this.Parent as T;
         }
+        
+        public T GetParentRecursively<T>() where T : Entity
+        {
+            var result = this.Parent as T;
+            if (result != null)
+            {
+                return result;
+            }
+            else
+            {
+                if (this.Parent == null || this.Parent == this)
+                {
+                    return null;
+                }
+                return this.Parent.GetParentRecursively<T>();
+            }
+        }
 
         [BsonIgnoreIfDefault]
         [BsonDefaultValue(0L)]

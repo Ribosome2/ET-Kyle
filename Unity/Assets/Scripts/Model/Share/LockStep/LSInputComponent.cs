@@ -7,5 +7,7 @@ namespace ET
     public partial class LSInputComponent: LSEntity, ILSUpdate, IAwake, ISerializeToEntity
     {
         public LSInput LSInput { get; set; }
+
+        public int FireInteval;
     }
 }

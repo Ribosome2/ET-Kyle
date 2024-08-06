@@ -39,6 +39,11 @@ namespace ET.Client
 
             LSClientUpdater lsClientUpdater = self.GetParent<Room>().GetComponent<LSClientUpdater>();
             lsClientUpdater.Input.V = v.normalized;
+            lsClientUpdater.Input.Button = 0;
+            if (Input.GetKey(KeyCode.Space))
+            {
+                lsClientUpdater.Input.Button = (int)KeyCode.Space;
+            }
         }
 
     }
