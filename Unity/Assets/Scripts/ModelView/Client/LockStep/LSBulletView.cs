@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ET
 {
-    [ChildOf(typeof(LSUnitViewComponent))]
+    [ChildOf(typeof(LSBulletViewComponent))]
     public class LSBulletView: Entity, IAwake<GameObject>, IUpdate, ILSRollback
     {
         public GameObject GameObject { get; set; }

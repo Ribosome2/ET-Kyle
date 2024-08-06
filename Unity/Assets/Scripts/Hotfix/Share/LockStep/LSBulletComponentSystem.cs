@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using ET.Client;
 using TrueSync;
 
 namespace ET
@@ -32,6 +33,9 @@ namespace ET
             LSBullet lsBullet = lsBulletComponent.AddChildWithId<LSBullet>(self.GetBulletId());
             lsBullet.Position = pos;
             lsBullet.Rotation = TSQuaternion.identity;
+            
+            // 等待表现层订阅的事件完成
+            EventSystem.Instance.Publish(self.Root(), new LSCreateBulletEvent() {Pos = pos,BulletId = lsBullet.Id});
 
         }
     }

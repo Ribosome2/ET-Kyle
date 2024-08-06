@@ -1,4 +1,6 @@
-﻿namespace ET.Client
+﻿using TrueSync;
+
+namespace ET.Client
 {
     public struct LSSceneChangeStart
     {
@@ -7,5 +9,11 @@
     
     public struct LSSceneInitFinish
     {
+    }
+
+    public struct LSCreateBulletEvent
+    {
+        public TSVector Pos;
+        public long BulletId;
     }
 }
